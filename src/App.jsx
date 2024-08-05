@@ -4,7 +4,7 @@ import './App.css'
 function App() {
 
   return (
-    <h1>LifeStock INIT</h1>
+    <h1>LifeStock INIT,check</h1>
   )
 }
 
