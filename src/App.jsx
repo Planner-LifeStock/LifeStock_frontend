@@ -1,10 +1,10 @@
-import viteLogo from '/vite.svg'
 import './App.css'
+import MainPage from './pages/main'
 
 function App() {
 
   return (
-    <h1>LifeStock INIT,check</h1>
+    <MainPage/>
   )
 }
 

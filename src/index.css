@@ -24,10 +24,13 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
+  min-width: 100vh;
   min-height: 100vh;
+  font-weight: 400;
+
+  font-size: 16px;
+  /* [todo] 글씨체 적용해야함. */
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 h1 {
