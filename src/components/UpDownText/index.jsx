@@ -13,10 +13,10 @@ const FallText=styled.div`
 
 // [todo] Text의 값이 양수이냐 음수이냐에 따라서 FallText, RiseText로 바꿔야함. 조건문 적용
 function UpDownText(
-    {children}
+    {children,fontSize}
 ){
     return(
-        <FallText>
+        <FallText style={{fontSize:fontSize}}>
             {children}
         </FallText>
     )

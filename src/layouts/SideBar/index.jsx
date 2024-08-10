@@ -8,6 +8,7 @@ const AppWrapper = styled.div`
     display: flex;
     flex-direction: column;
     height: 100vh;
+    box-shadow: -5px 0 16px 0 rgba(0, 0, 0, 0.08);
 `;
 
 const Container = styled.div`
