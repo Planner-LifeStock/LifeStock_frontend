@@ -22,19 +22,22 @@ const PriceBox=styled.div`
 
 
 function GraphBox(
-    
+    {
+        data
+    }
 ){
     return (
         <Container>
             <TitleBox>
-                <img src={nvidia_logo} height='50px' style={{borderRadius:'100%', marginRight:8}}/>
-                <div style={{fontSize:30, fontWeight: 600}}>아침운동</div>
+                <img src={data.logo} height='50px' style={{borderRadius:'100%', marginRight:8}}/>
+                <div style={{fontSize:30, fontWeight: 600}}>{data.name}</div>
             </TitleBox>
             <PriceBox>
-                <div style={{fontSize:50, fontWeight:600}}>73,134원</div>
-                <UpDownText fontSize={30}>-560 (-3.8%)</UpDownText>
+                <div style={{fontSize:50, fontWeight:600, marginRight:20}}>{data.currentPrice.toLocaleString()}</div>
+                {/* [todo] 계산 함수 만들기 */}
+                <UpDownText fontSize={30}>{(data.currentPrice-data.buyPrice).toLocaleString()} ({((data.currentPrice/data.buyPrice-1)*100).toFixed(1)}%)</UpDownText>
             </PriceBox>
-            <CandleStick/>
+            <CandleStick chartData={data.chartData}/>
         </Container>
     )
 }

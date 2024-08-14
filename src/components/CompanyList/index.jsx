@@ -18,11 +18,11 @@ const ButtonBox=styled.button`
 
 function CompanyList(
     {
-        name, logo, currentPrice
+        name, logo, currentPrice,buyPrice,onClick
     }
 ){
     return(
-        <ButtonBox>
+        <ButtonBox onClick={onClick}>
             <div style={{display:'flex', alignItems:"center"}}>
                 <img src={logo} height='30px' style={{borderRadius:'100%', marginRight:8}}/>
                 <div>{name}</div>

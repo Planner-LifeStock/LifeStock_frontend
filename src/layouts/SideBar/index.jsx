@@ -43,7 +43,7 @@ const UserData={
 
 function SideBar (
     {
-        companyData
+        companyData,setCompany
     }
 ){
     return (
@@ -60,7 +60,7 @@ function SideBar (
                     <div>
                         {companyData.map(({name,logo,buyPrice,currentPrice}, index)=>{
                             return(
-                                <CompanyList key={index} name={name} logo={logo} buyPrice={buyPrice} currentPrice={currentPrice}/>
+                                <CompanyList key={index} name={name} logo={logo} buyPrice={buyPrice} currentPrice={currentPrice} onClick={()=>setCompany(companyData[index])}/>
                             )
                         })}
                     </div>
