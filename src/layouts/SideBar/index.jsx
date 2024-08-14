@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import CompanyList from "../../components/CompanyList";
-import FallText from "../../components/UpDownText";
 import UpDownText from "../../components/UpDownText";
 import Button from "../../components/Button";
+import { nvidia_logo } from "../../assets";
 
 const AppWrapper = styled.div`
     display: flex;
@@ -36,24 +36,33 @@ const GrayText=styled.div`
 `
 
 
+const UserData={
+    name: '박주영',
+}
 
 
-function SideBar (){
+function SideBar (
+    {
+        companyData
+    }
+){
     return (
         <AppWrapper>
             <Container>
                 <div>
                     <div style={{borderBottom:'solid 1px', marginBottom:30}}>
-                        <Title>박주영님의 종목</Title>
+                        <Title>{UserData.name}님의 종목</Title>
                         <div style={{display:'flex', justifyContent:'space-between', alignItems:'end', marginBottom: 24}}>
                             <GrayText>총 1,234,567원</GrayText>
                             <UpDownText>-124,567 (-10.7%)</UpDownText>
                         </div>
                     </div>
                     <div>
-                        <CompanyList/>
-                        <CompanyList/>
-                        <CompanyList/>
+                        {companyData.map(({name,logo,buyPrice,currentPrice}, index)=>{
+                            return(
+                                <CompanyList key={index} name={name} logo={logo} buyPrice={buyPrice} currentPrice={currentPrice}/>
+                            )
+                        })}
                     </div>
                 </div>
                 <Button>회사 상장하기</Button>

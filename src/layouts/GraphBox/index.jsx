@@ -21,7 +21,9 @@ const PriceBox=styled.div`
 `
 
 
-function GraphBox(){
+function GraphBox(
+    
+){
     return (
         <Container>
             <TitleBox>

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { nvidia_logo } from "../../assets";
 import UpDownText from "../UpDownText";
 
 
@@ -17,16 +16,19 @@ const ButtonBox=styled.button`
 `
 
 
-
-function CompanyList(){
+function CompanyList(
+    {
+        name, logo, currentPrice
+    }
+){
     return(
         <ButtonBox>
             <div style={{display:'flex', alignItems:"center"}}>
-                <img src={nvidia_logo} height='30px' style={{borderRadius:'100%', marginRight:8}}/>
-                <div>아침운동</div>
+                <img src={logo} height='30px' style={{borderRadius:'100%', marginRight:8}}/>
+                <div>{name}</div>
             </div>
             <div style={{textAlign:'right'}}>
-                <div>12,345원</div>
+                <div>{currentPrice}원</div>
                 <UpDownText>-560 (-3.8%)</UpDownText>
             </div>
         </ButtonBox>
