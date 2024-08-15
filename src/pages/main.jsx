@@ -21,7 +21,7 @@ const companyData = [
   {
     name: '아침운동',
     logo: nvidia_logo,
-    buyPrice: 12345,
+    buyPrice: 70000,
     currentPrice: 15000,
     chartData: [
       ['Date', 'Low', 'Open', 'Close', 'High'],
@@ -47,8 +47,20 @@ const companyData = [
         type: 'routine',
       },
       {
-        checked: true,
+        checked: false,
         name: '몸풀기',
+        level: 'easy',
+        type: 'daily',
+      },
+      {
+        checked: false,
+        name: '턱걸이',
+        level: 'easy',
+        type: 'routine',
+      },
+      {
+        checked: false,
+        name: '팔굽혀펴기',
         level: 'easy',
         type: 'daily',
       },
@@ -131,7 +143,12 @@ const companyData = [
 function MainPage() {
   //클릭시 데이터 변경되게끔
   const [currentCompany, setCompany] = useState(companyData[0])
+  //오늘날짜 index
+  const todayIndex = currentCompany.chartData.length - 1
+  //현재가 data 3번째 값으로 지정
+  currentCompany.currentPrice = currentCompany.chartData[todayIndex][3]
 
+  //[todo] 백앤드 서버에게 post요청하기
   const updateTodo = (index, newCheck) => {
     const updatedTodos = currentCompany.todo.map((todo, idx) => {
       if (idx === index) {
@@ -140,10 +157,20 @@ function MainPage() {
       return todo
     })
 
-    setCompany({ ...currentCompany, todo: updatedTodos })
-  }
+    const updatedChartData = [...currentCompany.chartData]
 
-  console.log(currentCompany.chartData[3][1])
+    if (newCheck) {
+      updatedChartData[todayIndex][3] += 5000
+    } else {
+      updatedChartData[todayIndex][3] -= 5000
+    }
+
+    setCompany({
+      ...currentCompany,
+      todo: updatedTodos,
+      chartData: updatedChartData,
+    })
+  }
 
   return (
     <Container>
