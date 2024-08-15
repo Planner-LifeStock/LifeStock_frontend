@@ -69,3 +69,9 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+/* checkbox */
+.custom-checkbox {
+  transform: scale(2); /* 체크박스 크기를 2배 키움 */
+  margin-right: 20px;
+}
