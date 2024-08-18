@@ -1,25 +1,32 @@
-import styled from "styled-components";
+import styled from 'styled-components'
+import Subtraction from '../../function/calculation/subtraction'
+import PercentageIncrease from '../../function/calculation/percentageIncrease/index.jsx'
 
-
-const RiseText=styled.div`
-    
-`
-
-const FallText=styled.div`
-    font-size: 13px;
-    color: #3181F8;
-    font-weight: 600;
+const UpdownContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  font-size: ${({ fontSize }) => `${fontSize || 16}px`};
+  font-weight: 600;
+  color: ${({ isPositive }) => isPositive};
 `
 
 // [todo] Text의 값이 양수이냐 음수이냐에 따라서 FallText, RiseText로 바꿔야함. 조건문 적용
-function UpDownText(
-    {children,fontSize}
-){
-    return(
-        <FallText style={{fontSize:fontSize}}>
-            {children}
-        </FallText>
-    )
+function UpDownText({ standard, comparision, fontSize }) {
+  //비교 값과의 차가 양수냐 음수냐에 따라서 글자색 조정
+  const isPositive =
+    comparision === standard ? 'gray' : comparision > standard ? 'red' : 'blue'
+  const sub = Subtraction(comparision, standard)
+  const percent = PercentageIncrease(standard, comparision)
+
+  return (
+    <UpdownContainer fontSize={fontSize} isPositive={isPositive}>
+      {/* positive면 +문자열 붙임 */}
+      <div style={{ marginRight: 10 }}>
+        {sub > 0 ? `+${sub.toLocaleString()}` : sub.toLocaleString()}
+      </div>
+      {percent}
+    </UpdownContainer>
+  )
 }
 
-export default UpDownText;
+export default UpDownText

@@ -146,7 +146,7 @@ function MainPage() {
   //오늘날짜 index
   const todayIndex = currentCompany.chartData.length - 1
   //현재가 data 3번째 값으로 지정
-  currentCompany.currentPrice = currentCompany.chartData[todayIndex][3]
+  const todayCurrentPrice = currentCompany.chartData[todayIndex][3]
 
   //[todo] 백앤드 서버에게 post요청하기
   const updateTodo = (index, newCheck) => {
