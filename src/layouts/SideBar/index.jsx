@@ -5,6 +5,7 @@ import Button from '../../components/Button'
 import { nvidia_logo } from '../../assets'
 import TotalSum from '../../components/TotalSum'
 import SumList from '../../function/calculation/sumList'
+import CreateCompany from '../../components/CreateCompanyModal'
 
 const AppWrapper = styled.div`
   display: flex;
@@ -85,7 +86,7 @@ function SideBar({ companyData, setCompany }) {
             )}
           </div>
         </div>
-        <Button>회사 상장하기</Button>
+        <CreateCompany>회사 상장하기</CreateCompany>
       </Container>
     </AppWrapper>
   )

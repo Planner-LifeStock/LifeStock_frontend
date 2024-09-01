@@ -2,12 +2,13 @@ import styled from 'styled-components'
 import UpDownText from '../UpDownText'
 
 const ButtonBox = styled.button`
+  padding: 5px;
   width: 320px;
-  padding: 5, 0;
 
   display: flex;
   justify-content: space-between;
-  margin: 10px;
+  align-items: center;
+  margin-bottom: 10px;
 
   &:hover {
     background-color: #d5d5d5;
@@ -23,7 +24,7 @@ function CompanyList({ name, logo, currentPrice, buyPrice, onClick }) {
           height="30px"
           style={{ borderRadius: '100%', marginRight: 8 }}
         />
-        <div>{name}</div>
+        <div style={{ fontSize: 20 }}>{name}</div>
       </div>
       <div style={{ textAlign: 'right' }}>
         <div>{currentPrice}원</div>
