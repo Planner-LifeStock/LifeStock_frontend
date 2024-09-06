@@ -3,7 +3,7 @@ import { getTheme } from '../../styles/theme'
 
 const ButtonContainer = styled.button`
   background-color: #3181f8;
-  color: #fff;
+  color: #ffffff;
   border-radius: 10px;
 
   font-size: 20px;
