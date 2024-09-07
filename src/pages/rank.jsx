@@ -1,5 +1,5 @@
 const RankPage = () => {
-  return <div>rank</div>
+  return <div>rank!</div>
 }
 
 export default RankPage
