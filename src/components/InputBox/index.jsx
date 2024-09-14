@@ -11,8 +11,15 @@ const Container = styled.input`
   padding-left: 10px;
 `
 
-const InputBox = ({ placeholder, width = 480 }) => {
-  return <Container width={width} placeholder={placeholder} />
+const InputBox = ({ placeholder, width = 480, value, onChange }) => {
+  return (
+    <Container
+      width={width}
+      placeholder={placeholder}
+      value={value}
+      onChange={onChange}
+    />
+  )
 }
 
 export default InputBox

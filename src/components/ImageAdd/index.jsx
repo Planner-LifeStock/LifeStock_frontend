@@ -33,10 +33,7 @@ const FileInputLabel = styled.label`
   cursor: pointer;
 `
 
-const ImgAdd = () => {
-  const [Img, setImg] = useState(null)
-  const [fileName, setFileName] = useState('')
-
+const ImgAdd = ({ img, setImg, fileName, setFileName }) => {
   const handleImageChange = event => {
     const file = event.target.files[0]
     if (file) {
@@ -50,8 +47,8 @@ const ImgAdd = () => {
   }
   return (
     <Container>
-      {Img ? (
-        <ImgPreview src={Img} alt="Logo Preview" />
+      {img ? (
+        <ImgPreview src={img} alt="Logo Preview" />
       ) : (
         <ImgPreview src={emptyImg} />
       )}

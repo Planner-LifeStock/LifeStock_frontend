@@ -7,11 +7,15 @@ import Tip from '../Tip'
 import ImgAdd from '../ImageAdd'
 import AssetBox from '../AssetBox'
 
-const CreateCompany = () => {
+const CreateCompany = ({ companyData, setCompanyData }) => {
   const [modalOpen, setModalOpen] = useState(false) //모달 useState
   const modalBackgorund = useRef()
 
-  // [levelButton]
+  //UseState
+  const [companyName, setCompanyName] = useState('')
+  const [companyInfo, setCompanyInfo] = useState('')
+  const [logoImg, setLogoImg] = useState(null)
+  const [logoFileName, setLogoFileName] = useState('')
   const [level, setLevel] = useState(null)
   const [period, setPeriod] = useState(null)
   const [invest, setInvest] = useState(null)
@@ -42,6 +46,13 @@ const CreateCompany = () => {
           onClick={e => {
             if (e.target === modalBackgorund.current) {
               setModalOpen(false)
+              setInvest(null)
+              setLevel(null)
+              setPeriod(null)
+              setCompanyName(null)
+              setCompanyInfo(null)
+              setLogoImg(null)
+              setLogoFileName(null)
             }
           }}
         >
@@ -50,15 +61,35 @@ const CreateCompany = () => {
               <div style={{ display: 'flex' }}>
                 <InnerContainer>
                   <Title>회사명</Title>
-                  <InputBox width={470} placeholder={'ex)아침운동'} />
+                  <InputBox
+                    width={470}
+                    placeholder={'ex)아침운동'}
+                    value={companyName}
+                    onChange={e => {
+                      setCompanyName(e.target.value)
+                    }}
+                  />
                   <Title>회사 정보</Title>
                   <InputBox
                     width={470}
                     placeholder={'ex)등교하기 전 간단하게 운동하기'}
+                    value={companyInfo}
+                    onChange={e => {
+                      setCompanyInfo(e.target.value)
+                    }}
                   />
 
                   <Title>로고 이미지 추가</Title>
-                  <ImgAdd />
+                  <ImgAdd
+                    img={logoImg}
+                    setImg={img => {
+                      setLogoImg(img)
+                    }}
+                    fileName={logoFileName}
+                    setFileName={fileName => {
+                      setLogoFileName(fileName)
+                    }}
+                  />
                 </InnerContainer>
                 <InnerContainer>
                   <Title>난이도</Title>
@@ -100,7 +131,31 @@ const CreateCompany = () => {
             <Button
               width={'1500'}
               onClick={() => {
+                const newCompany = {
+                  name: companyName,
+                  logo: logoImg,
+                  buyPrice: 5000,
+                  currentPrice: 5000,
+                  chartData: [
+                    [
+                      ['Date', 'Low', 'Open', 'Close', 'High'],
+                      ['', 5000, 5000, 5000, 5000],
+                    ],
+                  ],
+                  todo: [],
+                }
+                setCompanyData(prevCompanyData => [
+                  ...prevCompanyData,
+                  newCompany,
+                ]) // [todo]company 추가 버튼 누르면 백앤드 서버에 전송
                 setModalOpen(false)
+                setInvest(null)
+                setLevel(null)
+                setPeriod(null)
+                setCompanyName(null)
+                setCompanyInfo(null)
+                setLogoImg(null)
+                setLogoFileName(null)
               }}
             >
               회사 상장하기
