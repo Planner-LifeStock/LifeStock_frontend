@@ -29,7 +29,7 @@ function TodoList({ data, updateTodo }) {
             <h2>8월 5일</h2>
             {/* <button>오른쪽버튼</button> */}
           </div>
-          {data.map(({ checked, name, level, type }, index) => {
+          {data.todo.map(({ checked, name, level, type }, index) => {
             return (
               <CheckBox
                 key={index}
@@ -44,7 +44,7 @@ function TodoList({ data, updateTodo }) {
             )
           })}
         </div>
-        <CreateTodoModal />
+        <CreateTodoModal data={data} />
       </Container>
     </ContainerWrapper>
   )

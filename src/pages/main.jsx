@@ -178,7 +178,7 @@ function MainPage() {
           <GraphBox data={currentCompany} />
         </div>
         <div style={{ flex: 1 }}>
-          <TodoList data={currentCompany.todo} updateTodo={updateTodo} />
+          <TodoList data={currentCompany} updateTodo={updateTodo} />
         </div>
       </EventContainer>
       <SideBar
