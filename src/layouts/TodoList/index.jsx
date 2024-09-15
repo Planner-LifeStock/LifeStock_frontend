@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import Button from '../../components/Button'
 import CheckBox from '../../components/CheckBox'
+import CreateTodoModal from '../../components/CreatTodoModal'
 
 const ContainerWrapper = styled.div`
   display: flex;
@@ -43,7 +44,7 @@ function TodoList({ data, updateTodo }) {
             )
           })}
         </div>
-        <Button>할 일 추가하기</Button>
+        <CreateTodoModal />
       </Container>
     </ContainerWrapper>
   )

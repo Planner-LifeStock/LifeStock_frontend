@@ -32,7 +32,8 @@ function GraphBox({ data }) {
       </TitleBox>
       <PriceBox>
         <div style={{ fontSize: 50, fontWeight: 600, marginRight: 20 }}>
-          {data.chartData[data.chartData.length - 1][2].toLocaleString()}
+          {console.log(data.chartData)}
+          {data.chartData[data.chartData.length - 1][2]}
         </div>
         {/* [todo]data.chartData[data.chartData.length - 1][3]=> 이런거 좀 간략하게 만들 수 없나? */}
         <UpDownText
