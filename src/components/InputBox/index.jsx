@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
 const Container = styled.input`
-  height: 50px;
-  width: 480px;
+  line-height: 50px;
+  width: ${({ width }) => `${width}px`};
   background-color: #dfdfdf;
   border-radius: 10px;
   border: none;
@@ -11,8 +11,15 @@ const Container = styled.input`
   padding-left: 10px;
 `
 
-const InputBox = ({ placeholder }) => {
-  return <Container placeholder={placeholder} />
+const InputBox = ({ placeholder, width = 480, value, onChange }) => {
+  return (
+    <Container
+      width={width}
+      placeholder={placeholder}
+      value={value}
+      onChange={onChange}
+    />
+  )
 }
 
 export default InputBox

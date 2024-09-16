@@ -1,14 +1,23 @@
 import styled from 'styled-components'
 
 const ModalContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background-color: #ffffff;
-  width: 500px;
-  height: 900px;
+  width: 1500px;
+  height: 500px;
   padding: 15px;
   border-radius: 16px;
+`
+
+const InnerContainer = styled.div`
+  padding: 10px;
+  width: 500px;
   display: flex;
   flex-direction: column;
   align-items: start;
+  justify-content: space-between;
 `
 
 const ModalContainer = styled.div`
@@ -29,4 +38,4 @@ const Title = styled.div`
   margin-bottom: 5px;
 `
 
-export { ModalContent, ModalContainer, Title }
+export { ModalContent, ModalContainer, Title, InnerContainer }

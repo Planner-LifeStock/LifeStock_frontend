@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 import { useState } from 'react'
-import UserInfo from '../layouts/UserInfo';
-import Ranking from '../layouts/Ranking';
-import { companyData } from './main';
-import TopBar from '../layouts/TopBar';
+import UserInfo from '../layouts/UserInfo'
+import Ranking from '../layouts/Ranking'
+import TopBar from '../layouts/TopBar'
+import { companyFirstData } from './main'
 
 const Container = styled.div`
   display: flex;
@@ -11,16 +11,16 @@ const Container = styled.div`
   justify-content: space-around;
 `
 
-const RankPage = () => { 
+const RankPage = () => {
   return (
     <>
       <TopBar />
       <Container>
-          <UserInfo/>
-          <Ranking data={companyData}/>
+        <UserInfo />
+        <Ranking data={companyFirstData} />
       </Container>
     </>
-  );
+  )
 }
 
 export default RankPage

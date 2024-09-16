@@ -42,7 +42,7 @@ const UserData = {
   name: '박주영',
 }
 
-function SideBar({ companyData, setCompany }) {
+function SideBar({ companyData, setCompanyData, setCompany }) {
   return (
     <AppWrapper>
       <Container>
@@ -86,7 +86,12 @@ function SideBar({ companyData, setCompany }) {
             )}
           </div>
         </div>
-        <CreateCompany>회사 상장하기</CreateCompany>
+        <CreateCompany
+          companyData={companyData}
+          setCompanyData={setCompanyData}
+        >
+          회사 상장하기
+        </CreateCompany>
       </Container>
     </AppWrapper>
   )

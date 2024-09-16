@@ -1,16 +1,21 @@
 import { useRef, useState } from 'react'
 import Button from '../Button'
-import { ModalContainer, ModalContent, Title } from './style'
+import { ModalContainer, ModalContent, Title, InnerContainer } from './style'
 import InputBox from '../InputBox'
 import OptionButton from '../OptionButton'
 import Tip from '../Tip'
 import ImgAdd from '../ImageAdd'
+import AssetBox from '../AssetBox'
 
-const CreateCompany = () => {
+const CreateCompany = ({ companyData, setCompanyData }) => {
   const [modalOpen, setModalOpen] = useState(false) //모달 useState
   const modalBackgorund = useRef()
 
-  // [levelButton]
+  //UseState
+  const [companyName, setCompanyName] = useState('')
+  const [companyInfo, setCompanyInfo] = useState('')
+  const [logoImg, setLogoImg] = useState(null)
+  const [logoFileName, setLogoFileName] = useState('')
   const [level, setLevel] = useState(null)
   const [period, setPeriod] = useState(null)
   const [invest, setInvest] = useState(null)
@@ -41,50 +46,116 @@ const CreateCompany = () => {
           onClick={e => {
             if (e.target === modalBackgorund.current) {
               setModalOpen(false)
+              setInvest(null)
+              setLevel(null)
+              setPeriod(null)
+              setCompanyName(null)
+              setCompanyInfo(null)
+              setLogoImg(null)
+              setLogoFileName(null)
             }
           }}
         >
           <ModalContent>
-            <Title>회사명</Title>
-            <InputBox placeholder={'ex)아침운동'} />
-            <Title>회사 정보</Title>
-            <InputBox placeholder={'ex)등교하기 전 간단하게 운동하기'} />
+            <div>
+              <div style={{ display: 'flex' }}>
+                <InnerContainer>
+                  <Title>회사명</Title>
+                  <InputBox
+                    width={470}
+                    placeholder={'ex)아침운동'}
+                    value={companyName}
+                    onChange={e => {
+                      setCompanyName(e.target.value)
+                    }}
+                  />
+                  <Title>회사 정보</Title>
+                  <InputBox
+                    width={470}
+                    placeholder={'ex)등교하기 전 간단하게 운동하기'}
+                    value={companyInfo}
+                    onChange={e => {
+                      setCompanyInfo(e.target.value)
+                    }}
+                  />
 
-            <Title>로고 이미지 추가</Title>
-            <ImgAdd />
-
-            <Title>난이도</Title>
-            <OptionButton
-              OptionList={levelArr}
-              currentState={level}
-              SetState={setLevel}
-            />
-            <Tip
-              ButtonTexts={levelArr}
-              option={level}
-              TipArr={levelTip}
-              defaultTip={defaultLevelTip}
-              changeTip={true}
-            ></Tip>
-            <Title>회사 최소 운영기간</Title>
-            <OptionButton
-              OptionList={periodArr}
-              currentState={period}
-              SetState={setPeriod}
-            />
-            <Tip defaultTip={defaultPeriodTip} />
-            <Title>투자비용</Title>
-            <OptionButton
-              OptionList={investPrice}
-              currentState={invest}
-              SetState={setInvest}
-            />
-            <Tip defaultTip={defaultInvestTip} />
-
+                  <Title>로고 이미지 추가</Title>
+                  <ImgAdd
+                    img={logoImg}
+                    setImg={img => {
+                      setLogoImg(img)
+                    }}
+                    fileName={logoFileName}
+                    setFileName={fileName => {
+                      setLogoFileName(fileName)
+                    }}
+                  />
+                </InnerContainer>
+                <InnerContainer>
+                  <Title>난이도</Title>
+                  <OptionButton
+                    OptionList={levelArr}
+                    currentState={level}
+                    SetState={setLevel}
+                  />
+                  <Tip
+                    ButtonTexts={levelArr}
+                    option={level}
+                    TipArr={levelTip}
+                    defaultTip={defaultLevelTip}
+                    changeTip={true}
+                  ></Tip>
+                  <Title>회사 최소 운영기간</Title>
+                  <OptionButton
+                    OptionList={periodArr}
+                    currentState={period}
+                    SetState={setPeriod}
+                  />
+                  <Tip defaultTip={defaultPeriodTip} />
+                  <Title>투자비용</Title>
+                  <OptionButton
+                    OptionList={investPrice}
+                    currentState={invest}
+                    SetState={setInvest}
+                  />
+                  <Tip defaultTip={defaultInvestTip} />
+                </InnerContainer>
+                <InnerContainer>
+                  <AssetBox Text={'투자가능금액'} Asset={100000000} />
+                  <AssetBox Text={'투자비용'} Asset={1000000} />
+                  <AssetBox Text={'상장시 스톡옵션 1주 가격'} Asset={5000} />
+                  <AssetBox Text={'지급되는 스톡옵션'} Asset={100} unit="주" />
+                </InnerContainer>
+              </div>
+            </div>
             <Button
-              width={'500'}
+              width={'1500'}
               onClick={() => {
+                const newCompany = {
+                  name: companyName,
+                  logo: logoImg,
+                  buyPrice: 5000,
+                  currentPrice: 5000,
+                  chartData: [
+                    [
+                      ['Date', 'Low', 'Open', 'Close', 'High'],
+                      ['', 5000, 5000, 5000, 5000],
+                    ],
+                  ],
+                  todo: [],
+                }
+                setCompanyData(prevCompanyData => [
+                  ...prevCompanyData,
+                  newCompany,
+                ]) // [todo]company 추가 버튼 누르면 백앤드 서버에 전송
                 setModalOpen(false)
+                setInvest(null)
+                setLevel(null)
+                setPeriod(null)
+                setCompanyName(null)
+                setCompanyInfo(null)
+                setLogoImg(null)
+                setLogoFileName(null)
               }}
             >
               회사 상장하기

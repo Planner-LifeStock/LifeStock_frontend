@@ -31,18 +31,13 @@ function GraphBox({ data }) {
       </TitleBox>
       <PriceBox>
         <div style={{ fontSize: 50, fontWeight: 600, marginRight: 20 }}>
-          {data.chartData[data.chartData.length - 1][2].toLocaleString()}
+          {data.chartData[data.chartData.length - 1][2]}
         </div>
-        {/* [todo]data.chartData[data.chartData.length - 1][3]=> 이런거 좀 간략하게 만들 수 없나? */}
         <UpDownText
           standard={data.chartData[data.chartData.length - 1][2]}
           comparision={data.chartData[data.chartData.length - 1][3]}
           fontSize={30}
         />
-        {/* <UpDownText fontSize={30}>
-          {(data.currentPrice - data.buyPrice).toLocaleString()} (
-          {((data.currentPrice / data.buyPrice - 1) * 100).toFixed(1)}%)
-        </UpDownText> */}
       </PriceBox>
       <CandleStick chartData={data.chartData} />
     </Container>

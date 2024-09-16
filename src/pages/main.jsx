@@ -18,7 +18,7 @@ const EventContainer = styled.div`
   flex: 3 1 0;
 `
 
-const companyData = [
+const companyFirstData = [
   {
     username: '최정혁',
     name: '아침운동',
@@ -27,7 +27,7 @@ const companyData = [
     currentPrice: 15000,
     chartData: [
       ['Date', 'Low', 'Open', 'Close', 'High'],
-      ['', 73000, 75000, 78000, 81000],
+      ['', 73000, 75000, 79000, 81000],
       ['', 81000, 83000, 85000, 95000],
       ['', 82000, 84000, 81000, 97000],
       ['', 79000, 81000, 80000, 86000],
@@ -37,35 +37,6 @@ const companyData = [
       ['', 81000, 82000, 81000, 86000],
       ['', 78000, 79000, 81000, 85000],
       ['', 82000, 84000, 83000, 87000],
-      ['', 81000, 82000, 80000, 86000],
-      ['', 80000, 81000, 82000, 87000],
-      ['', 79000, 80000, 81000, 85000],
-      ['', 73000, 75000, 78000, 81000],
-      ['', 81000, 83000, 85000, 95000],
-      ['', 82000, 84000, 81000, 97000],
-      ['', 79000, 81000, 80000, 86000],
-      ['', 81000, 83000, 84000, 89000],
-      ['', 82000, 84000, 83000, 88000],
-      ['', 80000, 82000, 85000, 87000],
-      ['', 81000, 82000, 81000, 86000],
-      ['', 78000, 79000, 81000, 85000],
-      ['', 82000, 84000, 83000, 87000],
-      ['', 81000, 82000, 80000, 86000],
-      ['', 80000, 81000, 82000, 87000],
-      ['', 79000, 80000, 81000, 85000],
-      ['', 73000, 75000, 78000, 81000],
-      ['', 81000, 83000, 85000, 95000],
-      ['', 82000, 84000, 81000, 97000],
-      ['', 79000, 81000, 80000, 86000],
-      ['', 81000, 83000, 84000, 89000],
-      ['', 82000, 84000, 83000, 88000],
-      ['', 80000, 82000, 85000, 87000],
-      ['', 81000, 82000, 81000, 86000],
-      ['', 78000, 79000, 81000, 85000],
-      ['', 82000, 84000, 83000, 87000],
-      ['', 81000, 82000, 80000, 86000],
-      ['', 80000, 81000, 82000, 87000],
-      ['', 79000, 80000, 81000, 85000],
     ],
     todo: [
       {
@@ -282,6 +253,8 @@ const companyData = [
 ]
 
 function MainPage() {
+  const [companyData, setCompanyData] = useState(companyFirstData)
+
   //클릭시 데이터 변경되게끔
   const [currentCompany, setCompany] = useState(companyData[0])
   //오늘날짜 index
@@ -315,7 +288,7 @@ function MainPage() {
 
   return (
     <>
-    <TopBar/>
+      <TopBar />
       <Container>
         <EventContainer>
           <div style={{ flex: 3 }}>
@@ -325,11 +298,15 @@ function MainPage() {
             <TodoList data={currentCompany.todo} updateTodo={updateTodo} />
           </div>
         </EventContainer>
-        <SideBar companyData={companyData} setCompany={setCompany} />
+        <SideBar
+          companyData={companyData}
+          setCompanyData={setCompanyData}
+          setCompany={setCompany}
+        />
       </Container>
     </>
   )
 }
 
 export default MainPage
-export {companyData};
+export { companyFirstData }

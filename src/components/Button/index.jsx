@@ -16,9 +16,9 @@ const ButtonContainer = styled.button`
   width: ${({ width }) => `${width}px`};
   height: ${({ height }) => `${height}px`};
 
-  &:hover {
+  /* &:hover {
     background-color: ${({ hoverBackground }) => hoverBackground};
-  }
+  } */
 `
 
 //[todo] theme추가하기?
@@ -27,16 +27,16 @@ function Button({
   children,
   width = 320,
   height = 40,
-  hoverBackground = '#3181f8;',
-  hoverColor = '#fff',
+  // hoverBackground = '#3181f8;',
+  // hoverColor = '#fff',
   onClick,
 }) {
   return (
     <ButtonContainer
       width={width}
       height={height}
-      hoverBackground={hoverBackground}
-      hoverColor={hoverColor}
+      // hoverBackground={hoverBackground}
+      // hoverColor={hoverColor}
       onClick={onClick}
     >
       {children}
