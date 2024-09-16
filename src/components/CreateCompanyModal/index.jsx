@@ -6,6 +6,7 @@ import OptionButton from '../OptionButton'
 import Tip from '../Tip'
 import ImgAdd from '../ImageAdd'
 import AssetBox from '../AssetBox'
+import { emptyImg } from '../../assets'
 
 const CreateCompany = ({ companyData, setCompanyData }) => {
   const [modalOpen, setModalOpen] = useState(false) //모달 useState
