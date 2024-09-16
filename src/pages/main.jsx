@@ -298,11 +298,15 @@ function MainPage() {
             <TodoList data={currentCompany.todo} updateTodo={updateTodo} />
           </div>
         </EventContainer>
-        <SideBar companyData={companyData} setCompany={setCompany} />
+        <SideBar
+          companyData={companyData}
+          setCompanyData={setCompanyData}
+          setCompany={setCompany}
+        />
       </Container>
     </>
   )
 }
 
 export default MainPage
-export { companyData }
+export { companyFirstData }
