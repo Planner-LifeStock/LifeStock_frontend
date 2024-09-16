@@ -24,3 +24,4 @@ const RankPage = () => {
 }
 
 export default RankPage
+

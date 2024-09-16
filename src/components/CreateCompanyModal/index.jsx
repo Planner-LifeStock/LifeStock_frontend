@@ -131,6 +131,7 @@ const CreateCompany = ({ companyData, setCompanyData }) => {
             <Button
               width={'1500'}
               onClick={() => {
+                console.log(level)
                 const newCompany = {
                   name: companyName,
                   logo: logoImg,

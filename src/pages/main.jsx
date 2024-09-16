@@ -5,6 +5,7 @@ import GraphBox from '../layouts/GraphBox'
 import { nvidia_logo } from '../assets'
 import { useState } from 'react'
 import TopBar from '../layouts/TopBar'
+import { useNavigate } from 'react-router-dom'; // 내가 추가한 로그인페이지와 연결하는 것
 
 const Container = styled.div`
   display: flex;
@@ -17,6 +18,16 @@ const EventContainer = styled.div`
   background-color: #fffbfd;
   flex: 3 1 0;
 `
+
+// const fixedCompanyData = [
+//   {
+//     companyName: '아침운동',
+//     companyInfo: '매일 러닝뛰기',
+//     logo: nvidia_logo,
+//     logoFileName: '',
+//     companyLevel: '',
+//   },
+// ]
 
 const companyFirstData = [
   {
@@ -262,6 +273,8 @@ function MainPage() {
   //현재가 data 3번째 값으로 지정
   const todayCurrentPrice = currentCompany.chartData[todayIndex][3]
 
+  const navigate = useNavigate(); 
+
   //[todo] 백앤드 서버에게 post요청하기
   const updateTodo = (index, newCheck) => {
     const updatedTodos = currentCompany.todo.map((todo, idx) => {
@@ -286,6 +299,26 @@ function MainPage() {
     })
   }
 
+    // 로그인 버튼 클릭 시 로그인 페이지로 이동하는 함수
+    const goToLoginPage = () => {
+      navigate('/login'); // 로그인 페이지로 이동, 나윤서 추가
+    };
+
+    const styles = {
+      loginButton: {
+        padding: '10px 20px',
+        backgroundColor: '#007BFF',
+        color: '#fff',
+        border: 'none',
+        borderRadius: '5px',
+        cursor: 'pointer',
+        position: 'fixed',     // 화면의 고정 위치 설정
+        top: '20px',           // 화면의 상단으로부터 20px
+        right: '20px',         // 화면의 우측으로부터 20px
+      },
+    };
+  
+
   return (
     <>
       <TopBar />
@@ -295,7 +328,7 @@ function MainPage() {
             <GraphBox data={currentCompany} />
           </div>
           <div style={{ flex: 1 }}>
-            <TodoList data={currentCompany.todo} updateTodo={updateTodo} />
+            <TodoList data={currentCompany} updateTodo={updateTodo} />
           </div>
         </EventContainer>
         <SideBar
