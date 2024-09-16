@@ -5,7 +5,6 @@ import CandleStick from '../../components/Candlestick'
 const Container = styled.div`
   padding: 20px;
 `
-
 const TitleBox = styled.div`
   display: flex;
   justify-content: start;

@@ -1,16 +1,25 @@
-//import styled from 'styled-components'
+import styled from 'styled-components'
 import { useState } from 'react'
-import RankMent from '../layouts/RankMent'
-import TierImage from '../layouts/TierImage';
+import UserInfo from '../layouts/UserInfo';
 import Ranking from '../layouts/Ranking';
+import { companyData } from './main';
+import TopBar from '../layouts/TopBar';
 
-const RankPage = () => {
+const Container = styled.div`
+  display: flex;
+  padding: 10px 0px;
+  justify-content: space-around;
+`
+
+const RankPage = () => { 
   return (
-      <div>
-          <TierImage/>
-          <RankMent/>
-          <Ranking/>
-      </div>
+    <>
+      <TopBar />
+      <Container>
+          <UserInfo/>
+          <Ranking data={companyData}/>
+      </Container>
+    </>
   );
 }
 
