@@ -30,19 +30,38 @@ const ButtoContainer = styled.div`
   margin-bottom: 10px;
 `
 
-const OptionButton = ({ OptionList, currentState, SetState }) => {
-  const handleClick = index => {
-    SetState(prelevel => (prelevel === index ? null : index))
+const OptionButton = ({
+  OptionList,
+  currentState,
+  SetState,
+  multiple = false,
+}) => {
+  const handleClick = option => {
+    if (multiple) {
+      SetState(prevState => {
+        if (prevState.includes(option)) {
+          return prevState.filter(selectOption => selectOption !== option)
+        } else {
+          return [...prevState, option]
+        }
+      })
+    } else {
+      SetState(prevState => (prevState === option ? null : option))
+    }
   }
+
   return (
     <ButtoContainer>
       {OptionList.map((name, index) => {
+        const isSelected = multiple
+          ? currentState.includes(name)
+          : currentState === name
         return (
           <GroupButton
             key={index}
-            isSelect={currentState === index}
+            isSelect={isSelected}
             onClick={() => {
-              handleClick(index)
+              handleClick(name)
             }}
           >
             {name}

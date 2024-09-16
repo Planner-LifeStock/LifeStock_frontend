@@ -18,6 +18,16 @@ const EventContainer = styled.div`
   flex: 3 1 0;
 `
 
+// const fixedCompanyData = [
+//   {
+//     companyName: '아침운동',
+//     companyInfo: '매일 러닝뛰기',
+//     logo: nvidia_logo,
+//     logoFileName: '',
+//     companyLevel: '',
+//   },
+// ]
+
 const companyFirstData = [
   {
     username: '최정혁',
@@ -295,7 +305,7 @@ function MainPage() {
             <GraphBox data={currentCompany} />
           </div>
           <div style={{ flex: 1 }}>
-            <TodoList data={currentCompany.todo} updateTodo={updateTodo} />
+            <TodoList data={currentCompany} updateTodo={updateTodo} />
           </div>
         </EventContainer>
         <SideBar

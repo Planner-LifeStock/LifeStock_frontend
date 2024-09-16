@@ -95,6 +95,12 @@ function CreateTodoModal({ data }) {
           onClick={e => {
             if (e.target === modalBackgorund.current) {
               setModalOpen(false)
+              setModalOpen(false)
+              setDeadLine(null)
+              setTodoDay([])
+              setTodoInfo('')
+              setTodoName('')
+              setTodoLevel(null)
             }
           }}
         >
@@ -145,6 +151,7 @@ function CreateTodoModal({ data }) {
                   OptionList={dayArr}
                   currentState={todoDay}
                   SetState={setTodoDay}
+                  multiple={true}
                 />
               </div>
               <div>
@@ -161,6 +168,15 @@ function CreateTodoModal({ data }) {
             <Button
               width={'100%'}
               onClick={e => {
+                const newTodo = {
+                  name: todoName,
+                  checked: false,
+                  level: todoLevel,
+                  day: todoLevel,
+                  deadLine: deadLine,
+                }
+                //[todo] 기존 데이터 구조 바꾸기
+                console.log(todoLevel)
                 setModalOpen(false)
                 setDeadLine(null)
                 setTodoDay([])
