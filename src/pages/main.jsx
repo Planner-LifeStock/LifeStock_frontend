@@ -238,6 +238,26 @@ function MainPage() {
       </button>
     </Container>
   );
+    <>
+      <TopBar />
+      <Container>
+        <EventContainer>
+          <div style={{ flex: 3 }}>
+            <GraphBox data={currentCompany} />
+          </div>
+          <div style={{ flex: 1 }}>
+            <TodoList data={currentCompany.todo} updateTodo={updateTodo} />
+          </div>
+        </EventContainer>
+        <SideBar
+          companyData={companyData}
+          setCompanyData={setCompanyData}
+          setCompany={setCompany}
+        />
+      </Container>
+    </>
+  )
 }
 
 export default MainPage
+export { companyFirstData }
