@@ -9,7 +9,6 @@ const MaxContainer = styled.div`
 const Container = styled.div`
   display: flex;
   width: 100%;
-  background-color: #444444;
 `
 
 const InfoFont = styled.div`
@@ -41,16 +40,19 @@ const CheckSellButton = styled.button`
 const PriceBox = styled.div`
     padding: 10px;
     margin-top: 60px;
-    min-width: 500px;
-    max-width: 600px;
 
     display: flex;
-    
+    flex-direction: column;
+
     background-color: #EFEFEF;
     border-radius: 16px;
     box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
+`
 
-    font-size: 20px;
+const PriceFont = styled.span`
+    display: flex;
+    color: #636363;
+    font-size: 25px;
     font-weight: bold;
 `
 
@@ -65,8 +67,36 @@ const AssetInfo = ({data}) => {
                     fontWeight: "bold",
           }}>스톡옵션 매매 기록</Link></CheckSellButton>
         </Container>
-        <Container>
-          <PriceBox>총 자산</PriceBox>
+
+
+        <Container style={{justifyContent: "space-between"}}>
+          <Container>
+            <PriceBox style={{minWidth: "500px"}}>
+              <PriceFont>총 자산</PriceFont>
+              <Container style={{justifyContent: "space-between"}}>
+                <PriceFont style={{color: "black"}}>9,550,000원</PriceFont>
+                <PriceFont style={{color: "blue"}}>-550,000(-13.75%)</PriceFont>
+              </Container>
+            </PriceBox>
+          </Container>
+
+
+          <Container style={{justifyContent: "end"}}>
+            <PriceBox style={{minWidth: "200px", marginRight: "30px"}}>
+              <PriceFont>창업 비용</PriceFont>
+              <Container style={{justifyContent: "space-between"}}>
+                <PriceFont style={{color: "black"}}>3,550,000원</PriceFont>
+              </Container>
+            </PriceBox>
+            <PriceBox style={{minWidth: "200px"}}>
+              <PriceFont>투자 가능 금액</PriceFont>
+              <Container style={{justifyContent: "space-between"}}>
+                <PriceFont style={{color: "black"}}>6,000,000원</PriceFont>
+              </Container>
+            </PriceBox>
+          </Container>
+
+
         </Container>
       </MaxContainer>
     )
