@@ -25,11 +25,9 @@ function TodoList({ data, updateTodo }) {
         <div>
           <h2>todoList</h2>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            {/* <button>왼쪽버튼</button> */}
             <h2>8월 5일</h2>
-            {/* <button>오른쪽버튼</button> */}
           </div>
-          {data.map(({ checked, name, level, type }, index) => {
+          {data.todo.map(({ checked, name, level, type }, index) => {
             return (
               <CheckBox
                 key={index}
