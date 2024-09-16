@@ -4,6 +4,7 @@ import TodoList from '../layouts/TodoList'
 import GraphBox from '../layouts/GraphBox'
 import { nvidia_logo } from '../assets'
 import { useState } from 'react'
+import TopBar from '../layouts/TopBar'
 
 const Container = styled.div`
   display: flex;
@@ -19,6 +20,7 @@ const EventContainer = styled.div`
 
 const companyFirstData = [
   {
+    username: '최정혁',
     name: '아침운동',
     logo: nvidia_logo,
     buyPrice: 70000,
@@ -64,6 +66,7 @@ const companyFirstData = [
     ],
   },
   {
+    username: '박주영',
     name: '밥먹기',
     logo: nvidia_logo,
     buyPrice: 55555,
@@ -100,6 +103,118 @@ const companyFirstData = [
     ],
   },
   {
+    username: '나윤서',
+    name: '숨쉬기',
+    logo: nvidia_logo,
+    buyPrice: 11111,
+    currentPrice: 17000,
+    chartData: [
+      ['Date', 'Low', 'Open', 'Close', 'High'],
+      ['9/18', 105000, 107000, 106000, 108000],
+      ['9/19', 104000, 106000, 105000, 107000],
+      ['9/20', 102000, 105000, 103000, 106000],
+      ['9/21', 101000, 103000, 102000, 104000],
+      ['9/22', 99000, 102000, 100000, 103000],
+      ['9/23', 97000, 100000, 98000, 101000],
+      ['9/24', 95000, 98000, 96000, 99000],
+      ['9/25', 94000, 96000, 95000, 97000],
+      ['9/26', 92000, 95000, 93000, 96000],
+      ['9/27', 90000, 93000, 91000, 94000],
+      ['9/28', 88000, 91000, 89000, 92000],
+      ['9/29', 86000, 89000, 87000, 90000],
+      ['9/30', 84000, 87000, 85000, 88000],
+    ],
+    todo: [
+      {
+        checked: false,
+        name: '숨참기',
+        level: 'hard',
+        type: 'routine',
+      },
+      {
+        checked: true,
+        name: '숨 가끔 쉬기',
+        level: 'hard',
+        type: 'daily',
+      },
+    ],
+  },
+  {
+    username: '네글자아',
+    name: '숨쉬기',
+    logo: nvidia_logo,
+    buyPrice: 11111,
+    currentPrice: 17000,
+    chartData: [
+      ['Date', 'Low', 'Open', 'Close', 'High'],
+      ['9/18', 105000, 107000, 106000, 108000],
+      ['9/19', 104000, 106000, 105000, 107000],
+      ['9/20', 102000, 105000, 103000, 106000],
+      ['9/21', 101000, 103000, 102000, 104000],
+      ['9/22', 99000, 102000, 100000, 103000],
+      ['9/23', 97000, 100000, 98000, 101000],
+      ['9/24', 95000, 98000, 96000, 99000],
+      ['9/25', 94000, 96000, 95000, 97000],
+      ['9/26', 92000, 95000, 93000, 96000],
+      ['9/27', 90000, 93000, 91000, 94000],
+      ['9/28', 88000, 91000, 89000, 92000],
+      ['9/29', 86000, 89000, 87000, 90000],
+      ['9/30', 84000, 87000, 85000, 88000],
+    ],
+    todo: [
+      {
+        checked: false,
+        name: '숨참기',
+        level: 'hard',
+        type: 'routine',
+      },
+      {
+        checked: true,
+        name: '숨 가끔 쉬기',
+        level: 'hard',
+        type: 'daily',
+      },
+    ],
+  },
+  {
+    username: '최정혁',
+    name: '숨쉬기',
+    logo: nvidia_logo,
+    buyPrice: 11111,
+    currentPrice: 17000,
+    chartData: [
+      ['Date', 'Low', 'Open', 'Close', 'High'],
+      ['9/18', 105000, 107000, 106000, 108000],
+      ['9/19', 104000, 106000, 105000, 107000],
+      ['9/20', 102000, 105000, 103000, 106000],
+      ['9/21', 101000, 103000, 102000, 104000],
+      ['9/22', 99000, 102000, 100000, 103000],
+      ['9/23', 97000, 100000, 98000, 101000],
+      ['9/24', 95000, 98000, 96000, 99000],
+      ['9/25', 94000, 96000, 95000, 97000],
+      ['9/26', 92000, 95000, 93000, 96000],
+      ['9/27', 90000, 93000, 91000, 94000],
+      ['9/28', 88000, 91000, 89000, 92000],
+      ['9/29', 86000, 89000, 87000, 90000],
+      ['9/30', 84000, 87000, 85000, 88000],
+    ],
+    todo: [
+      {
+        checked: false,
+        name: '숨참기',
+        level: 'hard',
+        type: 'routine',
+      },
+      {
+        checked: true,
+        name: '숨 가끔 쉬기',
+        level: 'hard',
+        type: 'daily',
+      },
+    ],
+  },
+  {
+    username: '김혜주',
     name: '숨쉬기',
     logo: nvidia_logo,
     buyPrice: 11111,
@@ -172,22 +287,22 @@ function MainPage() {
   }
 
   return (
-    <Container>
-      <EventContainer>
-        <div style={{ flex: 3 }}>
-          <GraphBox data={currentCompany} />
-        </div>
-        <div style={{ flex: 1 }}>
-          <TodoList data={currentCompany} updateTodo={updateTodo} />
-        </div>
-      </EventContainer>
-      <SideBar
-        companyData={companyData}
-        setCompanyData={setCompanyData}
-        setCompany={setCompany}
-      />
-    </Container>
+    <>
+      <TopBar />
+      <Container>
+        <EventContainer>
+          <div style={{ flex: 3 }}>
+            <GraphBox data={currentCompany} />
+          </div>
+          <div style={{ flex: 1 }}>
+            <TodoList data={currentCompany.todo} updateTodo={updateTodo} />
+          </div>
+        </EventContainer>
+        <SideBar companyData={companyData} setCompany={setCompany} />
+      </Container>
+    </>
   )
 }
 
 export default MainPage
+export { companyData }
