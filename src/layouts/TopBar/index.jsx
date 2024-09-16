@@ -29,8 +29,8 @@ function TopBar() {
                     HOME
                 </Font>
             </Link>
-            <Link to="/login">
-                <Font isActive={location.pathname === "/login"}>
+            <Link to="/myasset">
+                <Font isActive={location.pathname === "/myasset" || location.pathname === "/salesrecords"}>
                     내 자산
                 </Font>
             </Link>
