@@ -3,6 +3,7 @@ import UpDownText from '../../components/UpDownText'
 import CandleStick from '../../components/Candlestick'
 import OptionButton from '../../components/OptionButton'
 import { useState } from 'react'
+import ChartCalendar from '../../components/Calendar'
 
 const Container = styled.div`
   padding: 20px;
@@ -57,7 +58,7 @@ function GraphBox({ data }) {
       {currentOption === '차트' ? (
         <CandleStick chartData={data.chartData} />
       ) : (
-        <div>캘린더</div>
+        <ChartCalendar />
       )}
     </Container>
   )
