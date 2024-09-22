@@ -2,6 +2,7 @@ import {
   endOfMonth,
   getDay,
   getDaysInMonth,
+  isToday,
   startOfMonth,
   subMonths,
 } from 'date-fns'
@@ -12,33 +13,53 @@ import styled from 'styled-components'
 const DayContainer = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
   width: 100%;
   height: 110px;
-  border: solid 1px black;
+  border: ${({ isSelected }) =>
+    isSelected ? `solid 3px red` : `solid 1px black`};
+  background-color: ${({ isSelected }) => (isSelected ? `#eaeaea` : ``)};
+  font-size: 15px;
+  box-sizing: border-box;
+  color: ${({ isToday }) => (isToday ? `red` : ``)};
+`
+const SelectDayContainer = styled(DayContainer)`
+  border: solid 3px #3181f8;
+  color: red;
+  font-weight: 800;
+  box-sizing: border-box;
+`
+
+const DayOfWeekContainer = styled(DayContainer)`
+  align-items: center;
+  height: 60px;
+  font-size: 24px;
+  font-weight: 800;
+  background-color: rgb(49, 129, 248, 0.8);
+  color: white;
+  box-sizing: border-box;
 `
 
 const DaysGridContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  grid-gap: 5px;
   place-content: center;
   place-items: center;
-`
-
-const EmptyDay = styled(DayContainer)`
-  background-color: transparent;
+  border: solid 1px black;
+  box-sizing: border-box;
 `
 
 function ChartCalendar() {
   const [currentDate, setCurrentDate] = useState(new Date())
+  const [selectedDate, setSelectedDate] = useState(new Date())
 
   const renderCalendar = () => {
     const days = []
 
     const weekDays = ['일', '월', '화', '수', '목', '금', '토']
     weekDays.map(weekDay => {
-      days.push(<DayContainer key={weekDay}>{weekDay}</DayContainer>)
+      days.push(
+        <DayOfWeekContainer key={weekDay}>{weekDay}</DayOfWeekContainer>
+      )
     })
 
     const totalDays = getDaysInMonth(currentDate) //총 날짜
@@ -49,7 +70,28 @@ function ChartCalendar() {
     }
 
     for (let day = 1; day <= totalDays; day++) {
-      days.push(<DayContainer>{day}</DayContainer>)
+      const isToday =
+        new Date().getMonth() === currentDate.getMonth() &&
+        new Date().getDate() === day
+
+      const isSelected =
+        selectedDate.getFullYear() === currentDate.getFullYear() &&
+        selectedDate.getMonth() === currentDate.getMonth() &&
+        selectedDate.getDate() === day
+
+      days.push(
+        <DayContainer
+          isToday={isToday}
+          isSelected={isSelected}
+          onClick={() =>
+            setSelectedDate(
+              new Date(currentDate.getFullYear(), currentDate.getMonth(), day)
+            )
+          }
+        >
+          {day}일
+        </DayContainer>
+      )
     }
 
     for (
@@ -72,14 +114,20 @@ function ChartCalendar() {
 
   return (
     <div>
-      <button onClick={handlePrevMonth}>이전</button>
-      <span>
-        {currentDate.getFullYear()}년 {currentDate.getMonth() + 1}월{' '}
-      </span>
-      <button onClick={handleNextMonth}>다음</button>
+      <div>
+        <button onClick={handlePrevMonth}>이전</button>
+        <span>
+          {currentDate.getFullYear()}년 {currentDate.getMonth() + 1}월{' '}
+        </span>
+        <button onClick={handleNextMonth}>다음</button>
+      </div>
       <div>
         <DaysGridContainer>{renderCalendar()}</DaysGridContainer>
       </div>
+      <h2>
+        선택된 날짜 : {selectedDate.getFullYear()}년
+        {selectedDate.getMonth() + 1}월{selectedDate.getDate()}일
+      </h2>
     </div>
   )
 }
