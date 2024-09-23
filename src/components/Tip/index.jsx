@@ -23,8 +23,7 @@ const Tip = ({
     <Container>
       <img
         src={light_bulb}
-        style={{ width: '12px', height: '20px', marginRight: 10 }}
-      />
+        style={{ width: '12px', height: '20px', marginRight: 10 }}/>
       {tipText}
     </Container>
   )
