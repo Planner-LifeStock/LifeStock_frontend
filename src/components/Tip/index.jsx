@@ -16,9 +16,10 @@ const Tip = ({
 }) => {
   const tipText = changeTip
     ? option !== null
-      ? TipArr[ButtonTexts[option]]
+      ? TipArr[option]
       : defaultTip
     : defaultTip
+
   return (
     <Container>
       <img
