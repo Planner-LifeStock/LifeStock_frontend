@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { getTheme } from '../../styles/theme'
 
 const ButtonContainer = styled.button`
   background-color: #3181f8;
