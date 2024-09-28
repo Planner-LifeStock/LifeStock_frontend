@@ -1,5 +1,5 @@
-import { createGlobalStyle } from 'styled-components';
-import { theme } from './ThemeStyles';
+import { createGlobalStyle } from 'styled-components'
+import { theme } from './ThemeStyles'
 
 const GlobalStyles = createGlobalStyle`
   
@@ -10,7 +10,7 @@ const GlobalStyles = createGlobalStyle`
     width: 100%;
     height: 100%;
     vertical-align: baseline;
-    background-color: ${theme.colors.blue.primary}
+    /* background-color: ${theme.colors.blue.primary} */
   }
 
   div {
@@ -42,6 +42,6 @@ const GlobalStyles = createGlobalStyle`
     font-weight: ${theme.font.weight.primary};
     transition: all 0.3s ease;
   }
-`;
+`
 
-export default GlobalStyles;
+export default GlobalStyles
