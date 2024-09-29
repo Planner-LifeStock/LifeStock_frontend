@@ -2,7 +2,6 @@ import AssetInfo from "../layouts/AssetInfo";
 import TopBar from "../layouts/TopBar"
 import MyCompany from "../layouts/MyCompany";
 import styled from "styled-components";
-import { companyFirstData } from './main'
 
 const Container = styled.div`
   display: flex;

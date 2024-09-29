@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import useFetch from '../../hooks/useFetch'
 import { useState, useRef } from 'react'
 import { ModalContainer, ModalContent } from '../CreateCompanyModal/style'
 import { light_bulb } from '../../assets'
@@ -29,9 +30,10 @@ const SellButton = styled.button`
 `
 
 const SellCompany = ({ data }) => {
-  const [PopupOpen, setPopupOpen] = useState(false)
-  const PopupBackground = useRef()
-  const chartData = data[0].chartData // companyFirstData의 첫번째 객체의 chartData이므로 수정해줄 필요 잇음
+
+  const Id = 1
+  const userList = useFetch(`http://localhost:8080/users/${Id}`)
+  const companyList = useFetch(`http://localhost:8080/company/${Id}`)
 
   return (
     <>
@@ -53,7 +55,7 @@ const SellCompany = ({ data }) => {
         >
           <ModalContent style={{ maxWidth: '700px', maxHeight: '400px' }}>
             <div style={{ fontSize: '35px', marginTop: '20px' }}>
-              회사 <span style={{ fontWeight: 'bold' }}>'아침운동'</span>을
+              회사 <span style={{ fontWeight: 'bold' }}>'{companyList.name}'</span>을
               매각하시겠습니까?
             </div>
             <h3 style={{ marginTop: '80px' }}>

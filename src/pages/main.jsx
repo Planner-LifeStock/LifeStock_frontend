@@ -95,29 +95,4 @@ function MainPage() {
   );
 }
 
-export default MainPage;
-export { companyFirstData };
-
-//[todo] 백앤드 서버에게 post요청하기
-// const updateTodo = (index, newCheck) => {
-//   const updatedTodos = currentCompany.todo.map((todo, idx) => {
-//     if (idx === index) {
-//       return { ...todo, checked: newCheck }
-//     }
-//     return todo
-//   })
-
-//   const updatedChartData = [...currentCompany.chartData]
-
-//   if (newCheck) {
-//     updatedChartData[todayIndex][3] += 5000
-//   } else {
-//     updatedChartData[todayIndex][3] -= 5000
-//   }
-
-//   setCompany({
-//     ...currentCompany,
-//     todo: updatedTodos,
-//     chartData: updatedChartData,
-//   })
-// }
+export default MainPage

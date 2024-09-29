@@ -3,7 +3,6 @@ import { useState } from 'react'
 import UserInfo from '../layouts/UserInfo'
 import Ranking from '../layouts/Ranking'
 import TopBar from '../layouts/TopBar'
-import { companyFirstData } from './main'
 
 const Container = styled.div`
   display: flex;
@@ -17,7 +16,7 @@ const RankPage = () => {
       <TopBar />
       <Container>
         <UserInfo />
-        <Ranking data={companyFirstData} />
+        <Ranking/>
       </Container>
     </>
   )

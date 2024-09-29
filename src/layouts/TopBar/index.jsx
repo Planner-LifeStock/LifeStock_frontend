@@ -8,7 +8,7 @@ const Font = styled.span`
     margin-left: 30px;
     transition: all 0.3s ease;
     color: #FFFFFF;
-    opacity: ${props => props.isActive ? "1" : "0.3"};
+    opacity: ${props => props.$isActive ? "1" : "0.3"};
 
     &:hover {
         color: #444444;
@@ -25,17 +25,17 @@ function TopBar() {
             textAlign: "start",
         }}>
             <Link to="/">
-                <Font isActive={location.pathname === "/"}>
+                <Font $isActive={location.pathname === "/"}>
                     HOME
                 </Font>
             </Link>
             <Link to="/myasset">
-                <Font isActive={location.pathname === "/myasset" || location.pathname === "/salesrecords"}>
+                <Font $isActive={location.pathname === "/myasset" || location.pathname === "/salesrecords"}>
                     내 자산
                 </Font>
             </Link>
             <Link to="/rank">
-                <Font isActive={location.pathname === "/rank"}>
+                <Font $isActive={location.pathname === "/rank"}>
                     랭크
                 </Font>
             </Link>
