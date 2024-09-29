@@ -7,6 +7,8 @@ import TotalSum from '../../components/TotalSum'
 import SumList from '../../function/calculation/sumList'
 import CreateCompany from '../../components/CreateCompanyModal'
 import { useEffect, useState } from 'react'
+import { API } from '../../api/axios.jsx'
+import { set } from 'date-fns'
 
 const AppWrapper = styled.div`
   display: flex;
@@ -44,25 +46,20 @@ const UserData = {
 }
 
 function SideBar({ companyData, setCompanyData, setCompany }) {
-  //companyList
-  const [data, setData] = useState()
-
+  const [data, setData] = useState(null)
   useEffect(() => {
     const fetchData = async () => {
-      const result = await API.get(
-        'http://localhost:8080/company/%7BcompanyID%7D'
-      )
-        .then(res => {
-          return res.data.result
-        })
-        .catch(error => {
-          console.log(error)
-          return error
-        })
-      console.log(result)
+      try {
+        const result = await API.get('/company/1')
+        setData(result.data)
+      } catch (error) {
+        console.log(error)
+      }
     }
     fetchData()
   }, [])
+
+  console.log(data)
 
   return (
     <AppWrapper>
