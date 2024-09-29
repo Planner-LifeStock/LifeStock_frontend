@@ -10,7 +10,7 @@ const GrayText = styled.div`
 function TotalSum({ data }) {
   return (
     <GrayText>
-      총 {SumList({ data: data, type: 'buyPrice' }).toLocaleString()}원
+      {/* 총 {SumList({ data: data, type: 'buyPrice' }).toLocaleString()}원 */}
     </GrayText>
   )
 }

@@ -1,25 +1,29 @@
-import styled from 'styled-components'
-import SideBar from '../layouts/SideBar'
-import TodoList from '../layouts/TodoList'
-import GraphBox from '../layouts/GraphBox'
-import { nvidia_logo } from '../assets'
-import { useState } from 'react'
-import TopBar from '../layouts/TopBar'
-import { useNavigate } from 'react-router-dom' // 내가 추가한 로그인페이지와 연결하는 것
+import styled from 'styled-components';
+import SideBar from '../layouts/SideBar';
+import TodoList from '../layouts/TodoList';
+import GraphBox from '../layouts/GraphBox';
+import { nvidia_logo } from '../assets';
+import { useEffect, useState } from 'react';
+import TopBar from '../layouts/TopBar';
+import { useNavigate } from 'react-router-dom'; // 내가 추가한 로그인페이지와 연결하는 것
+import { API } from '../api/axios';
+import CompanyList from '../components/CompanyList';
+import { useUser } from '../hooks/useUser';
+import { useCompanyData } from '../hooks/useCompanyData';
 
 const Container = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
   padding: 10px;
-`
+`;
 
 const EventContainer = styled.div`
   display: flex;
   height: 100%;
   background-color: #fffbfd;
   flex: 3 1 0;
-`
+`;
 
 const companyFirstData = [
   {
@@ -68,65 +72,52 @@ const companyFirstData = [
       },
     ],
   },
-]
+];
 
 function MainPage() {
-  const [companyData, setCompanyData] = useState(companyFirstData)
-
-  //클릭시 데이터 변경되게끔
-  const [currentCompany, setCompany] = useState(companyData[0])
-  //오늘날짜 index
-  const todayIndex = currentCompany.chartData.length - 1
-  //현재가 data 3번째 값으로 지정
-  const todayCurrentPrice = currentCompany.chartData[todayIndex][3]
-
-  const navigate = useNavigate()
-
-  //[todo] 백앤드 서버에게 post요청하기
-  const updateTodo = (index, newCheck) => {
-    const updatedTodos = currentCompany.todo.map((todo, idx) => {
-      if (idx === index) {
-        return { ...todo, checked: newCheck }
-      }
-      return todo
-    })
-
-    const updatedChartData = [...currentCompany.chartData]
-
-    if (newCheck) {
-      updatedChartData[todayIndex][3] += 5000
-    } else {
-      updatedChartData[todayIndex][3] -= 5000
-    }
-
-    setCompany({
-      ...currentCompany,
-      todo: updatedTodos,
-      chartData: updatedChartData,
-    })
-  }
-
+  const { companyList, setCompanyList, activeCompany, setActiveCompany } = useCompanyData();
+  const { userData, setUserData } = useUser();
   return (
     <div>
       <TopBar />
       <Container>
-        <EventContainer>
+        {/* <EventContainer>
           <div style={{ flex: 3 }}>
             <GraphBox data={currentCompany} />
           </div>
           <div style={{ flex: 1 }}>
             <TodoList data={currentCompany} updateTodo={updateTodo} />
           </div>
-        </EventContainer>
-        <SideBar
-          companyData={companyData}
-          setCompanyData={setCompanyData}
-          setCompany={setCompany}
-        />
+        </EventContainer> */}
+        <SideBar companyList={companyList} activeCompany={activeCompany} setActiveCompany={setActiveCompany} userData={userData} />
       </Container>
     </div>
-  )
+  );
 }
 
-export default MainPage
-export { companyFirstData }
+export default MainPage;
+export { companyFirstData };
+
+//[todo] 백앤드 서버에게 post요청하기
+// const updateTodo = (index, newCheck) => {
+//   const updatedTodos = currentCompany.todo.map((todo, idx) => {
+//     if (idx === index) {
+//       return { ...todo, checked: newCheck }
+//     }
+//     return todo
+//   })
+
+//   const updatedChartData = [...currentCompany.chartData]
+
+//   if (newCheck) {
+//     updatedChartData[todayIndex][3] += 5000
+//   } else {
+//     updatedChartData[todayIndex][3] -= 5000
+//   }
+
+//   setCompany({
+//     ...currentCompany,
+//     todo: updatedTodos,
+//     chartData: updatedChartData,
+//   })
+// }
