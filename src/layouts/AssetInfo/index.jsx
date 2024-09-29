@@ -1,5 +1,7 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import useFetch from "../../hooks/useFetch";
 
 const MaxContainer = styled.div`
   display: flex;
@@ -56,16 +58,23 @@ const PriceFont = styled.span`
     font-weight: bold;
 `
 
-const AssetInfo = ({data}) => {
+const AssetInfo = () => {
+
+  const Id = 1
+  const userList = useFetch(`http://localhost:8080/users/${Id}`)
+  const companyList = useFetch(`http://localhost:8080/company/${Id}`)
+  const navigate = useNavigate();
+
     return (
       <MaxContainer>
         <Container>
-          <InfoFont>{data[0].username} 님의 자산</InfoFont>
-          <CheckSellButton><Link to="/salesrecords"
+          <InfoFont> {userList.realName}님의 자산</InfoFont>
+          <CheckSellButton
           style = {{color: "#FFFFFF",
                     fontSize: "15px",
-                    fontWeight: "bold",
-          }}>스톡옵션 매매 기록</Link></CheckSellButton>
+                    fontWeight: "bold",}}
+          onClick={() => navigate('/salesrecords')}>
+              스톡옵션 매매 기록</CheckSellButton>
         </Container>
 
 
@@ -74,7 +83,7 @@ const AssetInfo = ({data}) => {
             <PriceBox style={{minWidth: "500px"}}>
               <PriceFont>총 자산</PriceFont>
               <Container style={{justifyContent: "space-between"}}>
-                <PriceFont style={{color: "black"}}>9,550,000원</PriceFont>
+                <PriceFont style={{color: "black"}}>{parseInt(companyList.investmentAmount).toLocaleString()}원</PriceFont>
                 <PriceFont style={{color: "blue"}}>-550,000(-13.75%)</PriceFont>
               </Container>
             </PriceBox>
