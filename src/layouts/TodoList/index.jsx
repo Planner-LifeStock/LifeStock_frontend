@@ -6,7 +6,7 @@ import CreateTodoModal from '../../components/CreatTodoModal'
 const ContainerWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
 `
 
 const Container = styled.div`

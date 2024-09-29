@@ -6,11 +6,12 @@ import { nvidia_logo } from '../../assets'
 import TotalSum from '../../components/TotalSum'
 import SumList from '../../function/calculation/sumList'
 import CreateCompany from '../../components/CreateCompanyModal'
+import { useEffect, useState } from 'react'
 
 const AppWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
   box-shadow: -5px 0 16px 0 rgba(0, 0, 0, 0.08);
 `
 
@@ -43,6 +44,26 @@ const UserData = {
 }
 
 function SideBar({ companyData, setCompanyData, setCompany }) {
+  //companyList
+  const [data, setData] = useState()
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await API.get(
+        'http://localhost:8080/company/%7BcompanyID%7D'
+      )
+        .then(res => {
+          return res.data.result
+        })
+        .catch(error => {
+          console.log(error)
+          return error
+        })
+      console.log(result)
+    }
+    fetchData()
+  }, [])
+
   return (
     <AppWrapper>
       <Container>

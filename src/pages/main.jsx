@@ -8,13 +8,15 @@ import TopBar from '../layouts/TopBar'
 import { useNavigate } from 'react-router-dom' // 내가 추가한 로그인페이지와 연결하는 것
 
 const Container = styled.div`
+  width: 100%;
+  height: 100%;
   display: flex;
   padding: 10px;
 `
 
 const EventContainer = styled.div`
   display: flex;
-  height: 100vh;
+  height: 100%;
   background-color: #fffbfd;
   flex: 3 1 0;
 `

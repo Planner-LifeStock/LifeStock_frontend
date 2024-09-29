@@ -4,7 +4,8 @@ import { Chart } from 'react-google-charts'
 const ChartContainer = styled.div`
   display: flex;
   align-items: start;
-  height: 810px;
+  /* height: 810px; */
+  overflow-y: hidden;
 `
 
 export const options = {
