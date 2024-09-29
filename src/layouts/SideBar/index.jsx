@@ -6,11 +6,14 @@ import { nvidia_logo } from '../../assets'
 import TotalSum from '../../components/TotalSum'
 import SumList from '../../function/calculation/sumList'
 import CreateCompany from '../../components/CreateCompanyModal'
+import { useEffect, useState } from 'react'
+import { API } from '../../api/axios.jsx'
+import { set } from 'date-fns'
 
 const AppWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
   box-shadow: -5px 0 16px 0 rgba(0, 0, 0, 0.08);
 `
 
@@ -43,6 +46,21 @@ const UserData = {
 }
 
 function SideBar({ companyData, setCompanyData, setCompany }) {
+  const [data, setData] = useState(null)
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await API.get('/company/1')
+        setData(result.data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    fetchData()
+  }, [])
+
+  console.log(data)
+
   return (
     <AppWrapper>
       <Container>
