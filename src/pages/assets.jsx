@@ -15,8 +15,8 @@ const MyAssetPage = () => {
       <>
         <TopBar/>
         <Container>
-            <AssetInfo data={companyFirstData}/>
-            <MyCompany data={companyFirstData}/>
+            <AssetInfo/>
+            <MyCompany/>
         </Container>
       </>
     )
