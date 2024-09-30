@@ -1,21 +1,22 @@
-import styled from 'styled-components'
-import CompanyList from '../../components/CompanyList'
-import UpDownText from '../../components/UpDownText'
-import Button from '../../components/Button'
-import { nvidia_logo } from '../../assets'
-import TotalSum from '../../components/TotalSum'
-import SumList from '../../function/calculation/sumList'
-import CreateCompany from '../../components/CreateCompanyModal'
-import { useEffect, useState } from 'react'
-import { API } from '../../api/axios.jsx'
-import { set } from 'date-fns'
+import styled from 'styled-components';
+import CompanyList from '../../components/CompanyList';
+import UpDownText from '../../components/UpDownText';
+import Button from '../../components/Button';
+import { nvidia_logo } from '../../assets';
+import TotalSum from '../../components/TotalSum';
+import SumList from '../../function/calculation/sumList';
+import CreateCompany from '../../components/CreateCompanyModal';
+import { useEffect, useState } from 'react';
+import { API } from '../../api/axios.jsx';
+import { set } from 'date-fns';
+import { useUser } from '../../hooks/useUser.jsx';
 
 const AppWrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
   box-shadow: -5px 0 16px 0 rgba(0, 0, 0, 0.08);
-`
+`;
 
 const Container = styled.div`
   display: flex;
@@ -25,7 +26,7 @@ const Container = styled.div`
   background-color: #f6f7f9;
   padding: 20px 16px;
   flex-grow: 1;
-`
+`;
 
 const Title = styled.div`
   display: flex;
@@ -33,23 +34,23 @@ const Title = styled.div`
   font-size: 24px;
   font-weight: 800;
   margin-bottom: 3px;
-`
+`;
 
 const GrayText = styled.div`
   font-size: 16px;
   font-weight: 800;
   color: #8b95a1;
-`
+`;
 
-function SideBar({ activeCompany, setActiveCompany, userData, companyList }) {
+function SideBar({ activeCompany, setActiveCompany, companyList }) {
+  const { userData, setUserData } = useUser();
+
   return (
     <AppWrapper>
       <Container>
         <div>
           <div style={{ borderBottom: 'solid 1px', marginBottom: 30 }}>
-            <Title>
-              {userData ? userData.username + '님의 종목' : 'Loading'}
-            </Title>
+            <Title>{userData ? userData.username + '님의 종목' : 'Loading'}</Title>
             <div
               style={{
                 display: 'flex',
@@ -94,7 +95,7 @@ function SideBar({ activeCompany, setActiveCompany, userData, companyList }) {
         {/* </CreateCompany> */}
       </Container>
     </AppWrapper>
-  )
+  );
 }
 
-export default SideBar
+export default SideBar;
