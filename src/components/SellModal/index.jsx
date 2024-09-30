@@ -1,14 +1,14 @@
-import styled from 'styled-components'
-import useFetch from '../../hooks/useFetch'
-import { useState, useRef } from 'react'
-import { ModalContainer, ModalContent } from '../CreateCompanyModal/style'
-import { light_bulb } from '../../assets'
+import React, { useState, useRef } from 'react';
+import styled from 'styled-components';
+import { ModalContainer, ModalContent } from '../CreateCompanyModal/style';
+import { light_bulb } from '../../assets';
+import { useCompanyData } from '../../hooks/useCompanyData';
 
 const Container = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-`
+`;
 
 const SellButton = styled.button`
   background-color: ${props => (props.disabled ? '#929292' : '#3182F6')};
@@ -17,7 +17,7 @@ const SellButton = styled.button`
   border: none;
   transition: all 0.3s ease;
   margin-left: 100px;
-  height: 12%;
+  height: 12vh;
 
   &:focus {
     border: none;
@@ -27,35 +27,50 @@ const SellButton = styled.button`
   &:hover {
     opacity: ${props => (props.disabled ? 1 : 0.5)};
   }
-`
+`;
 
-const SellCompany = ({ data }) => {
+const SellCompany = () => {
 
-  const Id = 1
-  const userList = useFetch(`http://localhost:8080/users/${Id}`)
-  const companyList = useFetch(`http://localhost:8080/company/${Id}`)
+  const { companyList, setCompanyList, activeCompany, setActiveComapny } = useCompanyData();
+  const [PopupOpen, setPopupOpen] = useState(false);
+
+  const calculateDays = (listedDate) => {
+    const listedDateObj = new Date(listedDate)
+    const currentDate = new Date()
+    const timeDifference = currentDate - listedDateObj
+    const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24))
+    
+    return daysDifference
+  }
+
+  const calSellDate = (leastOperatePeriod) => {
+    const minSellDate = {
+      "ONE_WEEK": 7,
+      "TWO_WEEKS": 14,
+      "ONE_MONTH": 30,
+    };
+    return minSellDate[leastOperatePeriod];
+  };
+
+  if(!companyList) {
+    return <div>로딩중...</div>
+  }
 
   return (
     <>
+    {activeCompany && (
+    <>
       <SellButton
-        disabled={chartData.length < 7}
-        onClick={() => setPopupOpen(true)}
-      >
+        disabled={calculateDays(activeCompany.listedDate) < calSellDate(activeCompany.leastOperatePeriod)}
+        onClick={() => setPopupOpen(true)}>
         스톡옵션 매각하기
       </SellButton>
 
       {PopupOpen && (
-        <ModalContainer
-          ref={PopupBackground}
-          onClick={e => {
-            if (e.target === PopupBackground.current) {
-              setPopupOpen(false)
-            }
-          }}
-        >
-          <ModalContent style={{ maxWidth: '700px', maxHeight: '400px' }}>
+        <ModalContainer>
+          <ModalContent style={{ maxWidth: '700px', maxHeight: '400px', padding: '10px'}}>
             <div style={{ fontSize: '35px', marginTop: '20px' }}>
-              회사 <span style={{ fontWeight: 'bold' }}>'{companyList.name}'</span>을
+              회사 <span style={{ fontWeight: 'bold' }}>'{activeCompany.name}'</span>을
               매각하시겠습니까?
             </div>
             <h3 style={{ marginTop: '80px' }}>
@@ -90,7 +105,9 @@ const SellCompany = ({ data }) => {
         </ModalContainer>
       )}
     </>
-  )
-}
+     )}
+  </>
+  );
+};
 
-export default SellCompany
+export default SellCompany;
