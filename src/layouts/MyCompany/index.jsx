@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import SellCompany from "../../components/SellModal";
-import useFetch from "../../hooks/useFetch";
-import { API } from "../../api/axios";
+import { useUser } from "../../hooks/useUser";
+import { useCompanyData } from "../../hooks/useCompanyData";
 
 const Container = styled.div`
   margin-top: 5px;
@@ -43,11 +43,16 @@ const CompanyBox = styled.div`
 
 function MyCompany() {
   
-  const Id = 1
-  const userList = useFetch(`http://localhost:8080/users/${Id}`)
-  const companyList = useFetch(`http://localhost:8080/company/${Id}`)
+  const { userData, setUserData } = useUser()
+  const { companyList, setCompanyList, activeCompany, setActiveCompany} = useCompanyData()
+
+  if(!companyList) {
+    return <div>로딩중...</div>
+  }
 
     return (
+      <>
+        {companyList && activeCompany && (
       <>
         <Font style={{marginRight: "auto", marginTop: "50px"}}>보유 회사</Font>
         <Container style={{
@@ -58,37 +63,32 @@ function MyCompany() {
           maxHeight: "400px"
         }}>
           <CompanyBox>
-          {companyList && companyList.logo ? (
                 <img 
-                  src={companyList.logo.url} 
+                  src={activeCompany.logo.url} 
                   style={{ height: "12vh", borderRadius: "50%", marginLeft: "20px" }} />
-              ) : (
-                <div style={{ height: "12vh", width: "12vh", borderRadius: "50%", backgroundColor: "#ccc", marginLeft: "20px" }}>
-                </div>
-              )}
               <MinContainer  style={{flexDirection: "column"}}>
                 <MinContainer>
                   <FontContainer style={{fontSize: "30px"}}>
-                    {companyList.name}
+                    {activeCompany.name}
                       <FontContainer style={{fontSize: "18px"}}>
-                        (회사 info) - {companyList.description}</FontContainer>
+                        (회사 info) - {activeCompany.description}</FontContainer>
                   </FontContainer>
                 </MinContainer>
                 <MinContainer>
                   <MinContainer style={{ flexDirection: 'column', marginTop: '10px' }}>
                     <FontContainer>
-                      상장가:&nbsp; <span style={{ color: '#5A5A5A' }}>15,000원</span>
+                      상장일:&nbsp; <span style={{ color: '#5A5A5A' }}>{activeCompany.listedDate}</span>
                     </FontContainer>
                     <FontContainer style={{ marginTop: '10px' }}>
-                      현재가:&nbsp; <span style={{ color: '#5A5A5A' }}>{parseInt(companyList.currentStockPrice).toLocaleString()}원</span>
+                      발행주식 수:&nbsp; <span style={{ color: '#5A5A5A' }}>{activeCompany.initialStockQuantity}</span>
                     </FontContainer>
                   </MinContainer>
                   <MinContainer style={{ flexDirection: 'column', marginTop: '10px' }}>
                     <FontContainer>
-                      창업비용:&nbsp; <span style={{ color: '#5A5A5A' }}>2,000,000원</span>
+                      상장가:&nbsp; <span style={{ color: '#5A5A5A' }}>{parseInt(activeCompany.initialStockPrice).toLocaleString()}원</span>
                     </FontContainer>
                     <FontContainer style={{ marginTop: '10px' }}>
-                      회사가치:&nbsp; <span style={{ color: '#5A5A5A' }}>1,750,000원</span>
+                      현재가:&nbsp; <span style={{ color: '#5A5A5A' }}>{parseInt(activeCompany.currentStockPrice).toLocaleString()}원</span>
                     </FontContainer>
                   </MinContainer>
                   <MinContainer style={{ flexDirection: 'column', marginTop: '10px' }}>
@@ -101,9 +101,11 @@ function MyCompany() {
                   </MinContainer>
                 </MinContainer>
               </MinContainer>
-              {/* <SellCompany/> */}
+              <SellCompany/>
           </CompanyBox>
         </Container>
+      </>
+        )}
       </>
     )
 }
