@@ -1,12 +1,15 @@
+import SalesInfo from '../layouts/\bSalesInfo'
 import TopBar from '../layouts/TopBar'
 
 const SalesRecordsPage = () => {
     return (
         <>
             <TopBar/>
-            <div>매매기록페이지!!!!!!!!!!!!!</div>
+                <SalesInfo>
+                </SalesInfo>
         </>
     )
 }
+
 
 export default SalesRecordsPage

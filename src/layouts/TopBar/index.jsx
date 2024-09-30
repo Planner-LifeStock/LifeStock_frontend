@@ -21,8 +21,11 @@ function TopBar() {
     return (
         <nav style={{
             backgroundColor: "#3182F6",
-            padding: "10px",
+            padding: "1vw",
             textAlign: "start",
+            width: "100vw",
+            maxWidth: "1800px",
+            margin: "0 auto",
         }}>
             <Link to="/">
                 <Font $isActive={location.pathname === "/"}>
