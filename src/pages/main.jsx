@@ -76,7 +76,6 @@ const EventContainer = styled.div`
 // ];
 
 function MainPage() {
-
   const { companyList, setCompanyList, activeCompany, setActiveCompany } = useCompanyData();
   const { userData, setUserData } = useUser();
 
@@ -84,14 +83,14 @@ function MainPage() {
     <div>
       <TopBar />
       <Container>
-        {/* <EventContainer>
-          <div style={{ flex: 3 }}>
+        <EventContainer>
+          {/* <div style={{ flex: 3 }}>
             <GraphBox data={currentCompany} />
-          </div>
+          </div> */}
           <div style={{ flex: 1 }}>
-            <TodoList data={currentCompany} updateTodo={updateTodo} />
+            <TodoList activeCompany={activeCompany} />
           </div>
-        </EventContainer> */}
+        </EventContainer>
         <SideBar activeCompany={companyList} setActiveCompany={setActiveCompany} companyList={companyList} />
       </Container>
     </div>
