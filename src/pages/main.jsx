@@ -5,7 +5,7 @@ import { useCompanyData } from '../hooks/useCompanyData';
 import { useUser } from '../hooks/useUser';
 
 import { useNavigate } from 'react-router-dom'; // 내가 추가한 로그인페이지와 연결하는 것
-import { API } from '../api/axios';
+import { API, serverAPI } from '../api/axios';
 import CompanyList from '../components/CompanyList';
 import TodoList from '../layouts/TodoList';
 import GraphBox from '../layouts/GraphBox';

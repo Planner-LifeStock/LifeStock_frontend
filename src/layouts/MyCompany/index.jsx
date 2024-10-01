@@ -2,6 +2,7 @@ import styled from "styled-components";
 import SellCompany from "../../components/SellModal";
 import { useUser } from "../../hooks/useUser";
 import { useCompanyData } from "../../hooks/useCompanyData";
+import { useEffect } from "react";
 
 const Container = styled.div`
   margin-top: 5px;
@@ -105,7 +106,7 @@ function MyCompany() {
                     </MinContainer>
                   </MinContainer>
                 </MinContainer>
-                <SellCompany />
+                <SellCompany item={ item }/>
               </CompanyBox>
             ))}
           </Container>

@@ -59,7 +59,7 @@ const OptionButton = ({
         return (
           <GroupButton
             key={index}
-            isSelect={isSelected}
+            $isSelect={isSelected}
             onClick={() => {
               handleClick(name)
             }}
