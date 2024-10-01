@@ -89,7 +89,6 @@ function MainPage() {
           </div> */}
           <div style={{ flex: 1 }}>
             <TodoList activeCompany={activeCompany} />
-            {console.log(activeCompany)}
           </div>
         </EventContainer>
         <SideBar activeCompany={companyList} setActiveCompany={setActiveCompany} companyList={companyList} />

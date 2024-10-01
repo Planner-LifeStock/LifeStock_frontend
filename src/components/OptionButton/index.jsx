@@ -12,7 +12,7 @@ const GroupButton = styled.button`
   font-size: 20px;
   font-weight: 600;
   /* #3181f8; */
-  background-color: ${({ isSelect }) => (isSelect ? `#3181f8` : 'grey')};
+  background-color: ${props => (props.$isSelect ? `#3181f8` : 'grey')};
   color: #fff;
   border-radius: 10px;
   border: none;

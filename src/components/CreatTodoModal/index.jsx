@@ -9,6 +9,7 @@ import styled from 'styled-components';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { API } from '../../api/axios';
+import { useUser } from '../../hooks/useUser';
 
 const ModalContainer = styled.div`
   width: 100%;
@@ -73,17 +74,34 @@ function CreateTodoModal({ activeCompany }) {
   const [modalOpen, setModalOpen] = useState(false); //모달 useState
   const modalBackgorund = useRef();
 
-  const [title, setTitle] = useState(null);
-  const [description, setDescription] = useState(null);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const [level, setLevel] = useState(null);
   const [days, setDays] = useState([]);
-  const [deadLine, setDeadLine] = useState(null);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
 
   const defaultLevelTip = '난이도에 따라 플랜을 수행했을 때의 주가의 등락율이 결정돼요!';
-  const levelArr = ['최상', '상', '보통', '하', '최하'];
-  const dayArr = ['월', '화', '수', '목', '금', '토', '일'];
+  const levelArr = { 최하: 'LEVEL_1', 하: 'LEVEL_2', 보통: 'LEVEL_3', 상: 'LEVEL_4', 최상: 'LEVEL_5' };
+  const dayArr = {
+    월: 'MONDAY',
+    화: 'TUESDAY',
+    수: 'WEDNESDAY',
+    목: 'THURSDAY',
+    금: 'FRIDAY',
+    토: 'SATURDAY',
+    일: 'SUNDAY',
+  };
+
+  const convertDaysToValues = (daysArray, dayObject) => {
+    return daysArray.map(day => dayObject[day]);
+  };
+
+  const formatDate = date => date.toISOString().split('T')[0];
 
   //[todo] 유저 데이터 가져오기
+  const { userData } = useUser();
+
   return (
     <div>
       <div>
@@ -97,7 +115,7 @@ function CreateTodoModal({ activeCompany }) {
             if (e.target === modalBackgorund.current) {
               setModalOpen(false);
               setModalOpen(false);
-              setDeadLine(null);
+              setEndDate(null);
               setDays([]);
               setDescription('');
               setTitle('');
@@ -108,7 +126,6 @@ function CreateTodoModal({ activeCompany }) {
           <ModalContent>
             <InnerContainer>
               <TitleBox>
-                {console.log(activeCompany)}
                 <img src={activeCompany.logo.url} height="50px" style={{ borderRadius: '100%', marginRight: 8 }} />
                 <div style={{ fontSize: 30, fontWeight: 600 }}>{activeCompany.name}</div>
               </TitleBox>
@@ -136,18 +153,27 @@ function CreateTodoModal({ activeCompany }) {
               </div>
               <div style={{ width: '100%' }}>
                 <Title>난이도</Title>
-                <OptionButton OptionList={levelArr} currentState={level} SetState={setLevel} />
+                <OptionButton OptionList={Object.keys(levelArr)} currentState={level} SetState={setLevel} />
                 <Tip defaultTip={defaultLevelTip} changeTip={false}></Tip>
               </div>
               <div style={{ width: '100%' }}>
                 <Title>요일</Title>
-                <OptionButton OptionList={dayArr} currentState={days} SetState={setDays} multiple={true} />
+                <OptionButton OptionList={Object.keys(dayArr)} currentState={days} SetState={setDays} multiple={true} />
+              </div>
+              <div>
+                <Title>시작 날짜</Title>
+                <StyledDatePicker
+                  selected={startDate}
+                  onChange={date => setStartDate(date)}
+                  dateFormat="yyyy.MM.dd"
+                  placeholderText="시작 날짜를 선택하세요(선택)"
+                />
               </div>
               <div>
                 <Title>마감날짜</Title>
                 <StyledDatePicker
-                  selected={deadLine}
-                  onChange={date => setDeadLine(date)}
+                  selected={endDate}
+                  onChange={date => setEndDate(date)}
                   dateFormat="yyyy.MM.dd"
                   placeholderText="마감 날짜를 선택하세요(선택)"
                 />
@@ -157,24 +183,31 @@ function CreateTodoModal({ activeCompany }) {
             <Button
               width={'100%'}
               onClick={async () => {
-                const newTodo = {
-                  userId: 1,
-                  companyId: 1,
-                  title: title,
-                  description: description,
-                  level: level,
-                  startDate: '2024-03-27',
-                  endDate: '2024-03-30',
-                  days: days,
-                };
-                await API.post('/todo', newTodo);
-                //[todo] 기존 데이터 구조 바꾸기
-                setModalOpen(false);
-                setDeadLine(null);
-                setDays([]);
-                setDescription('');
-                setTitle('');
-                setLevel(null);
+                try {
+                  const newTodo = {
+                    userId: userData.id,
+                    companyId: activeCompany.id,
+                    title: title,
+                    description: description,
+                    level: levelArr[level],
+                    days: convertDaysToValues(days, dayArr),
+                    startDate: formatDate(startDate),
+                    endDate: formatDate(endDate),
+                  };
+                  console.log(newTodo);
+                  await API.post('/todo', newTodo);
+                  // 성공하면 모달 닫기 및 상태 초기화
+                  setModalOpen(false);
+                  setStartDate(null);
+                  setEndDate(null);
+                  setDays([]);
+                  setDescription('');
+                  setTitle('');
+                  setLevel(null);
+                } catch (error) {
+                  console.error('할 일 추가 중 오류 발생:', error);
+                  alert('할 일 추가 중 문제가 발생했습니다.');
+                }
               }}
             >
               할 일 추가하기

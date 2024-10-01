@@ -19,7 +19,6 @@ const Container = styled.div`
 `;
 
 function TodoList({ activeCompany, updateTodo }) {
-  console.log(activeCompany);
   return (
     <ContainerWrapper>
       <Container>
