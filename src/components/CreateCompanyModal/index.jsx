@@ -34,6 +34,7 @@ const CreateCompany = ({ companyData, setCompanyData }) => {
 
   const investPrice = ['10%', '25%', '50%']
   const defaultInvestTip = '투자가능 금액의 최대 50%까지 투자할 수 있어요.'
+  
   return (
     <div>
       <div>
@@ -130,7 +131,7 @@ const CreateCompany = ({ companyData, setCompanyData }) => {
               </div>
             </div>
             <Button
-              width={'1500'}
+              width={'1470'}
               onClick={() => {
                 console.log(level)
                 const newCompany = {

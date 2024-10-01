@@ -1,15 +1,16 @@
 import styled from 'styled-components';
 import SideBar from '../layouts/SideBar';
+import TopBar from '../layouts/TopBar';
+import { useCompanyData } from '../hooks/useCompanyData';
+import { useUser } from '../hooks/useUser';
+
+import { useNavigate } from 'react-router-dom'; // 내가 추가한 로그인페이지와 연결하는 것
+import { API } from '../api/axios';
+import CompanyList from '../components/CompanyList';
 import TodoList from '../layouts/TodoList';
 import GraphBox from '../layouts/GraphBox';
 import { nvidia_logo } from '../assets';
 import { useEffect, useState } from 'react';
-import TopBar from '../layouts/TopBar';
-import { useNavigate } from 'react-router-dom'; // 내가 추가한 로그인페이지와 연결하는 것
-import { API } from '../api/axios';
-import CompanyList from '../components/CompanyList';
-import { useUser } from '../hooks/useUser';
-import { useCompanyData } from '../hooks/useCompanyData';
 
 const Container = styled.div`
   width: 100%;
@@ -75,7 +76,10 @@ const EventContainer = styled.div`
 // ];
 
 function MainPage() {
-  const { activeCompany, setActiveCompany } = useCompanyData();
+
+  const { companyList, setCompanyList, activeCompany, setActiveCompany } = useCompanyData();
+  const { userData, setUserData } = useUser();
+
   return (
     <div>
       <TopBar />
@@ -88,7 +92,7 @@ function MainPage() {
             <TodoList data={currentCompany} updateTodo={updateTodo} />
           </div>
         </EventContainer> */}
-        <SideBar activeCompany={activeCompany} setActiveCompany={setActiveCompany} />
+        <SideBar activeCompany={companyList} setActiveCompany={setActiveCompany} companyList={companyList} />
       </Container>
     </div>
   );

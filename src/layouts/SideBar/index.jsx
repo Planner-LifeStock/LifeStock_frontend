@@ -2,14 +2,16 @@ import styled from 'styled-components';
 import CompanyList from '../../components/CompanyList';
 import UpDownText from '../../components/UpDownText';
 import Button from '../../components/Button';
-import { nvidia_logo } from '../../assets';
 import TotalSum from '../../components/TotalSum';
 import SumList from '../../function/calculation/sumList';
 import CreateCompany from '../../components/CreateCompanyModal';
+
+import { nvidia_logo } from '../../assets';
 import { useEffect, useState } from 'react';
 import { API } from '../../api/axios.jsx';
 import { set } from 'date-fns';
 import { useUser } from '../../hooks/useUser.jsx';
+import { useCompanyData } from '../../hooks/useCompanyData.jsx';
 
 const AppWrapper = styled.div`
   display: flex;
@@ -43,58 +45,57 @@ const GrayText = styled.div`
 `;
 
 function SideBar({ activeCompany, setActiveCompany, companyList }) {
+  const { setCompanyList} = useCompanyData();
   const { userData, setUserData } = useUser();
 
+  if(!userData || !activeCompany || !companyList)
+    return <div>로딩 중...</div>
+
   return (
-    <AppWrapper>
-      <Container>
-        <div>
-          <div style={{ borderBottom: 'solid 1px', marginBottom: 30 }}>
-            <Title>{userData ? userData.username + '님의 종목' : 'Loading'}</Title>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'end',
-                marginBottom: 24,
-              }}
-            >
-              {/* <TotalSum data={companyData} /> */}
-              {/* [todo] 총합 : 함수 만들기  */}
-              {/* 현재가 합 - 매수가 합 계산 */}
-              <UpDownText
-              // standard={SumList({ data: companyData, type: 'buyPrice' })}
-              // comparision={SumList({
-              //   data: companyData,
-              //   type: 'currentPrice',
-              // })}
-              />
-            </div>
-          </div>
+    <>
+    {userData && activeCompany && companyList && (
+      <AppWrapper>
+        <Container>
           <div>
-            {console.log(companyList)}
-            {/* {companyList.map(({ name, logo }, index) => {
+            <div style={{ borderBottom: 'solid 1px', marginBottom: 30 }}>
+              <Title>{userData ? userData.username + '님의 종목' : 'Loading'}</Title>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'end',
+                  marginBottom: 24,
+                }}>
+                <TotalSum/>
+                {/* [todo] 총합 : 함수 만들기  */}
+                {/* 현재가 합 - 매수가 합 계산 */}
+                <UpDownText
+                standard={SumList({ data: companyList, type: 'currentStockPrice' })}
+                comparision={SumList({ data: companyList, type: 'initialStockPrice'})}/>
+              </div>
+            </div>
+            <div>
+            {companyList.map((item) => {
               return (
                 <CompanyList
-                  key={index}
-                  name={name}
-                  logo={logo.url}
-                  // buyPrice={buyPrice}
-                  // currentPrice={currentPrice}
-                  // onClick={() => setCompany(companyData[index])}
+                  key={item.id}
+                  name={item.name}
+                  logo={item.logo.url}
+                  buyPrice={item.initialStockPrice}
+                  currentPrice={item.currentStockPrice}
+                  onClick={() => setActiveCompany(item)}
                 />
-              )
-            })} */}
+              );
+            })}
+            </div>
           </div>
-        </div>
-        {/* <CreateCompany
-          companyData={companyData}
-          setCompanyData={setCompanyData}
-        > */}
-        회사 상장하기
-        {/* </CreateCompany> */}
-      </Container>
-    </AppWrapper>
+          <CreateCompany companyData={companyList} setCompanyData={setCompanyList}>
+          회사 상장하기
+          </CreateCompany>
+        </Container>
+      </AppWrapper>
+    )}
+    </>
   );
 }
 
