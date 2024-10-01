@@ -1,12 +1,12 @@
-import SalesInfo from '../layouts/SalesInfo'
+// import SalesInfo from '../layouts/\bSalesInfo'
 import TopBar from '../layouts/TopBar'
 
 const SalesRecordsPage = () => {
     return (
         <>
             <TopBar/>
-                <SalesInfo>
-                </SalesInfo>
+                {/* <SalesInfo>
+                </SalesInfo> */}
         </>
     )
 }
