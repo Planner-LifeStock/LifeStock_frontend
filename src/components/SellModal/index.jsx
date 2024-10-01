@@ -17,6 +17,8 @@ const SellButton = styled.button`
   border: none;
   transition: all 0.3s ease;
   margin-left: 100px;
+  
+  
   height: 12vh;
 
   &:focus {

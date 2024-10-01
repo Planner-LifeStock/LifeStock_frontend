@@ -1,4 +1,4 @@
-import SalesInfo from '../layouts/\bSalesInfo'
+import SalesInfo from '../layouts/SalesInfo'
 import TopBar from '../layouts/TopBar'
 
 const SalesRecordsPage = () => {
