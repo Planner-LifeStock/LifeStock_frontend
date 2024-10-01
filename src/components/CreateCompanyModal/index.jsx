@@ -7,8 +7,10 @@ import Tip from '../Tip'
 import ImgAdd from '../ImageAdd'
 import AssetBox from '../AssetBox'
 import { emptyImg } from '../../assets'
+import { useCompanyData } from '../../hooks/useCompanyData'
 
 const CreateCompany = ({ companyData, setCompanyData }) => {
+  const {activeCompany, setActiveCompany} = useCompanyData();
   const [modalOpen, setModalOpen] = useState(false) //모달 useState
   const modalBackgorund = useRef()
 
@@ -123,10 +125,11 @@ const CreateCompany = ({ companyData, setCompanyData }) => {
                   <Tip defaultTip={defaultInvestTip} />
                 </InnerContainer>
                 <InnerContainer>
-                  <AssetBox Text={'투자가능금액'} Asset={100000000} />
-                  <AssetBox Text={'투자비용'} Asset={1000000} />
-                  <AssetBox Text={'상장시 스톡옵션 1주 가격'} Asset={5000} />
-                  <AssetBox Text={'지급되는 스톡옵션'} Asset={100} unit="주" />
+                  <AssetBox Text={'투자가능금액'} Asset={parseInt(activeCompany.investmentAmount)} />
+                  <AssetBox Text={'투자비용'} Asset={parseInt(activeCompany.investmentAmount)} /> 
+                  <AssetBox Text={'상장시 스톡옵션 1주 가격'} Asset={parseInt(activeCompany.currentStockPrice)} />
+                  <AssetBox Text={'지급되는 스톡옵션'} Asset={parseInt(activeCompany.initialStockQuantity)} unit="주" />
+                  {/* 이 위에 Asset부분에 들어가야할 것들 무조건수정(임시 연결) */}
                 </InnerContainer>
               </div>
             </div>
