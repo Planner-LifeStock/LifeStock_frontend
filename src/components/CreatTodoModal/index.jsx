@@ -1,13 +1,14 @@
-import { useRef, useState } from 'react'
-import Button from '../Button'
-import InputBox from '../InputBox'
-import OptionButton from '../OptionButton'
-import Tip from '../Tip'
-import ImgAdd from '../ImageAdd'
-import AssetBox from '../AssetBox'
-import styled from 'styled-components'
-import DatePicker from 'react-datepicker'
-import 'react-datepicker/dist/react-datepicker.css'
+import { useRef, useState } from 'react';
+import Button from '../Button';
+import InputBox from '../InputBox';
+import OptionButton from '../OptionButton';
+import Tip from '../Tip';
+import ImgAdd from '../ImageAdd';
+import AssetBox from '../AssetBox';
+import styled from 'styled-components';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { API } from '../../api/axios';
 
 const ModalContainer = styled.div`
   width: 100%;
@@ -19,7 +20,7 @@ const ModalContainer = styled.div`
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
-`
+`;
 
 const ModalContent = styled.div`
   display: flex;
@@ -30,7 +31,7 @@ const ModalContent = styled.div`
   height: 750px;
   padding: 15px;
   border-radius: 16px;
-`
+`;
 
 const InnerContainer = styled.div`
   padding: 10px;
@@ -41,14 +42,14 @@ const InnerContainer = styled.div`
   align-items: start;
   justify-content: space-around;
   margin-bottom: 30px;
-`
+`;
 
 const Title = styled.div`
   display: flex;
   font-size: 24px;
   font-weight: 700;
   margin-bottom: 5px;
-`
+`;
 const TitleBox = styled.div`
   width: 90%;
   display: flex;
@@ -56,7 +57,7 @@ const TitleBox = styled.div`
   align-items: end;
   min-height: 60px;
   margin-bottom: 20px;
-`
+`;
 const StyledDatePicker = styled(DatePicker)`
   width: 480px;
   height: 40px;
@@ -66,23 +67,23 @@ const StyledDatePicker = styled(DatePicker)`
   background-color: #dfdfdf;
   font-size: 20px;
   border: 0px;
-`
+`;
 
-function CreateTodoModal({ data }) {
-  const [modalOpen, setModalOpen] = useState(false) //모달 useState
-  const modalBackgorund = useRef()
+function CreateTodoModal({ activeCompany }) {
+  const [modalOpen, setModalOpen] = useState(false); //모달 useState
+  const modalBackgorund = useRef();
 
-  const [todoName, setTodoName] = useState(null)
-  const [todoInfo, setTodoInfo] = useState(null)
-  const [todoLevel, setTodoLevel] = useState(null)
-  const [todoDay, setTodoDay] = useState([])
-  const [deadLine, setDeadLine] = useState(null)
+  const [title, setTitle] = useState(null);
+  const [description, setDescription] = useState(null);
+  const [level, setLevel] = useState(null);
+  const [days, setDays] = useState([]);
+  const [deadLine, setDeadLine] = useState(null);
 
-  const defaultLevelTip =
-    '난이도에 따라 플랜을 수행했을 때의 주가의 등락율이 결정돼요!'
-  const levelArr = ['최상', '상', '보통', '하', '최하']
-  const dayArr = ['월', '화', '수', '목', '금', '토', '일']
+  const defaultLevelTip = '난이도에 따라 플랜을 수행했을 때의 주가의 등락율이 결정돼요!';
+  const levelArr = ['최상', '상', '보통', '하', '최하'];
+  const dayArr = ['월', '화', '수', '목', '금', '토', '일'];
 
+  //[todo] 유저 데이터 가져오기
   return (
     <div>
       <div>
@@ -94,34 +95,31 @@ function CreateTodoModal({ data }) {
           ref={modalBackgorund}
           onClick={e => {
             if (e.target === modalBackgorund.current) {
-              setModalOpen(false)
-              setModalOpen(false)
-              setDeadLine(null)
-              setTodoDay([])
-              setTodoInfo('')
-              setTodoName('')
-              setTodoLevel(null)
+              setModalOpen(false);
+              setModalOpen(false);
+              setDeadLine(null);
+              setDays([]);
+              setDescription('');
+              setTitle('');
+              setLevel(null);
             }
           }}
         >
           <ModalContent>
             <InnerContainer>
               <TitleBox>
-                <img
-                  src={data.logo}
-                  height="50px"
-                  style={{ borderRadius: '100%', marginRight: 8 }}
-                />
-                <div style={{ fontSize: 30, fontWeight: 600 }}>{data.name}</div>
+                {console.log(activeCompany)}
+                <img src={activeCompany.logo.url} height="50px" style={{ borderRadius: '100%', marginRight: 8 }} />
+                <div style={{ fontSize: 30, fontWeight: 600 }}>{activeCompany.name}</div>
               </TitleBox>
               <div>
                 <Title>이름</Title>
                 <InputBox
                   width={480}
                   placeholder={'ex)아침 8시에 러닝 뛰기'}
-                  value={todoName}
+                  value={title}
                   onChange={e => {
-                    setTodoName(e.target.value)
+                    setTitle(e.target.value);
                   }}
                 />
               </div>
@@ -130,29 +128,20 @@ function CreateTodoModal({ data }) {
                 <InputBox
                   width={480}
                   placeholder={'(생략가능)'}
-                  value={todoInfo}
+                  value={description}
                   onChange={e => {
-                    setTodoInfo(e.target.value)
+                    setDescription(e.target.value);
                   }}
                 />
               </div>
               <div style={{ width: '100%' }}>
                 <Title>난이도</Title>
-                <OptionButton
-                  OptionList={levelArr}
-                  currentState={todoLevel}
-                  SetState={setTodoLevel}
-                />
+                <OptionButton OptionList={levelArr} currentState={level} SetState={setLevel} />
                 <Tip defaultTip={defaultLevelTip} changeTip={false}></Tip>
               </div>
               <div style={{ width: '100%' }}>
                 <Title>요일</Title>
-                <OptionButton
-                  OptionList={dayArr}
-                  currentState={todoDay}
-                  SetState={setTodoDay}
-                  multiple={true}
-                />
+                <OptionButton OptionList={dayArr} currentState={days} SetState={setDays} multiple={true} />
               </div>
               <div>
                 <Title>마감날짜</Title>
@@ -167,22 +156,25 @@ function CreateTodoModal({ data }) {
 
             <Button
               width={'100%'}
-              onClick={e => {
+              onClick={async () => {
                 const newTodo = {
-                  name: todoName,
-                  checked: false,
-                  level: todoLevel,
-                  day: todoLevel,
-                  deadLine: deadLine,
-                }
+                  userId: 1,
+                  companyId: 1,
+                  title: title,
+                  description: description,
+                  level: level,
+                  startDate: '2024-03-27',
+                  endDate: '2024-03-30',
+                  days: days,
+                };
+                await API.post('/todo', newTodo);
                 //[todo] 기존 데이터 구조 바꾸기
-                console.log(todoLevel)
-                setModalOpen(false)
-                setDeadLine(null)
-                setTodoDay([])
-                setTodoInfo('')
-                setTodoName('')
-                setTodoLevel(null)
+                setModalOpen(false);
+                setDeadLine(null);
+                setDays([]);
+                setDescription('');
+                setTitle('');
+                setLevel(null);
               }}
             >
               할 일 추가하기
@@ -191,7 +183,7 @@ function CreateTodoModal({ data }) {
         </ModalContainer>
       )}
     </div>
-  )
+  );
 }
 
-export default CreateTodoModal
+export default CreateTodoModal;

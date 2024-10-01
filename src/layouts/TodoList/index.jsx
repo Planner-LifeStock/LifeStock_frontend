@@ -1,13 +1,13 @@
-import styled from 'styled-components'
-import Button from '../../components/Button'
-import CheckBox from '../../components/CheckBox'
-import CreateTodoModal from '../../components/CreatTodoModal'
+import styled from 'styled-components';
+import Button from '../../components/Button';
+import CheckBox from '../../components/CheckBox';
+import CreateTodoModal from '../../components/CreatTodoModal';
 
 const ContainerWrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-`
+`;
 
 const Container = styled.div`
   width: 328px;
@@ -16,9 +16,10 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: space-between;
   flex-grow: 1;
-`
+`;
 
-function TodoList({ data, updateTodo }) {
+function TodoList({ activeCompany, updateTodo }) {
+  console.log(activeCompany);
   return (
     <ContainerWrapper>
       <Container>
@@ -27,7 +28,7 @@ function TodoList({ data, updateTodo }) {
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <h2>8월 5일</h2>
           </div>
-          {data.todo.map(({ checked, name, level, type }, index) => {
+          {/* {data.todo.map(({ checked, name, level, type }, index) => {
             return (
               <CheckBox
                 key={index}
@@ -40,12 +41,12 @@ function TodoList({ data, updateTodo }) {
                 }}
               />
             )
-          })}
+          })} */}
         </div>
-        <CreateTodoModal data={data} />
+        <CreateTodoModal activeCompany={activeCompany} />
       </Container>
     </ContainerWrapper>
-  )
+  );
 }
 
-export default TodoList
+export default TodoList;
