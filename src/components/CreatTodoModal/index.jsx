@@ -70,7 +70,7 @@ const StyledDatePicker = styled(DatePicker)`
   border: 0px;
 `;
 
-function CreateTodoModal({ activeCompany }) {
+function CreateTodoModal({ activeCompany, handleAddNewTodo }) {
   const [modalOpen, setModalOpen] = useState(false); //모달 useState
   const modalBackgorund = useRef();
 
@@ -195,7 +195,8 @@ function CreateTodoModal({ activeCompany }) {
                     endDate: formatDate(endDate),
                   };
                   console.log(newTodo);
-                  await API.post('/todo', newTodo);
+                  const result = await API.post('/todo', newTodo);
+                  handleAddNewTodo(result.data);
                   // 성공하면 모달 닫기 및 상태 초기화
                   setModalOpen(false);
                   setStartDate(null);
