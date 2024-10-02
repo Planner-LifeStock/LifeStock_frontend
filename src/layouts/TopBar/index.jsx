@@ -21,7 +21,7 @@ function TopBar() {
     return (
         <nav style={{
             backgroundColor: "#3182F6",
-            padding: "1vw",
+            padding: "0.5vw",
             textAlign: "start",
             width: "100vw",
             maxWidth: "1800px",

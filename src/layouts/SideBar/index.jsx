@@ -58,7 +58,7 @@ function SideBar({ activeCompany, setActiveCompany, companyList }) {
         <Container>
           <div>
             <div style={{ borderBottom: 'solid 1px', marginBottom: 30 }}>
-              <Title>{userData ? userData.username + '님의 종목' : 'Loading'}</Title>
+              <Title>{userData.username + '님의 종목'}</Title>
               <div
                 style={{
                   display: 'flex',
