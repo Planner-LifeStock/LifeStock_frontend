@@ -16,7 +16,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/rank" element={<RankPage />} />
         <Route path="/myasset" element={<MyAssetPage />} />
-        {/* <Route path="/salesrecords" element={<SalesRecordsPage />} /> */}
+        <Route path="/salesrecords" element={<SalesRecordsPage />} />
       </Routes>
     </BrowserRouter>
   );

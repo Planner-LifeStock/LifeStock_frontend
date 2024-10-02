@@ -4,6 +4,7 @@ import { ModalContainer, ModalContent } from '../CreateCompanyModal/style';
 import { light_bulb } from '../../assets';
 import { useCompanyData } from '../../hooks/useCompanyData';
 import { API } from '../../api/axios';
+import { setDeletedRecord } from '../../api/deleteapi';
 
 const Container = styled.div`
   display: flex;
@@ -33,6 +34,7 @@ const SellButton = styled.button`
 const SellCompany = ({ item }) => {
   const { companyList, activeCompany } = useCompanyData();
   const [popupOpen, setPopupOpen] = useState(false);
+  const [deletedRecord, setDeletedRecord] = useState(null);
 
   const sellData = { item };
 
@@ -88,6 +90,7 @@ const SellCompany = ({ item }) => {
                   <SellButton
                     style={{ height: '50px', width: '150px', marginLeft: '0px' }}
                     onClick={() => {
+                      setDeletedRecord(item);
                       API.delete(`/company/${item.id}`, { data: { sellData } })
                         .then(() => {
                           window.location.reload();
