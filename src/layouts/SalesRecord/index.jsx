@@ -17,7 +17,7 @@ const ItemsInfo = styled.div`
   font-weight: bold;
 `
 
-const SalesInfo = () => {
+function SalesRecord() {
 
     const levelMap = { 상: 'HIGH', 중: 'MEDIUM', 하: 'LOW' };
 
@@ -43,4 +43,4 @@ const SalesInfo = () => {
     )
 }
 
-export default SalesInfo
+export default SalesRecord

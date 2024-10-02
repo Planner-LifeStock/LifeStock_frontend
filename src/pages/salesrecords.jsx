@@ -5,7 +5,7 @@ import { useUser } from '../hooks/useUser';
 import { useCompanyData } from '../hooks/useCompanyData';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import SalesInfo from '../layouts/\bSalesInfo';
+import SalesRecord from '../layouts/SalesRecord'
 
 const Contianer = styled.div`
   display: flex;
@@ -62,7 +62,7 @@ const SalesRecordsPage = () => {
               총 손익 : <span style={{color: "blue", fontWeight: "bold", fontSize: "40px"}}>-275,000(-13.5%)</span>
             </FontBox>
           </div>
-          <SalesInfo/>
+          <SalesRecord/>
         </Contianer>
       </>
     )
