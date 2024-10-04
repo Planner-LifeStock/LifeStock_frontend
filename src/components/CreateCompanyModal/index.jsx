@@ -40,7 +40,13 @@ const CreateCompany = ({ companyData, setCompanyData }) => {
 
   return (
     <div>
-      <Button onClick={() => {setModalOpen(true)}}>회사 상장하기</Button>
+      <Button
+        onClick={() => {
+          setModalOpen(true);
+        }}
+      >
+        회사 상장하기
+      </Button>
 
       {modalOpen && (
         <ModalContainer
@@ -62,12 +68,7 @@ const CreateCompany = ({ companyData, setCompanyData }) => {
             <div style={{ display: 'flex' }}>
               <InnerContainer>
                 <Title>회사명</Title>
-                <InputBox
-                  width={470}
-                  placeholder={'ex)아침운동'}
-                  value={companyName}
-                  onChange={e => setCompanyName(e.target.value)}
-                />
+                <InputBox width={470} placeholder={'ex)아침운동'} value={companyName} onChange={e => setCompanyName(e.target.value)} />
                 <Title>회사 정보</Title>
                 <InputBox
                   width={470}
@@ -76,20 +77,11 @@ const CreateCompany = ({ companyData, setCompanyData }) => {
                   onChange={e => setCompanyInfo(e.target.value)}
                 />
                 <Title>로고 이미지 추가</Title>
-                <ImgAdd
-                  img={logoImg}
-                  setImg={setLogoImg}
-                  fileName={logoFileName}
-                  setFileName={setLogoFileName}
-                />
+                <ImgAdd img={logoImg} setImg={setLogoImg} fileName={logoFileName} setFileName={setLogoFileName} />
               </InnerContainer>
               <InnerContainer>
                 <Title>난이도</Title>
-                <OptionButton
-                  OptionList={levelArr}
-                  currentState={level}
-                  SetState={setLevel}
-                />
+                <OptionButton OptionList={levelArr} currentState={level} SetState={setLevel} />
                 <Tip
                   ButtonTexts={levelArr}
                   option={level}
@@ -98,18 +90,10 @@ const CreateCompany = ({ companyData, setCompanyData }) => {
                   changeTip={true}
                 />
                 <Title>회사 최소 운영기간</Title>
-                <OptionButton
-                  OptionList={periodArr}
-                  currentState={period}
-                  SetState={setPeriod}
-                />
+                <OptionButton OptionList={periodArr} currentState={period} SetState={setPeriod} />
                 <Tip defaultTip={'최소 운영 기간이 끝나면 회사를 매각할 수 있어요.'} />
                 <Title>투자비용</Title>
-                <OptionButton
-                  OptionList={['10%', '25%', '50%']}
-                  currentState={invest}
-                  SetState={setInvest}
-                />
+                <OptionButton OptionList={['10%', '25%', '50%']} currentState={invest} SetState={setInvest} />
                 <Tip defaultTip={'투자가능 금액의 최대 50%까지 투자할 수 있어요.'} />
               </InnerContainer>
               <InnerContainer>
@@ -140,16 +124,16 @@ const CreateCompany = ({ companyData, setCompanyData }) => {
                   logo: {
                     id: null,
                     fileName: null,
-                    originalName: "default_logo.png",
-                    mimeType: "image/png",
+                    originalName: 'default_logo.png',
+                    mimeType: 'image/png',
                     size: 2065,
                     meta: null,
-                    url: "https://s3filebucketdev.s3.ap-southeast-2.amazonaws.com/company/default_logo.png",
+                    url: 'https://s3filebucketdev.s3.ap-southeast-2.amazonaws.com/company/default_logo.png',
                   },
                   currentStockPrice: 5000,
                 };
 
-                serverAPI.post('/company?userId=1', newCompany)
+                API.post('/company?userId=1', newCompany)
                   .then(() => {
                     setCompanyData(prevCompanyData => [...prevCompanyData, newCompany]);
                     setModalOpen(false);
@@ -165,7 +149,7 @@ const CreateCompany = ({ companyData, setCompanyData }) => {
                     console.error('Error:', error.response ? error.response.data : error);
                   });
 
-                  window.location.reload()
+                window.location.reload();
               }}
             >
               회사 상장하기
