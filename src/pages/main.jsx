@@ -84,9 +84,7 @@ function MainPage() {
       <TopBar />
       <Container>
         <EventContainer>
-          {/* <div style={{ flex: 3 }}>
-            <GraphBox data={currentCompany} />
-          </div> */}
+          <div style={{ flex: 3 }}>{/* <GraphBox data={currentCompany} /> */}</div>
           <div style={{ flex: 1 }}>
             <TodoList activeCompany={activeCompany} />
           </div>
