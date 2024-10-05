@@ -37,7 +37,7 @@ const SubTitle = styled.h2`
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 1px;
 `
 
 const Label = styled.label`
@@ -122,23 +122,25 @@ const LoginBox = () => {
             <SubTitle>로그인</SubTitle>
 
             <Form onSubmit={handleLogin}>
-            <Label htmlFor="email">아이디</Label>
             <InputBox
                 type="email"
                 id="email"
                 width = {300}
+                height={40}
+                fontSize={15}
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                placeholder="lifestock@naver.com"
+                placeholder="아이디"
             />
-            <Label htmlFor="password">비밀번호</Label>
             <InputBox
                 type="password"
                 id="password"
                 width = {300}
+                height={40}
+                fontSize={15}
                 value={password}
                 onChange={e => setPassword(e.target.value)}
-                placeholder="******"
+                placeholder="비밀번호"
             />
             {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
             <Button onClick={handleLogin}>로그인</Button> 

@@ -17,7 +17,7 @@ const AssetText = styled.div`
   font-weight: 700;
 `
 
-function AssetBox({ Text = ' ', Asset, unit = '원', box }) {
+function AssetBox({Text = ' ', Asset, unit = '원', box }) {
   return (
     <Container>
       <Title>{Text}</Title>
