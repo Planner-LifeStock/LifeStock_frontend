@@ -6,6 +6,9 @@ import RankPage from './pages/rank';
 import MyAssetPage from './pages/assets';
 import SalesRecordsPage from './pages/salesrecords';
 import RegisterPage from './pages/RegisterPage';
+import GraphBox from './layouts/GraphBox';
+import CandleStick from './components/Candlestick';
+import ApexChart from './components/ApexChart';
 
 function App() {
   return (
@@ -17,6 +20,7 @@ function App() {
         <Route path="/rank" element={<RankPage />} />
         <Route path="/myasset" element={<MyAssetPage />} />
         <Route path="/salesrecords" element={<SalesRecordsPage />} />
+        <Route path="/chartExercise" element={<ApexChart />} />
       </Routes>
     </BrowserRouter>
   );
