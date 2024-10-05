@@ -4,6 +4,8 @@ import CandleStick from '../../components/Candlestick'
 import OptionButton from '../../components/OptionButton'
 import { useState } from 'react'
 import ChartCalendar from '../../components/Calendar'
+import { useUser } from '../../hooks/useUser'
+import { useCompanyData } from '../../hooks/useCompanyData'
 
 const Container = styled.div`
   padding: 20px;
@@ -24,7 +26,12 @@ const PriceBox = styled.div`
 function GraphBox({ data }) {
   const buttonArr = ['차트', '캘린더']
   const [currentOption, setCurrentOption] = useState('차트')
+  const { userData, setUserData } = useUser();
+  const { companyList, setCompanyList, activeCompany, setActiveCompany} = useCompanyData();
 
+  // if(!userData || !activeCompany || !companyList)
+  //   return <div>로딩 중...</div>
+  
   return (
     <Container>
       <TitleBox>
