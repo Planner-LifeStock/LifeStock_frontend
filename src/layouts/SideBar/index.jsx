@@ -48,55 +48,54 @@ function SideBar({ activeCompany, setActiveCompany, companyList }) {
   const { setCompanyList} = useCompanyData();
   const { userData, setUserData } = useUser();
 
-  if(!userData || !activeCompany || !companyList)
-    return <div>로딩 중...</div>
+  // if(!userData || !activeCompany || !companyList)
+  //   return <div>로딩 중...</div>
 
   return (
     <>
-    {userData && activeCompany && companyList && (
       <AppWrapper>
         <Container>
           <div>
             <div style={{ borderBottom: 'solid 1px', marginBottom: 30 }}>
-              <Title>{userData.username + '님의 종목'}</Title>
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'end',
-                  marginBottom: 24,
-                }}>
-                <TotalSum/>
-                {/* [todo] 총합 : 함수 만들기  */}
-                {/* 현재가 합 - 매수가 합 계산 */}
-                <UpDownText
-                standard={SumList({ data: companyList, type: 'currentStockPrice' })}
-                comparision={SumList({ data: companyList, type: 'initialStockPrice'})}/>
-              </div>
+              {userData && activeCompany && companyList && companyList.length > 0 && (
+                <>
+                  <Title>{userData.username + '님의 종목'}</Title>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'end',
+                      marginBottom: 24,
+                    }}>
+                    <TotalSum />
+                    <UpDownText
+                      standard={SumList({ data: companyList, type: 'currentStockPrice' })}
+                      comparision={SumList({ data: companyList, type: 'initialStockPrice' })} />
+                  </div>
+                  <div>
+                    {companyList.map((item) => (
+                      <CompanyList
+                        key={item.id}
+                        name={item.name}
+                        logo={item.logo.url}
+                        buyPrice={item.initialStockPrice}
+                        currentPrice={item.currentStockPrice}
+                        onClick={() => setActiveCompany(item)}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
-            <div>
-            {companyList.map((item) => {
-              return (
-                <CompanyList
-                  key={item.id}
-                  name={item.name}
-                  logo={item.logo.url}
-                  buyPrice={item.initialStockPrice}
-                  currentPrice={item.currentStockPrice}
-                  onClick={() => setActiveCompany(item)}
-                />
-              );
-            })}
-            </div>
+            <CreateCompany companyData={companyList} setCompanyData={setCompanyList}>
+              회사 상장하기
+            </CreateCompany>
           </div>
-          <CreateCompany companyData={companyList} setCompanyData={setCompanyList}>
-          회사 상장하기
-          </CreateCompany>
         </Container>
       </AppWrapper>
-    )}
     </>
   );
+  
 }
 
 export default SideBar;
