@@ -23,7 +23,6 @@ const EventContainer = styled.div`
   display: flex;
   height: 100%;
   background-color: #fffbfd;
-  flex: 3 1 0;
 `;
 
 // const companyFirstData = [
@@ -84,7 +83,9 @@ function MainPage() {
       <TopBar />
       <Container>
         <EventContainer>
-          <div style={{ flex: 3 }}>{/* <GraphBox data={currentCompany} /> */}</div>
+          <div style={{ flex: 3 }}>
+            <GraphBox activeCompany={activeCompany} />
+          </div>
           <div style={{ flex: 1 }}>
             <TodoList activeCompany={activeCompany} />
           </div>

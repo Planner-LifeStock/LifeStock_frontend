@@ -20,7 +20,6 @@ function App() {
         <Route path="/rank" element={<RankPage />} />
         <Route path="/myasset" element={<MyAssetPage />} />
         <Route path="/salesrecords" element={<SalesRecordsPage />} />
-        <Route path="/chartExercise" element={<ApexChart />} />
       </Routes>
     </BrowserRouter>
   );
