@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
 import styled from 'styled-components';
 import { useChartData } from '../../hooks/useChart';
 import Button from '../Button';
+import { API } from '../../api/axios';
 
 const ChartWrapper = styled.div`
   display: flex;
@@ -92,15 +93,22 @@ const options = {
   },
 };
 
-const CandlestickChart = () => {
+const ApexChart = () => {
   const { chartData } = useChartData();
 
-  // chartArr[0].data에 차트 데이터를 삽입해야 합니다.
+  // chartData를 상태에 저장
+  const [storedChartData, setStoredChartData] = useState(null);
+
+  useEffect(() => {
+    if (chartData) {
+      setStoredChartData(chartData); // chartData가 업데이트될 때 상태로 저장
+    }
+  }, [chartData]); // chartData가 변경될 때마다 저장
+
   const chartArr = [{ data: [] }];
 
-  chartData &&
-    chartData.chartList.map((chart, index) => {
-      // 날짜 형식을 적절하게 변환
+  storedChartData &&
+    storedChartData.chartList.map(chart => {
       const date = new Date(chart.date).getTime(); // 타임스탬프 형식으로 변환
       chartArr[0].data.push({
         x: date,
@@ -108,28 +116,46 @@ const CandlestickChart = () => {
       });
     });
 
+  console.log(storedChartData);
   console.log(chartArr);
 
   return (
     <ChartWrapper>
       <Chart options={options} series={chartArr} type="candlestick" height="100%" width={1000} />
-      <Button
-        width={'100%'}
+      {/* <Button
         onClick={async () => {
           try {
-            const newTodo = {};
-            console.log(newTodo);
-            const result = await API.post('/todo', newTodo);
+            // 새로운 데이터를 정의합니다.
+            const date = new Date('2024-10-01'); // 원하는 날짜와 시간을 지정
+            // const formattedDate = date.toISOString().split('.')[0]; // T포함 형식으로 변환 (초까지)
+            // console.log(formattedDate);
+            const newChart = {
+              companyId: 1, // 예시로 1번 회사로 설정
+              userId: 1, // 실제 userId로 설정하세요
+              todoId: null, // todoId는 null로 설정 가능
+              open: 5100,
+              high: 5200,
+              low: 5050,
+              close: 5150,
+              date: date,
+              // date: new Date().toISOString().split('.')[0], // YYYY-MM-DDTHH:MM:SS 형식
+            };
+
+            console.log('전송할 데이터:', newChart);
+
+            // POST 요청을 보냅니다.
+            const result = await API.post('/company/1/charts', newChart);
+            console.log('데이터 전송 성공:', result.data);
           } catch (error) {
-            console.error('할 일 추가 중 오류 발생:', error);
-            alert('할 일 추가 중 문제가 발생했습니다.');
+            console.log('할 일 추가 중 오류 발생 :', error);
+            alert('post 중 문제가 발생하였습니다.');
           }
         }}
       >
-        지구멸망버튼
-      </Button>
+        post
+      </Button> */}
     </ChartWrapper>
   );
 };
 
-export default CandlestickChart;
+export default ApexChart;
