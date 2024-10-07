@@ -13,12 +13,18 @@ export const useRegister = () => {
     setSuccessMessage('');  // 성공 메시지 초기화
 
     try {
-      const response = await registerUser(userData);  // API 호출
-      setSuccessMessage('회원가입 성공!');  // 성공 시 메시지 설정
+      const response = await registerUser(userData);
+      setSuccessMessage('회원가입 성공!');
     } catch (error) {
-      setErrorMessage('회원가입 실패: ' + error.response?.data?.message || '오류가 발생했습니다.');  // 오류 처리
+      // 특정 오류 메시지에 따라 사용자에게 표시할 메시지를 분기
+      if (error.response?.status === 500) {  // 409 Conflict는 일반적으로 중복 데이터 충돌을 의미
+        setErrorMessage('동일한 이메일 또는 아이디로 이미 가입하였습니다.');
+      } else {
+        // API에서 제공하는 기본 메시지 사용, 없을 경우 일반 오류 메시지 표시
+        setErrorMessage(error.response?.data?.message || '오류가 발생했습니다.');
+      }
     } finally {
-      setIsLoading(false);  // 로딩 상태 종료
+      setIsLoading(false);
     }
   };
 

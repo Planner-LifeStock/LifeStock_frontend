@@ -91,8 +91,12 @@ const RegisterBox = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    setFormError(null);
+
+    // 폼 검증 로직을 실행하여 새로운 오류 확인
     const error = validateForm();
     if (error) {
+      // 새로운 오류가 있으면 오류 메시지를 업데이트
       setFormError(error);
       return;
     }
