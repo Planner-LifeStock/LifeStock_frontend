@@ -122,11 +122,12 @@ const ApexChart = () => {
   return (
     <ChartWrapper>
       <Chart options={options} series={chartArr} type="candlestick" height="100%" width={1000} />
-      {/* <Button
+      <Button
         onClick={async () => {
           try {
             // 새로운 데이터를 정의합니다.
-            const date = new Date('2024-10-01'); // 원하는 날짜와 시간을 지정
+            const date = new Date(); // 원하는 날짜와 시간을 지정
+            console.log(date);
             // const formattedDate = date.toISOString().split('.')[0]; // T포함 형식으로 변환 (초까지)
             // console.log(formattedDate);
             const newChart = {
@@ -153,7 +154,7 @@ const ApexChart = () => {
         }}
       >
         post
-      </Button> */}
+      </Button>
     </ChartWrapper>
   );
 };
