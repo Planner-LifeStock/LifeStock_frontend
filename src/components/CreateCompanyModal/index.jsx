@@ -38,6 +38,11 @@ const CreateCompany = ({ companyData, setCompanyData }) => {
     '한달(30일)': 'ONE_MONTH',
   };
 
+  if(!activeCompany || !companyData || !setCompanyData)
+  {
+    return <div>로딩중</div>
+  }
+
   return (
     <div>
       <Button
