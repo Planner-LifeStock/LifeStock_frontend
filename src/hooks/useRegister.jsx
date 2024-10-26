@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { registerUser } from '../api/registration';  // API 호출 함수 가져오기
+import { registerUser } from '../api/user';
 
 export const useRegister = () => {
   const [isLoading, setIsLoading] = useState(false); // 로딩 상태
