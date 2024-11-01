@@ -12,12 +12,19 @@ const ButtonContainer = styled.button`
   align-items: center;
   justify-content: center;
 
-  width: ${({ width }) => `${width}px`};
-  height: ${({ height }) => `${height}px`};
+  width: ${({ width }) => (typeof width === 'number' ? `${width}px` : width)};
+  height: ${({ height }) => (typeof height === 'number' ? `${height}px` : height)};
 
-  /* &:hover {
-    background-color: ${({ hoverBackground }) => hoverBackground};
-  } */
+  transition: all 0.3s ease;
+  
+  &:focus {
+    border: none;
+    outline: none;
+  }
+  
+  &:hover {
+    opacity: 0.5;
+  }
 `
 
 function Button({

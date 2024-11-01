@@ -20,14 +20,14 @@ const Font = styled.span`
 `
 
 const NavContainer = styled.nav`
-    padding: 0.5vw;
+    padding: 0.5vw 0;
     margin: 0 auto;
     width: 100vw;
 
     background-color: ${(props) => props.theme.colors.blue.primary};
 `
 
-function TopBar() {
+function Header() {
     const location = useLocation();
 
     return (
@@ -51,4 +51,4 @@ function TopBar() {
     );
 }
 
-export default TopBar;
+export default Header;

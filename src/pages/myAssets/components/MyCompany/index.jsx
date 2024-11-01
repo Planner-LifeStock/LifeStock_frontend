@@ -36,11 +36,11 @@ const CompanyBox = styled.div`
 
   display: flex;
   align-items: center;
-
+  justify-content: space-between; /* 왼쪽 요소와 오른쪽 버튼 사이 공간 확보 */
   background-color: ${(props) => props.theme.colors.grey.border};
   border-radius: ${(props) => props.theme.border.radius.small};
   box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
-`
+`;
 
 function MyCompany() {
   const { userData, setUserData } = useUser();
@@ -60,7 +60,7 @@ function MyCompany() {
             padding: "10px",
             overflowY: "auto",
             backgroundColor: "#D3D3D3",
-            maxHeight: "400px",
+            height: "510px",
           }}
         >
           {companyList.map((item) => (

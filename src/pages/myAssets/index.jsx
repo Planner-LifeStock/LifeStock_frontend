@@ -6,7 +6,6 @@ import MyCompany from "./components/MyCompany";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-
   padding: 50px;
 `
 const MyAssetPage = () => {

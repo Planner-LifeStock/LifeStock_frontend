@@ -77,7 +77,8 @@ const AssetInfo = () => {
           <CheckSellButton
           style = {{color: "#FFFFFF",
                     fontSize: "14px",
-                    fontWeight: "bold",}}
+                    fontWeight: "bold",
+                    marginTop: "19px"}}
           onClick={() => navigate('/salesrecords')}>
               스톡옵션 매매 기록</CheckSellButton>
         </Container>

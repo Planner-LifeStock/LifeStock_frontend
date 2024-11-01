@@ -5,11 +5,14 @@ export const login = async (loginData) => {
     const response = await API.post('/auth/login', loginData);
     const { accessToken } = response.data;
 
-    axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+    localStorage.setItem("accessToken", accessToken);
+    const token = localStorage.getItem("accessToken");
+
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     
     await axios.get('/auth/validate', {
       headers: {
-        Authorization: `Bearer ${accessToken}`
+        Authorization: `Bearer ${token}`
       }
     });
     
