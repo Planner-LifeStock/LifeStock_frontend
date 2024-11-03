@@ -41,9 +41,8 @@ const GrayText = styled.div`
 `
 
 function SideBar() {
-  const { userData, setUserData } = useUser();
+  const { userData, setUserData, totalAssets, setTotalAssets } = useUser();
   const { companyList, setComapnyList, activeCompany, setActiveCompany} = useCompanyData();
-
   // if(!userData || !activeCompany || !companyList)
   //   return <div>로딩 중...</div>
 
@@ -63,6 +62,7 @@ function SideBar() {
                       alignItems: 'end',
                       marginBottom: 24,
                     }}>
+                    {/* 총 {totalAssets.toLocaleString()}원 */}
                     <TotalSum />
                     <UpDownText
                       standard={SumList({ data: companyList, type: 'currentStockPrice' })}

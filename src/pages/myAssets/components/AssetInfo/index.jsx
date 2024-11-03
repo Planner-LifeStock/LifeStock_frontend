@@ -98,7 +98,7 @@ const AssetInfo = () => {
 
           <Container style={{justifyContent: "end"}}>
             <PriceBox style={{minWidth: "200px", marginRight: "30px"}}>
-              <PriceFont>창업 비용</PriceFont>
+              <PriceFont>투자 비용</PriceFont>
               <Container style={{justifyContent: "space-between"}}>
                 <PriceFont style={{color: "black"}}>3,550,000원</PriceFont>
               </Container>

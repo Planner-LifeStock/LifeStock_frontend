@@ -5,7 +5,6 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../../../../components/Button";
 import InputBox from "../../../../components/InputBox";
 
-import { API } from "../../../../api/axios";
 import { useAuth } from "../../../../hooks/useAuth";
 
 import { checkTokenValidate } from "../../../../api/auth";

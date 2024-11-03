@@ -6,12 +6,18 @@ import Button from "../../../../components/Button";
 import InputBox from "../../../../components/InputBox";
 
 const RegisterEdge = styled.div`
-  width: 400px;
+  width: 100%;
+  height: 90vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
   padding: 40px;
   background-color: white;
   border-radius: ${(props) => props.theme.border.radius.small};
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  text-align: center;
 `;
 
 const Title = styled.h3`

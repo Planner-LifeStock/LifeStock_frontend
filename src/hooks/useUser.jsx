@@ -5,12 +5,15 @@ const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
+  const [totalAssets, setTotalAssets] = useState(null);
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const result = await API.get('/user');
+        // const response = await API.get('/user/asset');
         setUserData(result.data)
+        // setTotalAssets(response.data)
       } catch (error) {
         console.log(error)
       }
@@ -19,7 +22,7 @@ export const UserProvider = ({ children }) => {
   }, [])
 
   return (
-    <UserContext.Provider value={{ userData, setUserData }}>
+    <UserContext.Provider value={{ userData, setUserData, totalAssets, setTotalAssets }}>
       {children}
     </UserContext.Provider>
   )
