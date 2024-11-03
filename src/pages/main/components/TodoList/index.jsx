@@ -71,6 +71,10 @@ function TodoList() {
     const updatedTodoList = [...todoList];
     const todo = updatedTodoList[index];
 
+    if (todo.completed) {
+      return;
+    }
+    
     const updatedCompleted = !todo.completed;
     todo.completed = updatedCompleted;
 
