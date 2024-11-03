@@ -57,7 +57,7 @@ function TodoList() {
     if (userData && activeCompany) {
       const fetchTodoList = async () => {
         try {
-          const result = await API.get(`/todo?userId=${userData.id}&companyId=${activeCompany.id}&date=2024-11-29`);
+          const result = await API.get(`/todo?companyId=${activeCompany.id}&date=2024-11-03`);
           setTodoList(result.data);
         } catch (error) {
           console.log(error);

@@ -12,8 +12,7 @@ export const CompanyProvider = ({ children }) => {
       try {
         const result = await API.get('/company', {
           params: {
-            status: 'LISTED',
-            id: 1,
+            status: 'UNLISTED',
           }})
         setCompanyList(result.data)
         setActiveCompany(result.data[0])
@@ -24,6 +23,7 @@ export const CompanyProvider = ({ children }) => {
       }
     }
     fetchCompanyData()
+    console.log(companyList)
   }, [])
 
   return (

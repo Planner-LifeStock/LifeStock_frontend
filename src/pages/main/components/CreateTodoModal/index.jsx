@@ -220,7 +220,7 @@ function CreateTodoModal( {handleAddNewTodo} ) {
                       endDate: formatDate(endDate),
                     };
                     
-                    const result = await API.post('/todo', newTodo);
+                    const result = await API.post(`/todo?companyId=${activeCompany.id}&date=2024-11-03`, newTodo);
                     handleAddNewTodo(result.data);
                     // 성공하면 모달 닫기 및 상태 초기화
                     setModalOpen(false);
