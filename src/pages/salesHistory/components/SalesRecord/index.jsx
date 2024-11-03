@@ -23,10 +23,10 @@ const Header = styled.div`
 `
 
 function SalesRecord() {
-  const levelMap = { 상: 'HIGH', 중: 'MEDIUM', 하: 'LOW' };
+  const levelMap = { 'HIGH' : '상', 'MEDIUM' : '중', 'LOW' : '하' };
 
   const { userData } = useUser();
-  const { companyList } = useCompanyData();
+  const { soldCompany } = useCompanyData();
 
   const DeletedComapnies = [
     {
@@ -172,21 +172,21 @@ function SalesRecord() {
         <Header>회사매각손익</Header>
       </Container>
       <Container>
-        {DeletedComapnies.map((data) => (
-            <React.Fragment key={data.id}>
-              <Header style={{color: "black"}}>{data.name}</Header>
-              <Header style={{color: "black"}}>{data.description}</Header>
-              <Header style={{color: "black"}}>{data.listedDate || '정보 없음'}</Header>
-              <Header style={{color: "black"}}>{data.saleDate || '정보 없음'}</Header>
-              <Header style={{color: "black"}}>{data.initialStockPrice}</Header>
-              <Header style={{color: "black"}}>{data.initialStockQuantity || 0}</Header>
-              <Header style={{color: "black"}}>{levelMap[data.level] || 0}</Header>
-              <Header style={{color: "black"}}>{data.listingCost || '정보 없음'}</Header>
-              <Header style={{color: "black"}}>{data.salePrice || '정보 없음'}</Header>
-              <Header style={{color: "black"}}>{data.profitLoss || '정보 없음'}</Header>
-            </React.Fragment>
-        ))}
-      </Container>
+      {(soldCompany || []).map((data) => (
+        <React.Fragment key={data.id}>
+          <Header style={{ color: "black" }}>{data.name}</Header>
+          <Header style={{ color: "black" }}>{data.description || '정보 없음'}</Header>
+          <Header style={{ color: "black" }}>{data.listedDate || '정보 없음'}</Header>
+          <Header style={{ color: "black" }}>{data.saleDate || '정보 없음'}</Header>
+          <Header style={{ color: "black" }}>{data.initialStockPrice}</Header>
+          <Header style={{ color: "black" }}>{data.initialStockQuantity || 0}</Header>
+          <Header style={{ color: "black" }}>{levelMap[data.level] || 0}</Header>
+          <Header style={{ color: "black" }}>{data.listingCost || '정보 없음'}</Header>
+          <Header style={{ color: "black" }}>{data.salePrice || '정보 없음'}</Header>
+          <Header style={{ color: "black" }}>{data.profitLoss || '정보 없음'}</Header>
+        </React.Fragment>
+      ))}
+    </Container>
     </div>
   )
 }
