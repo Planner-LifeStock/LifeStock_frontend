@@ -42,7 +42,6 @@ function GraphBox() {
   const { companyList, setComapnyList, activeCompany, setActiveCompany} = useCompanyData();
 
   if(!activeCompany) {
-    console.log(activeCompany)
     return (
       <div>로딩중...</div>
     )

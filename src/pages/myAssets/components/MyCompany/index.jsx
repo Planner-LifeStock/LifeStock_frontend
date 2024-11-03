@@ -29,7 +29,7 @@ const Font = styled.div`
 `
 
 const CompanyBox = styled.div`
-  margin-top: ${(props) => (props.isFirst ? '0px' : '10px')};
+  margin-top: ${(props) => (props.$isFirst ? '0px' : '10px')};
   padding: 20px;
   width: 100%;
   box-sizing: border-box;
@@ -70,7 +70,7 @@ function MyCompany() {
           }}
         >
           {companyList.map((item, index) => (
-            <CompanyBox key={item.id} isFirst={index === 0}>
+            <CompanyBox key={item.id} $isFirst={index === 0}>
               <img
                 src={item.logo.url}
                 style={{ height: "12vh", borderRadius: "50%", marginLeft: "20px" }}

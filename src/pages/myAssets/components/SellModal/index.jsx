@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 import { light_bulb } from '../../../../assets';
 import { useCompanyData } from '../../../../hooks/useCompanyData';
-import { deleteCompany } from '../../../../api/company';
 
 
 const ModalContainer = styled.div`
