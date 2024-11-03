@@ -8,6 +8,8 @@ import InputBox from "../../../../components/InputBox";
 import { API } from "../../../../api/axios";
 import { useAuth } from "../../../../hooks/useAuth";
 
+import { checkTokenValidate } from "../../../../api/auth";
+
 const LoginEdge = styled.div`
   display: flex;
   flex-direction: column;
@@ -84,29 +86,18 @@ const LoginBox = () => {
 
     try {
       const isLoginSuccessful = await login(data);
-      if (isLoginSuccessful) {
+      const isTokenValidate = await checkTokenValidate();
+      if (isLoginSuccessful && isTokenValidate) {
         navigate('/');
+        window.location.reload();
       } else {
-        setErrorMessage('로그인에 실패했습니다.');
+        setErrorMessage('로그인 실패');
       }
     } catch (error) {
       console.error(error);
       setErrorMessage(error.response?.data || '로그인 실패');
     }
   };
-
-  // 수정 필요
-  useEffect(() => {
-    if (accessToken) {
-      (async () => {
-        try {
-          await API.get('/auth/validate');
-        } catch (error) {
-          console.error('유효성 검사 실패', error);
-        }
-      })();
-    }
-  }, [accessToken]);
 
   return (
     <LoginEdge>
