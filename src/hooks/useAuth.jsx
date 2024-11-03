@@ -14,8 +14,10 @@ export const AuthProvider = ({ children }) => {
       setAccessToken(token);
       localStorage.setItem("accessToken", token);
       console.log(token);
+      return true;
     } catch (error) {
       console.log(error)
+      return false;
     }
   }
 

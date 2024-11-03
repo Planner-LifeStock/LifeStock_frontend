@@ -83,8 +83,8 @@ const LoginBox = () => {
     };
 
     try {
-      await login(data);
-      if (accessToken) {
+      const isLoginSuccessful = await login(data);
+      if (isLoginSuccessful) {
         navigate('/');
       } else {
         setErrorMessage('로그인에 실패했습니다.');
