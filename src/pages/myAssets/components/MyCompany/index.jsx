@@ -29,18 +29,18 @@ const Font = styled.div`
 `
 
 const CompanyBox = styled.div`
-  margin-top: 10px;
+  margin-top: ${(props) => (props.isFirst ? '0px' : '10px')};
   padding: 20px;
   width: 100%;
   box-sizing: border-box;
 
   display: flex;
   align-items: center;
-  justify-content: space-between; /* 왼쪽 요소와 오른쪽 버튼 사이 공간 확보 */
+  justify-content: space-between;
   background-color: ${(props) => props.theme.colors.grey.border};
   border-radius: ${(props) => props.theme.border.radius.small};
   box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
-`;
+`
 
 function MyCompany() {
   const { userData, setUserData } = useUser();
@@ -49,22 +49,28 @@ function MyCompany() {
   if (!companyList) {
     return <div>로딩중...</div>;
   }
+  console.log(companyList)
 
   return (
     <>
       <>
         <Font style={{ marginRight: "auto", marginTop: "50px" }}>보유 회사</Font>
+        <Container style={{
+          borderRadius: "12px",
+          padding: "0 0 10px 0",
+          backgroundColor: "#D3D3D3",
+        }}>
         <Container
           style={{
             borderRadius: "12px",
             padding: "10px",
             overflowY: "auto",
             backgroundColor: "#D3D3D3",
-            height: "510px",
+            height: "490px",
           }}
         >
-          {companyList.map((item) => (
-            <CompanyBox key={item.id}>
+          {companyList.map((item, index) => (
+            <CompanyBox key={item.id} isFirst={index === 0}>
               <img
                 src={item.logo.url}
                 style={{ height: "12vh", borderRadius: "50%", marginLeft: "20px" }}
@@ -97,7 +103,7 @@ function MyCompany() {
                   </MinContainer>
                   <MinContainer style={{ flexDirection: 'column', marginTop: '10px' }}>
                     <FontContainer>
-                      창업비용:&nbsp;<span style={{ color: '#5A5A5A' }}>2,000,000원</span>
+                      투자비용:&nbsp;<span style={{ color: '#5A5A5A' }}>2,000,000원</span>
                     </FontContainer>
                     <FontContainer style={{ marginTop: '10px' }}>
                       회사가치:&nbsp;<span style={{ color: '#5A5A5A' }}>1,750,000원</span>
@@ -108,6 +114,7 @@ function MyCompany() {
               <SellCompany item={ item }/>
             </CompanyBox>
           ))}
+        </Container>
         </Container>
       </>
     </>

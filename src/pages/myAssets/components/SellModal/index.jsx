@@ -100,7 +100,7 @@ const SellCompany = ({ item }) => {
           <ModalContainer>
             <ModalContent style={{ minWidth: '700px', maxHeight: '450px', padding: '10px' }}>
               <div style={{ fontSize: '35px', marginTop: '20px' }}>
-                회사 <span style={{ fontWeight: 'bold' }}>'{item.name}'</span>을 매각하시겠습니까?
+                회사 <span style={{ fontSize: '35px', fontWeight: 'bold' }}>'{item.name}'</span>을 매각하시겠습니까?
               </div>
               <h3 style={{ marginTop: '80px' }}>
                 <img
