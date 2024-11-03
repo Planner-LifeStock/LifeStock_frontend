@@ -10,10 +10,8 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await API.post('/auth/login', credentials);
       const token = response.data.accessToken;
-    
       setAccessToken(token);
       localStorage.setItem("accessToken", token);
-      console.log(token);
       return true;
     } catch (error) {
       console.log(error)
