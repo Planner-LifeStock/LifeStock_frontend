@@ -68,7 +68,7 @@ function SideBar() {
                       standard={SumList({ data: companyList, type: 'currentStockPrice' })}
                       comparision={SumList({ data: companyList, type: 'initialStockPrice' })} />
                   </div>
-                  <div>
+                  <div style={{minHeight: "760px", maxHeight: "760px", overflowY: "scroll"}}>
                     {companyList.map((item) => (
                       <CompanyList
                         key={item.id}

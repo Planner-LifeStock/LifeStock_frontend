@@ -37,7 +37,7 @@ function MainPage() {
             <div style={{ flex: 3 }}>
               <GraphBox />
             </div>
-            <div style={{ flex: 1, marginLeft: "10px" }}>
+            <div style={{ flex: 1, marginLeft: "20px" }}>
               <TodoList />
             </div>
             <div style={{ flex: 1 }}>
