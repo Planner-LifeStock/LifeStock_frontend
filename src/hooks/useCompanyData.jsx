@@ -1,4 +1,4 @@
-import React, { act, createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { API } from '../api/axios';
 
 const CompanyContext = createContext();
@@ -22,7 +22,6 @@ export const CompanyProvider = ({ children }) => {
         setSoldCompany(response.data)
         setCompanyList(result.data)
         setActiveCompany(result.data[0])
-        console.log(response.data)
       } catch (error) {
         console.log(error)
       }

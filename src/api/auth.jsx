@@ -1,9 +1,9 @@
 import { API } from "./axios";
 
-export const refreshToken = async (loginData) => {
+export const refreshToken = async (refreshToken) => {
     try {
-      const response = await API.post('/auth/refresh', loginData);
-      return response.data;
+      const response = await API.post('/auth/refresh', refreshToken);
+      return response.data.accessToken;
     } catch (error) {
       console.error('로그인 토큰 갱신 요청 중 오류 발생:', error);
       throw error;
