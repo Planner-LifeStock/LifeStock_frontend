@@ -1,20 +1,17 @@
 import { useRef, useState } from 'react';
 import { ModalContainer, ModalContent, Title, InnerContainer } from './style';
-
 import Button from '../../../../components/Button';
 import InputBox from '../../../../components/InputBox';
 import OptionButton from '../../../../components/OptionButton';
 import Tip from '../../../../components/Tip';
 import ImgAdd from '../ImgAdd';
-
 import { useUser } from '../../../../hooks/useUser';
 import { useCompanyData } from '../../../../hooks/useCompanyData';
-import { API } from '../../../../api/axios'; // 요것도 수정 필요
+import { API } from '../../../../api/axios';
 
 const CreateCompany = () => {
   const { userData, setUserData } = useUser();
-  const { companyList, setCompanyList, activeCompany, setActiveCompany} = useCompanyData();
-
+  const { companyList, setCompanyList, activeCompany, setActiveCompany } = useCompanyData();
   const [modalOpen, setModalOpen] = useState(false);
   const modalBackground = useRef();
 
@@ -42,25 +39,60 @@ const CreateCompany = () => {
     '한달(30일)': 'ONE_MONTH',
   };
 
-  // if(!activeCompany || !companyData || !setCompanyData)
-  // {
-  //   return <div>로딩중</div>
-  // }
+  const handleCreateCompany = async () => {
+    if (!companyName || !companyInfo || !level || !period) {
+      alert('모든 필드를 입력해 주세요.');
+      return;
+    }
+
+    const newCompany = {
+      userId: 1,
+      name: companyName,
+      description: companyInfo,
+      level: levelMap[level],
+      leastOperatePeriod: periodMap[period],
+      listedDate: new Date().toISOString(),
+      investmentAmount: 1000000,
+      initialStockPrice: 5000,
+      initialStockQuantity: 100,
+      logo: {
+        id: null,
+        fileName: null,
+        originalName: 'default_logo.png',
+        mimeType: 'image/png',
+        size: 2065,
+        meta: null,
+        url: 'https://s3filebucketdev.s3.ap-southeast-2.amazonaws.com/company/default_logo.png',
+      },
+      currentStockPrice: 5000,
+    };
+
+    try {
+      const result = await API.post('/company', newCompany);
+      console.log(result);
+      setCompanyList((prevCompanyData) => [...prevCompanyData, newCompany]);
+      
+      setModalOpen(false);
+      setInvest(null);
+      setLevel(null);
+      setPeriod(null);
+      setCompanyName('');
+      setCompanyInfo('');
+      setLogoImg(null);
+      setLogoFileName('');
+    } catch (error) {
+      console.error('Error:', error.response ? error.response.data : error);
+    }
+  };
 
   return (
     <div>
-      <Button
-        onClick={() => {
-          setModalOpen(true);
-        }}
-      >
-        회사 상장하기
-      </Button>
+      <Button onClick={() => setModalOpen(true)}>회사 상장하기</Button>
 
       {modalOpen && (
         <ModalContainer
           ref={modalBackground}
-          onClick={e => {
+          onClick={(e) => {
             if (e.target === modalBackground.current) {
               setModalOpen(false);
               setInvest(null);
@@ -77,13 +109,13 @@ const CreateCompany = () => {
             <div style={{ display: 'flex' }}>
               <InnerContainer>
                 <Title>회사명</Title>
-                <InputBox width={470} placeholder={'ex)아침운동'} value={companyName} onChange={e => setCompanyName(e.target.value)} />
+                <InputBox width={470} placeholder={'ex)아침운동'} value={companyName} onChange={(e) => setCompanyName(e.target.value)} />
                 <Title>회사 정보</Title>
                 <InputBox
                   width={470}
                   placeholder={'ex)등교하기 전 간단하게 운동하기'}
                   value={companyInfo}
-                  onChange={e => setCompanyInfo(e.target.value)}
+                  onChange={(e) => setCompanyInfo(e.target.value)}
                 />
                 <Title>로고 이미지 추가</Title>
                 <ImgAdd img={logoImg} setImg={setLogoImg} fileName={logoFileName} setFileName={setLogoFileName} />
@@ -105,63 +137,8 @@ const CreateCompany = () => {
                 <OptionButton OptionList={['10%', '25%', '50%']} currentState={invest} SetState={setInvest} />
                 <Tip defaultTip={'투자가능 금액의 최대 50%까지 투자할 수 있어요.'} />
               </InnerContainer>
-              {/* <InnerContainer>
-                <AssetBox Text={'투자가능금액'} Asset={parseInt(activeCompany.investmentAmount)} />
-                <AssetBox Text={'투자비용'} Asset={parseInt(activeCompany.investmentAmount)} />
-                <AssetBox Text={'상장시 스톡옵션 1주 가격'} Asset={parseInt(activeCompany.currentStockPrice)} />
-                <AssetBox Text={'지급되는 스톡옵션'} Asset={parseInt(activeCompany.initialStockQuantity)} unit="주" />
-              </InnerContainer> */}
             </div>
-            <Button
-              width={'1470'}
-              onClick={() => {
-                if (!companyName || !companyInfo || !level || !period) {
-                  alert('모든 필드를 입력해 주세요.');
-                  return;
-                }
-
-                const newCompany = {
-                  userId: 1,
-                  name: companyName,
-                  description: companyInfo,
-                  level: levelMap[level],
-                  leastOperatePeriod: periodMap[period],
-                  listedDate: new Date().toISOString(),
-                  investmentAmount: 1000000,
-                  initialStockPrice: 5000,
-                  initialStockQuantity: null,
-                  logo: {
-                    id: null,
-                    fileName: null,
-                    originalName: 'default_logo.png',
-                    mimeType: 'image/png',
-                    size: 2065,
-                    meta: null,
-                    url: 'https://s3filebucketdev.s3.ap-southeast-2.amazonaws.com/company/default_logo.png',
-                  },
-                  currentStockPrice: 5000,
-                };
-
-                const result = API.post('/company', newCompany)
-                  .then(() => {
-                    console.log(result);
-                    setCompanyList(prevCompanyData => [...prevCompanyData, newCompany]);
-                    setModalOpen(false);
-                    setInvest(null);
-                    setLevel(null);
-                    setPeriod(null);
-                    setCompanyName('');
-                    setCompanyInfo('');
-                    setLogoImg(null);
-                    setLogoFileName('');
-                  })
-                  .catch(error => {
-                    console.error('Error:', error.response ? error.response.data : error);
-                  });
-
-                // window.location.reload();
-              }}
-            >
+            <Button width={'470'} onClick={handleCreateCompany}>
               회사 상장하기
             </Button>
           </ModalContent>
