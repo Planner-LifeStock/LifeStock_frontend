@@ -118,7 +118,7 @@ const SellCompany = ({ item }) => {
                   style={{ height: '50px', width: '150px', marginLeft: '0px' }}
                   onClick={() => {
                     setDeletedRecord(item);
-                    deleteCompany(item.id, { data: { sellData } })
+                    deleteCompany(item.id)
                       .then(() => {
                         window.location.reload();
                       })

@@ -6,6 +6,7 @@ const CompanyContext = createContext();
 export const CompanyProvider = ({ children }) => {
   const [companyList, setCompanyList] = useState(null)
   const [activeCompany, setActiveCompany] = useState(null)
+  const [soldCompany, setSoldCompany] = useState(null)
 
   useEffect(() => {
     const fetchCompanyData = async () => {
@@ -14,20 +15,23 @@ export const CompanyProvider = ({ children }) => {
           params: {
             status: 'UNLISTED',
           }})
+        const response = await API.get('/company', {
+          params: {
+            status: 'LISTED',
+          }})
+        setSoldCompany(response.data)
         setCompanyList(result.data)
         setActiveCompany(result.data[0])
-        console.log(companyList)
-        console.log(activeCompany)
+        console.log(response.data)
       } catch (error) {
         console.log(error)
       }
     }
     fetchCompanyData()
-    console.log(companyList)
   }, [])
 
   return (
-    <CompanyContext.Provider value={{ companyList, setCompanyList, activeCompany, setActiveCompany }}>
+    <CompanyContext.Provider value={{ companyList, setCompanyList, activeCompany, setActiveCompany, soldCompany, setSoldCompany }}>
       {children}
     </CompanyContext.Provider>
   )
