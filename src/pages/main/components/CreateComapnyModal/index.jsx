@@ -40,6 +40,13 @@ const CreateCompany = () => {
   };
 
   const handleCreateCompany = async () => {
+    const token = localStorage.getItem('accessToken')
+    
+    if(token) {
+      console.log(token)
+      API.defaults.headers.common['Authorization'] = `Bearer ${token}`
+    }
+
     if (!companyName || !companyInfo || !level || !period) {
       alert('모든 필드를 입력해 주세요.');
       return;
@@ -68,6 +75,7 @@ const CreateCompany = () => {
     };
 
     try {
+      console.log(localStorage.getItem('accessToken'))
       const result = await API.post('/company', newCompany);
       console.log(result);
       setCompanyList((prevCompanyData) => [...prevCompanyData, newCompany]);
