@@ -205,7 +205,7 @@ function CreateTodoModal( {handleAddNewTodo} ) {
 
                   try {
                     const newTodo = {
-                      userId: userData.id,
+                      //userId: userData.id,
                       companyId: activeCompany.id,
                       title: title,
                       description: description,
@@ -215,7 +215,8 @@ function CreateTodoModal( {handleAddNewTodo} ) {
                       endDate: formatDate(endDate),
                     };
                     
-                    const result = await API.post(`/todo?companyId=${activeCompany.id}&date=2024-11-04`, newTodo);
+                    // const result = await API.post(`/todo?companyId=${activeCompany.id}&date=2024-11-04`, newTodo);
+                    const result = await API.post(`/todo`, newTodo);
                     handleAddNewTodo(result.data);
                     setModalOpen(false);
                     setStartDate(null);
@@ -237,6 +238,6 @@ function CreateTodoModal( {handleAddNewTodo} ) {
       )}
     </div>
   );
-}
+} 
 
 export default CreateTodoModal;
