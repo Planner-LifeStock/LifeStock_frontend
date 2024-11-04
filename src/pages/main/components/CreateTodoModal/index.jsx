@@ -16,14 +16,11 @@ const ModalContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;  
-
   position: fixed;
   width: 100%;
   height: 100%;
-  
   top: 0;
   left: 0;
-  
   background-color: rgba(0, 0, 0, 0.5);
 `;
 
@@ -32,9 +29,7 @@ const ModalContent = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   background-color: #ffffff;
-
   width: 520px;
   height: 850px;
   padding: 15px;
@@ -46,11 +41,9 @@ const InnerContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   padding: 10px;
   width: 500px;
   height: 100%;
-  
   margin-bottom: 30px;
 `;
 
@@ -65,19 +58,15 @@ const TitleBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: end;  
-
- width: 90%;
-  
+  width: 90%;
   min-height: 60px;
   margin-bottom: 20px;
 `;
 
 const StyledDatePicker = styled(DatePicker)`
   font-size: ${(props) => props.theme.font.size.primary};  
-
   width: 480px;
   height: 40px;
-  
   padding: 8px;
   border-radius: ${(props) => props.theme.border.radius.small};
   background-color: #dfdfdf;
@@ -85,14 +74,11 @@ const StyledDatePicker = styled(DatePicker)`
   border: 0px;
 `;
 
-
 function CreateTodoModal( {handleAddNewTodo} ) {
-
-  //[todo] 유저 데이터 가져오기
   const { userData, setUserData } = useUser();
   const { companyList, setCompanyList, activeCompany, setActiveCompany } = useCompanyData();
 
-  const [modalOpen, setModalOpen] = useState(false); //모달 useState
+  const [modalOpen, setModalOpen] = useState(false);
   const modalBackgorund = useRef();
 
   const [title, setTitle] = useState('');
@@ -139,7 +125,7 @@ function CreateTodoModal( {handleAddNewTodo} ) {
             onClick={e => {
               if (e.target === modalBackgorund.current) {
                 setModalOpen(false);
-                setModalOpen(false);
+                setStartDate(null);
                 setEndDate(null);
                 setDays([]);
                 setDescription('');
@@ -208,6 +194,14 @@ function CreateTodoModal( {handleAddNewTodo} ) {
               <Button
                 width="100%"
                 onClick={async () => {
+                  const today = new Date();
+                  today.setHours(0, 0, 0, 0);
+
+                  if (startDate && startDate < today) {
+                    alert('시작 날짜는 오늘 이후로 선택해야 합니다.');
+                    return;
+                  }
+
                   try {
                     const newTodo = {
                       userId: userData.id,
@@ -222,7 +216,6 @@ function CreateTodoModal( {handleAddNewTodo} ) {
                     
                     const result = await API.post(`/todo?companyId=${activeCompany.id}&date=2024-11-04`, newTodo);
                     handleAddNewTodo(result.data);
-                    // 성공하면 모달 닫기 및 상태 초기화
                     setModalOpen(false);
                     setStartDate(null);
                     setEndDate(null);
