@@ -11,7 +11,7 @@ API.interceptors.request.use(
     const token = localStorage.getItem("accessToken");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
-      console.log("Authorization Header:", config.headers.Authorization); 
+      console.log(token);
     }
     return config;
   },
@@ -24,7 +24,6 @@ export const getNewAccessToken = async (accessToken) => {
     if (response === '유효한 토큰') {
       API.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
       localStorage.setItem('accessToken', accessToken)
-      console.log(accessToken)
     }
   } catch (error) {
     throw error

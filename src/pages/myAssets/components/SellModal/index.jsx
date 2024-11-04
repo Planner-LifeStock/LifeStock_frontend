@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { light_bulb } from '../../../../assets';
 import { useCompanyData } from '../../../../hooks/useCompanyData';
+import { API } from '../../../../api/axios';
 
 
 const ModalContainer = styled.div`
@@ -61,7 +62,6 @@ const SellButton = styled.button`
 const SellCompany = ({ item }) => {
   const { companyList, activeCompany } = useCompanyData();
   const [popupOpen, setPopupOpen] = useState(false);
-  const [deletedRecord, setDeletedRecord] = useState(null);
 
   const sellData = { item };
 
@@ -113,19 +113,20 @@ const SellCompany = ({ item }) => {
                 매각 후에도 '운영기록'란에서 기록을 확인할 수 있어요.
               </h3>
               <Container>
-                <SellButton
-                  style={{ height: '50px', width: '150px', marginLeft: '0px' }}
-                  onClick={() => {
-                    setDeletedRecord(item);
-                    deleteCompany(item.id)
-                      .then(() => {
-                        window.location.reload();
-                      })
+              <SellButton
+                style={{ height: '50px', width: '150px', marginLeft: '0px' }}
+                onClick={async () => {
+                  try {
+                    await API.put(`/company/${item.id}/list`, item);
                     setPopupOpen(false);
-                  }}
-                >
-                  회사 매각
-                </SellButton>
+                    console.log(item)
+                    window.location.reload();
+                  } catch (error) {
+                    console.error("회사 매각 중 오류:", error);
+                  }
+                }}>
+                회사 매각
+              </SellButton>
                 <SellButton
                   style={{
                     height: '50px',

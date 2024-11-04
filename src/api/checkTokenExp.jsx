@@ -6,11 +6,10 @@ export function checkTokenExp(token) {
   
     try {
       const payload = JSON.parse(atob(token.split('.')[1]));
-      console.log(payload)
       const currentTime = Math.floor(Date.now() / 1000);
       return payload.exp < currentTime;
     } catch (error) {
       console.error('Error checking JWT expiration:', error);
-      return true; // 오류가 발생하면 만료된 것으로 처리
+      return true;
     }
   }
