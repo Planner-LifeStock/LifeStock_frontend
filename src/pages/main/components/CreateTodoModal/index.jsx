@@ -113,7 +113,8 @@ function CreateTodoModal( {handleAddNewTodo} ) {
     return daysArray.map(day => dayObject[day]);
   };
 
-  const formatDate = date => date.toISOString().split('T')[0];
+  // const formatDate = date => date.toISOString().split('T')[0];
+  const formatDate = date => (date ? date.toISOString().split('T')[0] : null);
 
   return (
     <div>
