@@ -19,7 +19,7 @@ const CreateCompany = () => {
   const [companyName, setCompanyName] = useState('');
   const [companyInfo, setCompanyInfo] = useState('');
   const [logoImg, setLogoImg] = useState(null);
-  const [logoFileName, setLogoFileName] = useState('');
+  const [logoFileName, setLogoFileName] = useState(null);
   const [level, setLevel] = useState(null);
   const [period, setPeriod] = useState(null);
   const [invest, setInvest] = useState(null);
@@ -64,12 +64,12 @@ const CreateCompany = () => {
       initialStockQuantity: 100,
       logo: {
         id: null,
-        fileName: null,
-        originalName: 'default_logo.png',
+        fileName: logoFileName ? logoFileName : 'default_logo.png',
+        originalName: logoFileName ? logoFileName : 'default_logo.png',
         mimeType: 'image/png',
         size: 2065,
         meta: null,
-        url: 'https://s3filebucketdev.s3.ap-southeast-2.amazonaws.com/company/default_logo.png',
+        url: logoImg,
       },
       currentStockPrice: 5000,
     };
@@ -78,8 +78,8 @@ const CreateCompany = () => {
       console.log(localStorage.getItem('accessToken'))
       const result = await API.post('/company', newCompany);
       console.log(result);
-      setCompanyList((prevCompanyData) => [...prevCompanyData, newCompany]);
-      
+      setCompanyList(prevCompanyData => [...prevCompanyData, newCompany]);
+
       setModalOpen(false);
       setInvest(null);
       setLevel(null);
@@ -100,7 +100,7 @@ const CreateCompany = () => {
       {modalOpen && (
         <ModalContainer
           ref={modalBackground}
-          onClick={(e) => {
+          onClick={e => {
             if (e.target === modalBackground.current) {
               setModalOpen(false);
               setInvest(null);
@@ -117,13 +117,13 @@ const CreateCompany = () => {
             <div style={{ display: 'flex' }}>
               <InnerContainer>
                 <Title>회사명</Title>
-                <InputBox width={470} placeholder={'ex)아침운동'} value={companyName} onChange={(e) => setCompanyName(e.target.value)} />
+                <InputBox width={470} placeholder={'ex)아침운동'} value={companyName} onChange={e => setCompanyName(e.target.value)} />
                 <Title>회사 정보</Title>
                 <InputBox
                   width={470}
                   placeholder={'ex)등교하기 전 간단하게 운동하기'}
                   value={companyInfo}
-                  onChange={(e) => setCompanyInfo(e.target.value)}
+                  onChange={e => setCompanyInfo(e.target.value)}
                 />
                 <Title>로고 이미지 추가</Title>
                 <ImgAdd img={logoImg} setImg={setLogoImg} fileName={logoFileName} setFileName={setLogoFileName} />
