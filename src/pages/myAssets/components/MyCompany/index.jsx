@@ -49,7 +49,6 @@ function MyCompany() {
   if (!companyList) {
     return <div>로딩중...</div>;
   }
-  console.log(companyList)
 
   return (
     <>

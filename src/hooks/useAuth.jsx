@@ -66,7 +66,7 @@ export const AuthProvider = ({ children }) => {
           localStorage.setItem('accessToken', newAccessToken);
           setAccessToken(newAccessToken);
           getNewAccessToken(newAccessToken);
-          // window.location.reload();
+          window.location.reload();
         } catch (error) {
           console.error("Token 재발급 실패:", error);
         }

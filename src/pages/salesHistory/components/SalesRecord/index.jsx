@@ -28,6 +28,8 @@ function SalesRecord() {
   const { userData } = useUser();
   const { soldCompany } = useCompanyData();
 
+  console.log(soldCompany)
+
   return (
     <div style={{padding: "0px 50px"}}>
       <Container style={{ borderBottom: "solid 3px", marginBottom: "10px"}}>
