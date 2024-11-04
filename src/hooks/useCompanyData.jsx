@@ -21,7 +21,7 @@ export const CompanyProvider = ({ children }) => {
           }})
         setSoldCompany(response.data)
         setCompanyList(result.data)
-        setActiveCompany(result.data[0]) // useState 클릭될때마다 company activeCompany에 담기게 코드를 짜면
+        setActiveCompany(result.data[0])
       } catch (error) {
         console.log(error)
       }
