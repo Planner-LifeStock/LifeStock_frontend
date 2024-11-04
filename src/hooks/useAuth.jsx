@@ -1,9 +1,10 @@
+import axios from 'axios';
+
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { API } from '../api/axios';
 
 import { checkTokenExp } from '../api/checkTokenExp';
 import { getNewAccessToken } from '../api/axios';
-import axios from 'axios';
 
 const AuthContext = createContext();
 
@@ -65,7 +66,7 @@ export const AuthProvider = ({ children }) => {
           localStorage.setItem('accessToken', newAccessToken);
           setAccessToken(newAccessToken);
           getNewAccessToken(newAccessToken);
-          window.location.reload();
+          // window.location.reload();
         } catch (error) {
           console.error("Token 재발급 실패:", error);
         }
