@@ -4,9 +4,9 @@ import { API, getNewAccessToken } from '../api/axios';
 const CompanyContext = createContext();
 
 export const CompanyProvider = ({ children }) => {
-  const [companyList, setCompanyList] = useState(null)
-  const [activeCompany, setActiveCompany] = useState(null)
-  const [soldCompany, setSoldCompany] = useState(null)
+  const [companyList, setCompanyList] = useState(null);
+  const [activeCompany, setActiveCompany] = useState(null);
+  const [soldCompany, setSoldCompany] = useState(null);
 
   useEffect(() => {
     const fetchCompanyData = async () => {
@@ -14,29 +14,32 @@ export const CompanyProvider = ({ children }) => {
         const result = await API.get('/company', {
           params: {
             status: 'UNLISTED',
-          }})
+          },
+        });
         const response = await API.get('/company', {
           params: {
             status: 'LISTED',
-          }})
-        setSoldCompany(response.data)
-        setCompanyList(result.data)
-        setActiveCompany(result.data[0])
+          },
+        });
+        setSoldCompany(response.data);
+        setCompanyList(result.data);
+        console.log(result.data);
+        setActiveCompany(result.data[0]);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
-    }
-    fetchCompanyData()
-  }, [])
+    };
+    fetchCompanyData();
+  }, []);
 
   return (
     <CompanyContext.Provider value={{ companyList, setCompanyList, activeCompany, setActiveCompany, soldCompany, setSoldCompany }}>
       {children}
     </CompanyContext.Provider>
-  )
-}
+  );
+};
 
-export const useCompanyData = () => useContext(CompanyContext)
+export const useCompanyData = () => useContext(CompanyContext);
 
 // export const useCompanyData = () => {
 //   const [companyList, setCompanyList] = useState(null)
