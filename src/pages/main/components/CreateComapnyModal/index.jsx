@@ -19,7 +19,7 @@ const CreateCompany = () => {
   const [companyName, setCompanyName] = useState('');
   const [companyInfo, setCompanyInfo] = useState('');
   const [logoImg, setLogoImg] = useState(null);
-  const [logoFileName, setLogoFileName] = useState(null);
+  const [logoFileName, setLogoFileName] = useState('');
   const [level, setLevel] = useState(null);
   const [period, setPeriod] = useState(null);
   const [invest, setInvest] = useState(null);
@@ -40,11 +40,11 @@ const CreateCompany = () => {
   };
 
   const handleCreateCompany = async () => {
-    const token = localStorage.getItem('accessToken')
-    
-    if(token) {
-      console.log(token)
-      API.defaults.headers.common['Authorization'] = `Bearer ${token}`
+    const token = localStorage.getItem('accessToken');
+
+    if (token) {
+      console.log(token);
+      API.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     }
 
     if (!companyName || !companyInfo || !level || !period) {
@@ -52,34 +52,46 @@ const CreateCompany = () => {
       return;
     }
 
+    const formData = new FormData();
+
     const newCompany = {
-      userId: 1,
+      userId: userData.id, //userid맞게
       name: companyName,
       description: companyInfo,
       level: levelMap[level],
       leastOperatePeriod: periodMap[period],
-      listedDate: new Date().toISOString(),
-      investmentAmount: 1000000,
+      // listedDate: new Date().toISOString(),
+      // investmentAmount: 1000000,
       initialStockPrice: 5000,
       initialStockQuantity: 100,
-      logo: {
-        id: null,
-        fileName: logoFileName ? logoFileName : 'default_logo.png',
-        originalName: logoFileName ? logoFileName : 'default_logo.png',
-        mimeType: 'image/png',
-        size: 2065,
-        meta: null,
-        url: logoImg,
-      },
-      currentStockPrice: 5000,
+
+      // currentStockPrice: 5000,
     };
+    const jsonNewCompany = JSON.stringify(newCompany);
+    const blobCompany = new Blob([jsonNewCompany], { type: 'application/json' });
+    formData.append('company', blobCompany);
+
+    if (logoImg) {
+      formData.append('logo', logoImg);
+    }
+    console.log(logoImg);
+    // logo: {
+    //   id: null,
+    //   fileName: logoFi leName ? logoFileName : 'default_logo.png',
+    //   originalName: logoFileName ? logoFileName : 'default_logo.png',
+    //   mimeType: 'image/png',
+    //   size: 2065,
+    //   meta: null,
+    //   url: logoImg,
+    // }
 
     try {
-      console.log(localStorage.getItem('accessToken'))
-      const result = await API.post('/company', newCompany);
+      console.log(localStorage.getItem('accessToken'));
+      console.log(userData);
+      const result = await API.post('/company', formData);
+
       console.log(result);
       setCompanyList(prevCompanyData => [...prevCompanyData, newCompany]);
-
       setModalOpen(false);
       setInvest(null);
       setLevel(null);

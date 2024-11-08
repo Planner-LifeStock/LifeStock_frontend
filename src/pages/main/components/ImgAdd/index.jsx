@@ -37,16 +37,19 @@ const ImgAdd = ({ img, setImg, fileName, setFileName }) => {
     const file = event.target.files[0];
     if (file) {
       setFileName(file.name);
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onloadend = () => {
-        setImg(reader.result);
-      };
+      setImg(file);
+
+      // setFileName(file.name);
+      // const reader = new FileReader();
+      // reader.readAsDataURL(file);
+      // reader.onloadend = () => {
+      //   setImg(reader.result);
+      // };
     }
   };
   return (
     <Container>
-      {img ? <ImgPreview src={img} alt="Logo Preview" /> : <ImgPreview src={emptyImg} />}
+      {img ? <ImgPreview src={URL.createObjectURL(img)} alt="Logo Preview" /> : <ImgPreview src={emptyImg} />}
       <div>
         <FileName>파일명 : {fileName || '파일이 선택되지 않았습니다.'}</FileName>
         <FileInputLabel>
