@@ -56,7 +56,8 @@ const CreateCompany = () => {
     formData.append(
         "company",
         new Blob([JSON.stringify(companyData)], { type: "application/json" })
-    );
+    )
+  
     if (logoFile) {
         formData.append("logo", logoFile);
     }
