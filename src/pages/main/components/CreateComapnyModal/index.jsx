@@ -55,7 +55,7 @@ const CreateCompany = () => {
     const formData = new FormData();
 
     const newCompany = {
-      userId: userData.id, //userid맞게
+      // userId: userData.id, //userid맞게
       name: companyName,
       description: companyInfo,
       level: levelMap[level],
@@ -64,7 +64,6 @@ const CreateCompany = () => {
       // investmentAmount: 1000000,
       initialStockPrice: 5000,
       initialStockQuantity: 100,
-
       // currentStockPrice: 5000,
     };
     const jsonNewCompany = JSON.stringify(newCompany);
