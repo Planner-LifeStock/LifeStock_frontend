@@ -42,8 +42,6 @@ const CreateCompany = () => {
       alert('모든 필드를 입력해 주세요.');
       return;
     }
-  
-    const formData = new FormData();
 
     const companyData = {
       name: companyName,
@@ -53,23 +51,29 @@ const CreateCompany = () => {
       initialStockPrice: 5000,
       initialStockQuantity: 100,
     };
-    formData.append("company", [JSON.stringify(companyData)]);
+
+    const formData = new FormData();
+    formData.append(
+        "company",
+        new Blob([JSON.stringify(companyData)], { type: "application/json" })
+    )
   
-    if (logoFile instanceof File) {
-      formData.append("logo", logoFile);
+    if (logoFile) {
+        formData.append("logo", logoFile);
     }
 
     try {
-      const response = await API.post("/company", formData, {
-        headers: {
-          "Content-Type": `multipart/form-data; boundary=${formData._boundary}`,
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      console.log("Success:", response.data);
-  
-      setCompanyList((prevCompanyData) => [...prevCompanyData, response.data]);
-  
+        console.log(localStorage.getItem("accessToken"));
+        const result = await API.post("/company", formData, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "multipart/form-data",
+            },
+        });
+      console.log("Success:", result.data);
+
+      setCompanyList((prevCompanyData) => [...prevCompanyData, result.data]);
+
       // 초기화
       setModalOpen(false);
       setInvest(null);
