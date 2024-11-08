@@ -8,6 +8,7 @@ import CreateCompany from '../CreateComapnyModal';
 
 import { useUser } from '../../../../hooks/useUser.jsx';
 import { useCompanyData } from '../../../../hooks/useCompanyData.jsx';
+import { useChartData } from '../../../../hooks/useChart.jsx';
 
 const AppWrapper = styled.div`
   display: flex;
@@ -43,6 +44,11 @@ const GrayText = styled.div`
 function SideBar() {
   const { userData, setUserData, totalAssets, setTotalAssets } = useUser();
   const { companyList, setComapnyList, activeCompany, setActiveCompany } = useCompanyData();
+  const { chartData } = useChartData();
+
+  const currentValue = SumList({ data: companyList, type: 'currentStockPrice'});
+  const openValue = SumList({data: companyList, type: 'openStockPrice'});
+
   // if(!userData || !activeCompany || !companyList)
   //   return <div>로딩 중...</div>
 
@@ -63,11 +69,10 @@ function SideBar() {
                       marginBottom: 24,
                     }}
                   >
-                    {/* 총 {totalAssets.toLocaleString()}원 */}
                     <TotalSum />
                     <UpDownText
-                      standard={SumList({ data: companyList, type: 'currentStockPrice' })}
-                      comparision={SumList({ data: companyList, type: 'initialStockPrice' })}
+                      standard={currentValue}
+                      comparision={openValue}
                     />
                   </div>
                   <div style={{ minHeight: '760px', maxHeight: '760px', overflowY: 'scroll' }}>
@@ -76,7 +81,7 @@ function SideBar() {
                         key={index}
                         name={item.name}
                         logo={item.logo.url}
-                        buyPrice={item.initialStockPrice}
+                        buyPrice={item.openStockPrice}
                         currentPrice={item.currentStockPrice}
                         onClick={() => setActiveCompany(item)}
                       />

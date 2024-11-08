@@ -1,8 +1,10 @@
 import styled from "styled-components";
 
+import SumList from "../../../../function/calculation/sumList";
 import SellCompany from "../SellModal";
 import { useUser } from "../../../../hooks/useUser";
 import { useCompanyData } from "../../../../hooks/useCompanyData";
+import UpDownText from "../../../../components/UpDownText";
 
 const Container = styled.div`
   margin-top: 5px;
@@ -46,6 +48,9 @@ function MyCompany() {
   const { userData, setUserData } = useUser();
   const { companyList, setCompanyList, activeCompany, setActiveCompany } = useCompanyData();
 
+  const currentValue = SumList({ data: companyList, type: 'currentStockPrice'});
+  const openValue = SumList({data: companyList, type: 'openStockPrice'});
+
   if (!companyList) {
     return <div>로딩중...</div>;
   }
@@ -69,12 +74,12 @@ function MyCompany() {
           }}
         >
           {companyList.map((item, index) => (
-            <CompanyBox key={item.id} $isFirst={index === 0}>
+            <CompanyBox key={item.id} $isFirst={index === 0} style={{alignItems: "center"}}>
               <img
                 src={item.logo.url}
                 style={{ height: "12vh", borderRadius: "50%", marginLeft: "20px" }}
               />
-              <MinContainer style={{ flexDirection: "column" }}>
+              <MinContainer style={{ flexDirection: "column"}}>
                 <MinContainer>
                   <FontContainer style={{ fontSize: "30px" }}>
                     {item.name}
@@ -83,13 +88,13 @@ function MyCompany() {
                     </FontContainer>
                   </FontContainer>
                 </MinContainer>
-                <MinContainer>
+                <MinContainer style={{justifyContent: "center", alignItems: "center"}}>
                   <MinContainer style={{ flexDirection: 'column', marginTop: '10px' }}>
                     <FontContainer>
                       상장일:&nbsp;<span style={{ color: '#5A5A5A' }}>{item.listedDate}</span>
                     </FontContainer>
                     <FontContainer style={{ marginTop: '10px' }}>
-                      발행주식 수:&nbsp;<span style={{ color: '#5A5A5A' }}>{item.initialStockQuantity}</span>
+                      발행주식 수:&nbsp;<span style={{ color: '#5A5A5A' }}>100주</span>
                     </FontContainer>
                   </MinContainer>
                   <MinContainer style={{ flexDirection: 'column', marginTop: '10px' }}>
@@ -107,6 +112,14 @@ function MyCompany() {
                     <FontContainer style={{ marginTop: '10px' }}>
                       회사가치:&nbsp;<span style={{ color: '#5A5A5A' }}>1,750,000원</span>
                     </FontContainer>
+                  </MinContainer>
+                  <MinContainer style={{flexDirection: "column", alignItems: "center", marginLeft: '210px'}}>
+                    <div style={{fontSize: '40px', marginTop: "-35px", fontWeight: "bold"}}>회사매각예상손익</div>
+                    <UpDownText
+                        standard={item.openStockPrice}
+                        comparision={item.currentStockPrice}
+                        fontSize={40}
+                    />
                   </MinContainer>
                 </MinContainer>
               </MinContainer>

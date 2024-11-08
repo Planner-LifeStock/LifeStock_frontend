@@ -116,10 +116,11 @@ const SellCompany = ({ item }) => {
               <SellButton
                 style={{ height: '50px', width: '150px', marginLeft: '0px' }}
                 onClick={async () => {
+                  console.log(item)
                   try {
                     await API.put(`/company/${item.id}/list`, item);
                     setPopupOpen(false);
-                    console.log(item)
+                    
                     window.location.reload();
                   } catch (error) {
                     console.error("회사 매각 중 오류:", error);

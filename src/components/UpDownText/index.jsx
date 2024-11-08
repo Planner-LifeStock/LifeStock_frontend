@@ -6,8 +6,16 @@ const UpdownContainer = styled.div`
   display: flex;
   justify-content: center;
   font-size: ${({ fontSize }) => `${fontSize || 16}px`};
-  font-weight: 600;
+  font-weight: bold;
   color: ${props => props.$isPositive};
+`
+
+const PriceContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  font-size: ${({ fontSize }) => `${fontSize || 16}px`};
+  font-weight: bold;
+  color: black;
 `
 
 // [todo] Text의 값이 양수이냐 음수이냐에 따라서 FallText, RiseText로 바꿔야함. 조건문 적용
@@ -21,9 +29,9 @@ function UpDownText({ standard, comparision, fontSize }) {
   return (
     <UpdownContainer fontSize={fontSize} $isPositive={isPositive}>
       {/* positive면 +문자열 붙임 */}
-      <div style={{ marginRight: 10 }}>
+      <PriceContainer fontSize={fontSize} style={{marginRight: "10px"}}>
         {sub > 0 ? `+${sub.toLocaleString()}` : sub.toLocaleString()}
-      </div>
+      </PriceContainer>
       {percent}
     </UpdownContainer>
   )

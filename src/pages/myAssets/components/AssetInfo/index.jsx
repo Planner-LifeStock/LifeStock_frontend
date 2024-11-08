@@ -4,6 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { useUser } from "../../../../hooks/useUser";
 import { useCompanyData } from "../../../../hooks/useCompanyData";
 
+import TotalSum from "../../../main/components/TotalSum";
+import UpDownText from "../../../../components/UpDownText";
+import SumList from "../../../../function/calculation/sumList";
+
 const MaxContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -62,9 +66,13 @@ const PriceFont = styled.span`
 
 const AssetInfo = () => {
 
-  const { userData, setUserData } = useUser()
+  const { userData, setUserData, totalAssets } = useUser()
   const { companyList, setCompanyList, activeCompany, setActiveCompany} = useCompanyData()
   const navigate = useNavigate();
+
+  const currentValue = SumList({ data: companyList, type: 'currentStockPrice'});
+  const currentValue1 = SumList({ data: companyList, type: 'currentStockPrice'});
+  const openValue = SumList({data: companyList, type: 'openStockPrice'});
 
   if(!companyList) {
     return <div>로딩중...</div>
@@ -89,8 +97,12 @@ const AssetInfo = () => {
             <PriceBox style={{minWidth: "500px"}}>
               <PriceFont>총 자산</PriceFont>
               <Container style={{justifyContent: "space-between"}}>
-                <PriceFont style={{color: "black"}}>{parseInt(activeCompany.investmentAmount).toLocaleString()}원</PriceFont>
-                <PriceFont style={{color: "blue"}}>-550,000(-13.75%)</PriceFont>
+                <PriceFont style={{color: "black"}}>{totalAssets.toLocaleString()}원</PriceFont>
+                <UpDownText
+                      standard={currentValue1}
+                      comparision={openValue}
+                      fontSize={24}
+                    />
               </Container>
             </PriceBox>
           </Container>
@@ -99,14 +111,14 @@ const AssetInfo = () => {
           <Container style={{justifyContent: "end"}}>
             <PriceBox style={{minWidth: "200px", marginRight: "30px"}}>
               <PriceFont>투자 비용</PriceFont>
-              <Container style={{justifyContent: "space-between"}}>
-                <PriceFont style={{color: "black"}}>3,550,000원</PriceFont>
+              <Container style={{justifyContent: "space-between", fontSize: "24px", fontWeight: "bold"}}>
+                {currentValue.toLocaleString()}원
               </Container>
             </PriceBox>
             <PriceBox style={{minWidth: "200px"}}>
               <PriceFont>투자 가능 금액</PriceFont>
               <Container style={{justifyContent: "space-between"}}>
-                <PriceFont style={{color: "black"}}>6,000,000원</PriceFont>
+                <PriceFont style={{color: "black"}}>{(100000000-currentValue).toLocaleString()}원</PriceFont>
               </Container>
             </PriceBox>
           </Container>

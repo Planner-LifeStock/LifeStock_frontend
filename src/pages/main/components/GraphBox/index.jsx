@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { act, useState } from 'react';
 
 import OptionButton from '../../../../components/OptionButton';
 import UpDownText from '../../../../components/UpDownText';
@@ -57,9 +57,9 @@ function GraphBox() {
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <div style={{ fontSize: 50, fontWeight: 600, marginRight: 20 }}>{activeCompany.name}</div>
           <UpDownText
-            // standard={activeCompany.chartData[activeCompany.chartData.length - 1][2]}
-            // comparision={activeCompany.chartData[activeCompany.chartData.length - 1][3]}
-            fontSize={30}
+            standard={activeCompany.openStockPrice}
+            comparision={activeCompany.currentStockPrice}
+            fontSize={40}
           />
         </div>
         <div style={{ minWidth: "400px", display: 'flex', justifyContent: 'flex-end' }}>

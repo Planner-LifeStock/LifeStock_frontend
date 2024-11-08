@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import { useUser } from '../../../../hooks/useUser';
 import { useCompanyData } from '../../../../hooks/useCompanyData';
 import { useNavigate } from 'react-router-dom';
+import UpDownText from '../../../../components/UpDownText';
+import SumList from '../../../../function/calculation/sumList';
 
 const Contianer = styled.div`
   display: flex;
@@ -44,6 +46,9 @@ const UserAsset = () => {
     const { companyList, setComapnyList, activeCompany, setActiveCompany } = useCompanyData();
     const navigate = useNavigate();
 
+    const currentValue1 = SumList({ data: companyList, type: 'currentStockPrice'});
+    const openValue = SumList({data: companyList, type: 'openStockPrice'});
+
     if(!userData)
         return <div>로딩 중...</div>
 
@@ -56,7 +61,11 @@ const UserAsset = () => {
           </Contianer>
           <div style={{alignSelf: "flex-start"}}>
             <FontBox style={{fontSize: "40px", marginTop: "20px"}}>
-              총 손익 : <span style={{color: "blue", fontWeight: "bold", fontSize: "40px"}}>-275,000(-13.5%)</span>
+              총 손익 : <UpDownText
+                      standard={currentValue1}
+                      comparision={openValue}
+                      fontSize={40}
+                    />
             </FontBox>
           </div>
         </Contianer>

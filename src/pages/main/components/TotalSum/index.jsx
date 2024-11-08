@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 import SumList from '../../../../function/calculation/sumList';
 import { useCompanyData } from '../../../../hooks/useCompanyData';
+import { useUser } from '../../../../hooks/useUser';
 
 const GrayText = styled.div`
   font-size: ${(props) => props.theme.font.size.primary};
@@ -11,10 +12,13 @@ const GrayText = styled.div`
 
 function TotalSum() {
   const { companyList } = useCompanyData();
+  const { userData, setUserData, totalAssets, setTotalAssets } = useUser();
+
+  const currentValue = SumList({ data: companyList, type: 'currentStockPrice'});
   
   return (
     <GrayText>
-      총 {SumList({ data: companyList, type: 'currentStockPrice' }).toLocaleString()}원
+      총 {currentValue.toLocaleString()}원
     </GrayText>
   );
 }
