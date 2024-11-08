@@ -14,7 +14,6 @@ export const UserProvider = ({ children }) => {
         const response = await API.get('/user/asset');
         setUserData(result.data)
         setTotalAssets(response.data)
-        console.log(response.data)
       } catch (error) {
         console.log(error)
       }
