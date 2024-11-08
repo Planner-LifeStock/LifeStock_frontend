@@ -5,7 +5,6 @@ import { useCompanyData } from './useCompanyData';
 export const useChartData = () => {
   const [chartData, setChartData] = useState(null);
   const { activeCompany } = useCompanyData();
-  console.log(activeCompany.id);
 
   //userid값에 따른 chartsid 배열을 받고 그 값에 따라서 company chart 데이터를 받아 정렬해서 보내줘야함.
   useEffect(() => {
@@ -13,7 +12,6 @@ export const useChartData = () => {
       try {
         const result = await API.get(`/company/${activeCompany.id}/charts`);
         setChartData(result.data);
-        console.log(result.data);
       } catch (error) {
         console.log(error);
       }
