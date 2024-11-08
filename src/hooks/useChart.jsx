@@ -11,6 +11,9 @@ export const useChartData = () => {
     const fetchChartData = async () => {
       try {
         const result = await API.get(`/company/${activeCompany.id}/charts`);
+        // const response = await API.get(`/chart/company/all/${activeCompany.id}`);
+        // console.log(response);
+        
         setChartData(result.data);
       } catch (error) {
         console.log(error);

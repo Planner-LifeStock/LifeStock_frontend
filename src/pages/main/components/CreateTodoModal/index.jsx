@@ -22,6 +22,7 @@ const ModalContainer = styled.div`
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
 `;
 
 const ModalContent = styled.div`
@@ -34,6 +35,7 @@ const ModalContent = styled.div`
   height: 850px;
   padding: 15px;
   border-radius: ${(props) => props.theme.border.radius.small};
+  z-index: 1001;
 `;
 
 const InnerContainer = styled.div`
@@ -214,7 +216,7 @@ function CreateTodoModal( {handleAddNewTodo} ) {
                       startDate: formatDate(startDate),
                       endDate: formatDate(endDate),
                     };
-                    
+
                     // const result = await API.post(`/todo?companyId=${activeCompany.id}&date=2024-11-04`, newTodo);
                     const result = await API.post(`/todo`, newTodo);
                     handleAddNewTodo(result.data);
@@ -225,11 +227,14 @@ function CreateTodoModal( {handleAddNewTodo} ) {
                     setDescription('');
                     setTitle('');
                     setLevel(null);
+
+                    window.location.reload();
                   } catch (error) {
                     console.error('할 일 추가 중 오류 발생:', error);
                     alert('할 일 추가 중 문제가 발생했습니다.');
                   }
-                }}
+                }
+              }
               >
                 할 일 추가하기
               </Button>

@@ -11,9 +11,10 @@ export const UserProvider = ({ children }) => {
     const fetchUserData = async () => {
       try {
         const result = await API.get('/user');
-        // const response = await API.get('/user/asset');
+        const response = await API.get('/user/asset');
         setUserData(result.data)
-        // setTotalAssets(response.data)
+        setTotalAssets(response.data)
+        console.log(response.data)
       } catch (error) {
         console.log(error)
       }
