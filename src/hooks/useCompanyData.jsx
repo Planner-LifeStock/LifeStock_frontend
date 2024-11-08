@@ -24,7 +24,6 @@ export const CompanyProvider = ({ children }) => {
         setSoldCompany(response.data);
         setCompanyList(result.data);
         setActiveCompany(result.data[0]);
-        console.log(result.data);
       } catch (error) {
         console.log(error);
       }

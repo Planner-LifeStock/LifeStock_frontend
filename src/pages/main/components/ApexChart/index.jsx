@@ -11,7 +11,6 @@ const ChartWrapper = styled.div`
 
 const ApexChart = () => {
   const { chartData } = useChartData();
-  console.log(chartData);
 
   const chartArr = [{ data: [] }];
   //chartData의
@@ -71,11 +70,6 @@ const ApexChart = () => {
           return `${month}/${day}`;
         },
       },
-      y: {
-        formatter: function (value) {
-          return `${value}ㅋㅋ`;
-        },
-      },
       //차트 클릭시 뜨는 세부항목 모달창
       custom: function ({ seriesIndex, dataPointIndex, w }) {
         const o = w.globals.seriesCandleO[seriesIndex][dataPointIndex]; // 시가
@@ -84,7 +78,6 @@ const ApexChart = () => {
         const c = w.globals.seriesCandleC[seriesIndex][dataPointIndex]; // 종가
         const dateValue = new Date(w.globals.seriesX[seriesIndex][dataPointIndex]);
         const formattedDate = `${dateValue.getFullYear()}/${dateValue.getMonth() + 1}/${dateValue.getDate()}`;
-
         return `
           <div style="padding: 10px;">
             <div style="font-size:20px;">${formattedDate}</div>
@@ -107,7 +100,7 @@ const ApexChart = () => {
 
   return (
     <ChartWrapper>
-      <Chart options={options} series={chartArr} type="candlestick" height={700} width={1000} />
+      <Chart options={options} series={chartArr} type="candlestick" />
     </ChartWrapper>
   );
 };
