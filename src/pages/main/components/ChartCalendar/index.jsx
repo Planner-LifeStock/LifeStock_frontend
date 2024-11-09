@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
-import { endOfMonth, getDay, getDaysInMonth, startOfMonth, subMonths, isToday} from 'date-fns'
-import { addMonths } from 'date-fns'
+import { endOfMonth, getDay, getDaysInMonth, startOfMonth, subMonths, addMonths, isToday} from 'date-fns'
 import { useState } from 'react'
 
 import { useDate } from '../../hooks/useDate'
@@ -71,59 +70,53 @@ const DaysGridContainer = styled.div`
 `
 
 function ChartCalendar() {
-const [currentDate, setCurrentDate] = useState(new Date())
-const { selectedDate, setSelectedDate } = useDate();
+// const [currentDate, setCurrentDate] = useState(new Date())
+const { selectedDate, setSelectedDate, currentDate, setCurrentDate} = useDate();
 
 const renderCalendar = () => {
-    const days = []
+  const days = [];
 
-    const weekDays = ['일', '월', '화', '수', '목', '금', '토']
-    weekDays.map(weekDay => {
-    days.push(
-        <DayOfWeekContainer key={weekDay}>{weekDay}</DayOfWeekContainer>
-    )
-    })
+  const weekDays = ['일', '월', '화', '수', '목', '금', '토'];
+  weekDays.forEach((weekDay, index) => {
+      days.push(
+          <DayOfWeekContainer key={`weekday-${index}`}>{weekDay}</DayOfWeekContainer>
+      );
+  });
 
-    const totalDays = getDaysInMonth(currentDate) //총 날짜
-    const firstDayOfMonth = getDay(startOfMonth(currentDate)) //첫번째 날짜 요일 확인
+  const totalDays = getDaysInMonth(currentDate); // 총 날짜
+  const firstDayOfMonth = getDay(startOfMonth(currentDate)); // 첫번째 날짜 요일 확인
 
-    for (let emptyDay = 0; emptyDay < firstDayOfMonth; emptyDay++) {
-    days.push(<DayContainer></DayContainer>)
-    }
+  // 월 시작 전 빈 칸 추가
+  for (let emptyDay = 0; emptyDay < firstDayOfMonth; emptyDay++) {
+      days.push(<DayContainer key={`empty-${emptyDay}`}></DayContainer>);
+  }
 
-    for (let day = 1; day <= totalDays; day++) {
-    const isToday =
-        new Date().getMonth() === currentDate.getMonth() &&
-        new Date().getDate() === day
+  // 달력의 실제 날짜 추가
+  for (let day = 1; day <= totalDays; day++) {
+      const isToday = new Date().getMonth() === currentDate.getMonth() && new Date().getDate() === day;
+      const isSelected = selectedDate.getFullYear() === currentDate.getFullYear() && selectedDate.getMonth() === currentDate.getMonth() && selectedDate.getDate() === day;
 
-    const isSelected =
-        selectedDate.getFullYear() === currentDate.getFullYear() &&
-        selectedDate.getMonth() === currentDate.getMonth() &&
-        selectedDate.getDate() === day
+      days.push(
+          <DayContainer
+              key={`day-${day}`}
+              $isToday={isToday}
+              $isSelected={isSelected}
+              onClick={() =>
+                  setSelectedDate(new Date(currentDate.getFullYear(), currentDate.getMonth(), day))
+              }
+          >
+              {day}일
+          </DayContainer>
+      );
+  }
 
-    days.push(
-        <DayContainer
-        $isToday={isToday}
-        $isSelected={isSelected}
-        onClick={() =>
-            setSelectedDate(
-            new Date(currentDate.getFullYear(), currentDate.getMonth(), day)
-            )
-        }
-        >
-        {day}일
-        </DayContainer>
-    )
-    }
+  // 월 끝 이후 빈 칸 추가
+  const fillDays = 6 - getDay(endOfMonth(currentDate));
+  for (let fillDay = 0; fillDay < fillDays; fillDay++) {
+      days.push(<DayContainer key={`fill-${fillDay}`}></DayContainer>);
+  }
 
-    for (
-    let fillDay = getDay(endOfMonth(currentDate));
-    fillDay < 6;
-    fillDay++
-    ) {
-    days.push(<DayContainer></DayContainer>)
-    }
-    return days
+  return days;
 }
 
 const handlePrevMonth = () => {
