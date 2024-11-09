@@ -21,17 +21,10 @@ const MentFont = styled.div`
 
 function UserInfo() {
   const { userData } = useUser();
-  const { userRanking } = useRanking();
+  const { ranking, setRanking, userRanking, setUserRanking } = useRanking();
 
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 100)
-    return () => clearTimeout(timer)
-  }, []);
-
-  if (loading || !userData || !companyCEO || !smallCompany || !startup) {
-    return <LoadingSpinner />;
+  if (!Array.isArray(ranking) || !userData) {
+    return <LoadingSpinner/>
   }
 
   let TierImg, TierName;

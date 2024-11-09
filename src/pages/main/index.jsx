@@ -8,6 +8,10 @@ import GraphBox from './components/GraphBox';
 import { DateProvider } from './hooks/useDate';
 import { TodoProvider } from '../../hooks/useTodo';
 
+import CreateCompany from './components/CreateComapnyModal';
+import { useCompanyData } from '../../hooks/useCompanyData';
+import LoadingSpinner from '../../styles/LoadingSpinner';
+
 const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -31,6 +35,33 @@ const EventContainer = styled.div`
 `;
 
 function MainPage() {
+
+  const { companyList, loading } = useCompanyData();
+
+  if (loading) {
+    return <LoadingSpinner/>
+  }
+
+  if (companyList.length === 0) {
+    return (
+      <div style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+        backgroundColor: "white",
+        height: "100vh",
+        marginTop: "-100px"
+      }}>
+        <div style={{
+          fontSize: "80px",
+          fontWeight: "bold",
+        }}>회사를 상장하여 LifeStock TodoList를 시작해보세요!</div>
+        <CreateCompany onCreate={() => window.location.reload()} />
+      </div>
+    );
+  }
+  
   return (
     <DateProvider>
       <TodoProvider>
