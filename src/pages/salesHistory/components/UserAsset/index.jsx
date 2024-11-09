@@ -45,14 +45,14 @@ const BackButton = styled.button`
 const UserAsset = () => {
 
     const { userData, setUserData } = useUser();
-    const { companyList, setComapnyList, activeCompany, setActiveCompany } = useCompanyData();
+    const { companyList, setComapnyList, activeCompany, setActiveCompany, soldCompany } = useCompanyData();
     const navigate = useNavigate();
 
-    const currentValue1 = SumList({ data: companyList, type: 'currentStockPrice'});
-    const openValue = SumList({data: companyList, type: 'openStockPrice'});
+    if(!userData || !companyList || !soldCompany)
+      return <LoadingSpinner />;
 
-    if(!userData || !companyList)
-        return <LoadingSpinner />;
+    const listedValue = SumList({ data: soldCompany, type: 'listedStockPrice'});
+    const initialStockValue = SumList({data: soldCompany, type: 'initialStockPrice'});
 
     return (
       <>
@@ -63,11 +63,7 @@ const UserAsset = () => {
           </Contianer>
           <div style={{alignSelf: "flex-start"}}>
             <FontBox style={{fontSize: "40px", marginTop: "20px"}}>
-              총 손익 : <UpDownText
-                      standard={currentValue1}
-                      comparision={openValue}
-                      fontSize={40}
-                    />
+              실현손익 : {((listedValue-initialStockValue)*100).toLocaleString()}원
             </FontBox>
           </div>
         </Contianer>

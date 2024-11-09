@@ -67,8 +67,7 @@ const TimeFont = styled.div`
 `
 
 let date = new Date()
-const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}
-     ${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`
+const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`
 
 function Ranking({ data }) {
   const { ranking, setRanking, userRanking, setUserRanking } = useRanking();
@@ -80,7 +79,7 @@ function Ranking({ data }) {
 
   return (
     <Container>
-      <TimeFont style={{marginTop: "20px"}}>{formattedDate} 기준</TimeFont>
+      <TimeFont style={{marginTop: "20px"}}>{formattedDate} 00:00 기준</TimeFont>
       <Container
         style={{
           padding: '10px',
@@ -93,16 +92,14 @@ function Ranking({ data }) {
         {ranking.map((item, index) => (
           <UserContainer
             key={index}
-            // username={username}
-            // chartData={chartData}
-            style={{ marginTop: index === 0 ? '0px' : '26px' }}
+            style={{ marginTop: index === 0 ? '0px' : '26px', minWidth: '880px',}}
           >
             <Circle>
               <CircleFont>{index + 1}</CircleFont>
             </Circle>
-            {/* <InfoFont>{username}</InfoFont> */}
+            <InfoFont>{item.userRealName}</InfoFont>
             <InfoFont style={{ marginRight: '30px' }}>
-              {item.score.toLocaleString()}원
+              {item.totalAssets.toLocaleString()}원
             </InfoFont>
             {/* <UpDownText
               standard={chartData[chartData.length - 1][2]}
@@ -112,9 +109,9 @@ function Ranking({ data }) {
           </UserContainer>
         ))}
       </Container>
-      <UserContainer style={{ marginRight: '10px' }}>
+      <UserContainer style={{ marginRight: '10px', minWidth: '880px' }}>
         <Circle>
-          <CircleFont>{userRanking}</CircleFont>
+          <CircleFont>{userRanking + 1}</CircleFont>
         </Circle>
         <InfoFont>{userData.realName}</InfoFont>
         <InfoFont>{totalAssets.toLocaleString()}원</InfoFont>

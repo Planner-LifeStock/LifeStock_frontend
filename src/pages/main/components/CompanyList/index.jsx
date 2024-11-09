@@ -20,10 +20,10 @@ const ButtonBox = styled.button`
   }
 `;
 
-const Logo = styled.img`
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+const LogoImage = styled.img`
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
   object-fit: cover;
   margin-right: 8px;
 `;
@@ -36,11 +36,11 @@ function CompanyList({ name, logo, currentPrice, buyPrice, onClick }) {
       {companyList && activeCompany && (
         <ButtonBox onClick={onClick}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <Logo src={logo} alt={`${name} 로고`} />
+            <LogoImage src={logo} alt={`${name} 로고`} />
             <div style={{ fontSize: 20 }}>{name}</div>
           </div>
           <div style={{ textAlign: 'right' }}>
-            <div>{currentPrice}원</div>
+            <div>{currentPrice.toLocaleString()}원</div>
             <UpDownText standard={buyPrice} comparision={currentPrice} />
           </div>
         </ButtonBox>

@@ -157,7 +157,7 @@ function TodoList() {
               {'>>'}
             </MoveButton>
           </div>
-          <div>
+          <div style = {{maxHeight: "750px", overflowY: "auto"}}>
             {todoList &&
               todoList.map(({ title, level, completed }, index) => {
                 return (
