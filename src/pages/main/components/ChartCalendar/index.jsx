@@ -96,6 +96,12 @@ const renderCalendar = () => {
       const isToday = new Date().getMonth() === currentDate.getMonth() && new Date().getDate() === day;
       const isSelected = selectedDate.getFullYear() === currentDate.getFullYear() && selectedDate.getMonth() === currentDate.getMonth() && selectedDate.getDate() === day;
 
+
+      // Find the changeRate for the current day
+      const dayString = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+      const dayData = chartData?.charts?.find((chart) => chart.date === dayString);
+      const changeRate = dayData ? dayData.changeRate.toFixed(2) : null;
+      
       days.push(
           <DayContainer
               key={`day-${day}`}
