@@ -4,6 +4,8 @@ import UpDownText from '../../../../components/UpDownText'
 import { useRanking } from '../../../../hooks/useRanking'
 import { useUser } from '../../../../hooks/useUser'
 
+import LoadingSpinner from '../../../../styles/LoadingSpinner'
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -73,7 +75,7 @@ function Ranking({ data }) {
   const { userData, totalAssets } = useUser();
 
   if (!Array.isArray(ranking) || !userData) {
-    return <div>랭킹반환 X</div>;
+    return <LoadingSpinner/>
   }
 
   return (

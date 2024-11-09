@@ -39,6 +39,7 @@ const ImgAdd = ({ img, setImg, fileName, setFileName, setLogoFile }) => {
       setFileName(file.name); // 파일 이름을 저장
       setImg(file); // 파일 객체를 저장
       setLogoFile(file);
+      console.log(file)
 
       // 미리보기 URL 생성
       const reader = new FileReader();

@@ -10,6 +10,8 @@ import { useUser } from '../../../../hooks/useUser.jsx';
 import { useCompanyData } from '../../../../hooks/useCompanyData.jsx';
 import { useChartData } from '../../../../hooks/useChart.jsx';
 
+import LoadingSpinner from '../../../../styles/LoadingSpinner.jsx';
+
 const AppWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -49,12 +51,12 @@ function SideBar() {
   const currentValue = SumList({ data: companyList, type: 'currentStockPrice'});
   const openValue = SumList({data: companyList, type: 'openStockPrice'});
 
-  // if (!chartData || !chartData.chartList || chartData.chartList.length === 0) {
-  //   return <div>차트 데이터를 불러오는 중...</div>;
-  // }
+  if (!chartData || !chartData.chartList || chartData.chartList.length === 0) {
+    return <LoadingSpinner/>
+  }
 
-  // if(!userData || !activeCompany || !companyList)
-  //   return <div>로딩 중...</div>
+  if(!userData || !activeCompany || !companyList)
+    return <LoadingSpinner/>
 
   return (
     <>

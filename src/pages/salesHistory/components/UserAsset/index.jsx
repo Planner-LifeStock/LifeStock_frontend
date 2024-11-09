@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import UpDownText from '../../../../components/UpDownText';
 import SumList from '../../../../function/calculation/sumList';
 
+import LoadingSpinner from '../../../../styles/LoadingSpinner';
+
 const Contianer = styled.div`
   display: flex;
 `
@@ -49,8 +51,8 @@ const UserAsset = () => {
     const currentValue1 = SumList({ data: companyList, type: 'currentStockPrice'});
     const openValue = SumList({data: companyList, type: 'openStockPrice'});
 
-    if(!userData)
-        return <div>로딩 중...</div>
+    if(!userData || !companyList)
+        return <LoadingSpinner />;
 
     return (
       <>
