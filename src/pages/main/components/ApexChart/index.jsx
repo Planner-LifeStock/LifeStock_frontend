@@ -3,6 +3,7 @@ import Chart from 'react-apexcharts';
 import styled from 'styled-components';
 
 import { useChartData } from '../../../../hooks/useChart';
+import { useCompanyData } from '../../../../hooks/useCompanyData';
 
 const ChartWrapper = styled.div`
   max-height: 730px;
@@ -10,22 +11,34 @@ const ChartWrapper = styled.div`
 `;
 
 const ApexChart = () => {
-  const { chartData } = useChartData();
+  const { chartArr } = useChartData();
+  // const [chartArr, setChartArr] = useState([{ data: [] }]); // chartArr를 상태로 관리
 
-  const chartArr = [{ data: [] }];
-  //chartData의
-  chartData &&
-    chartData.chartList.map(chart => {
-      const date = new Date(chart.date).getTime();
-      chartArr[0].data.push({
-        x: date,
-        y: [chart.open, chart.high, chart.low, chart.close],
-      });
-    });
+  // useEffect(() => {
+  //   if (chartData) {
+  //     const newChartArr = [{ data: [] }];
+  //     chartData.chartList.forEach(chart => {
+  //       const date = new Date(chart.date).getTime();
+  //       newChartArr[0].data.push({
+  //         x: date,
+  //         y: [chart.open, chart.high, chart.low, chart.close],
+  //       });
+  //     });
+  //     setChartArr(newChartArr); // chartData가 변경될 때마다 chartArr 업데이트
+  //     console.log(newChartArr);
+  //   }
+  // }, [chartData]); // chartData가 변경될 때 실행
 
   const options = {
     chart: {
       type: 'candlestick',
+      animations: {
+        enabled: false,
+      },
+      dynamicAnimation: {
+        enabled: true,
+        speed: 500,
+      },
       zoom: { enabled: true },
     },
     xaxis: {
