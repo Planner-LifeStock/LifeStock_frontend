@@ -6,9 +6,10 @@ import TodoList from './components/TodoList';
 import GraphBox from './components/GraphBox';
 
 import { DateProvider } from './hooks/useDate';
+import { TodoProvider } from '../../hooks/useTodo';
 
 const Container = styled.div`
-  display: flex;  
+  display: flex;
   justify-content: center;
   align-items: center;
 
@@ -18,8 +19,8 @@ const Container = styled.div`
   width: 100%;
   padding: 5px;
 
-  overflow: hidden; 
-`
+  overflow: hidden;
+`;
 
 const EventContainer = styled.div`
   display: flex;
@@ -27,17 +28,18 @@ const EventContainer = styled.div`
   height: 100%;
   width: 100%;
   background-color: #fffbfd;
-`
+`;
 
 function MainPage() {
   return (
-      <DateProvider>
+    <DateProvider>
+      <TodoProvider>
         <Container>
           <EventContainer>
             <div style={{ flex: 3 }}>
               <GraphBox />
             </div>
-            <div style={{ flex: 1, marginLeft: "20px" }}>
+            <div style={{ flex: 1, marginLeft: '20px' }}>
               <TodoList />
             </div>
             <div style={{ flex: 1 }}>
@@ -45,7 +47,8 @@ function MainPage() {
             </div>
           </EventContainer>
         </Container>
-      </DateProvider>
+      </TodoProvider>
+    </DateProvider>
   );
 }
 
