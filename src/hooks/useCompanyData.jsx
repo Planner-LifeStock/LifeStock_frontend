@@ -10,6 +10,7 @@ export const CompanyProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchCompanyData = async () => {
+      //[todo]result,response 변수가 적절하지 않아보임 수정할것
       try {
         const result = await API.get('/company', {
           params: {

@@ -1,28 +1,47 @@
-import { useEffect, useState } from 'react';
+// useChartData.jsx
+import { createContext, useContext, useEffect, useState } from 'react';
 import { API } from '../api/axios';
 import { useCompanyData } from './useCompanyData';
 
-export const useChartData = () => {
+const ChartDataContext = createContext();
+
+export const ChartProvider = ({ children }) => {
   const [chartData, setChartData] = useState(null);
   const { activeCompany } = useCompanyData();
+  const [chartArr, setChartArr] = useState([{ data: [] }]); // chartArr를 상태로 관리
 
-  //userid값에 따른 chartsid 배열을 받고 그 값에 따라서 company chart 데이터를 받아 정렬해서 보내줘야함.
-  useEffect(() => {
-    const fetchChartData = async () => {
+  const fetchChartData = async () => {
+    if (activeCompany) {
       try {
         const result = await API.get(`/company/${activeCompany.id}/charts`);
-        // const response = await API.get(`/chart/company/all/${activeCompany.id}`);
-        // console.log(response);
         setChartData(result.data);
+        console.log(result.data);
       } catch (error) {
         console.log(error);
       }
-    };
-    fetchChartData();
+    }
+  };
+
+  useEffect(() => {
+    fetchChartData(); // 처음 activeCompany가 설정될 때 호출
   }, [activeCompany]);
 
-  return {
-    chartData,
-    setChartData,
-  };
+  useEffect(() => {
+    if (chartData) {
+      const newChartArr = [{ data: [] }];
+      chartData.chartList.forEach(chart => {
+        const date = new Date(chart.date).getTime();
+        newChartArr[0].data.push({
+          x: date,
+          y: [chart.open, chart.high, chart.low, chart.close],
+        });
+      });
+      setChartArr(newChartArr); // chartData가 변경될 때마다 chartArr 업데이트
+      console.log(newChartArr);
+    }
+  }, [chartData]);
+
+  return <ChartDataContext.Provider value={{ chartData, chartArr, setChartData, fetchChartData }}>{children}</ChartDataContext.Provider>;
 };
+
+export const useChartData = () => useContext(ChartDataContext);
