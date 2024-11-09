@@ -8,6 +8,8 @@ import TotalSum from "../../../main/components/TotalSum";
 import UpDownText from "../../../../components/UpDownText";
 import SumList from "../../../../function/calculation/sumList";
 
+import LoadingSpinner from "../../../../styles/LoadingSpinner";
+
 const MaxContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -77,7 +79,7 @@ const AssetInfo = () => {
   const openValue = SumList({data: companyList, type: 'openStockPrice'});
 
   if(!companyList) {
-    return <div>로딩중...</div>
+    return <LoadingSpinner />;
   }
 
     return (

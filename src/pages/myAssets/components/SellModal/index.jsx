@@ -89,7 +89,7 @@ const SellCompany = ({ item }) => {
     <>
       <>
         <SellButton
-          disabled={calculateDays(activeCompany.listedDate) < calSellDate(activeCompany.leastOperatePeriod)}
+          disabled={calculateDays(new Date(item.createdAt)) < calSellDate(item.leastOperatePeriod)}
           onClick={() => setPopupOpen(true)}
         >
           스톡옵션 매각하기
