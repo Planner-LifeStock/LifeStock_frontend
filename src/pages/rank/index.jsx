@@ -3,6 +3,9 @@ import styled from 'styled-components'
 import Ranking from './components/Ranking'
 import UserInfo from './components/UserInfo'
 
+
+import { useRanking } from '../../hooks/useRanking'
+
 const Container = styled.div`
   display: flex;
   justify-content: space-around;
@@ -13,7 +16,7 @@ const RankPage = () => {
     <>
       <Container>
         <UserInfo/>
-        {/* <Ranking/> */}
+        <Ranking/>
       </Container>
     </>
   )
