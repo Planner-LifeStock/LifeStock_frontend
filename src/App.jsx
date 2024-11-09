@@ -13,8 +13,7 @@ import RequireAuth from './components/RequireAuth';
 import { CompanyProvider } from './hooks/useCompanyData';
 import { UserProvider } from './hooks/useUser';
 import { AuthProvider } from './hooks/useAuth';
-import { CompanyListingProvider } from './hooks/useCreateDate';
-
+import { ChartProvider } from './hooks/useChart';
 
 const Layout = () => {
   const location = useLocation();
@@ -24,19 +23,15 @@ const Layout = () => {
 
   const showHeader = !isLoginPage && !isRegisterPage;
 
-  return (
-    <>
-      {showHeader && <Header />}
-    </>
-  );
+  return <>{showHeader && <Header />}</>;
 };
 
 function App() {
   return (
     <AuthProvider>
-      <CompanyListingProvider>
-        <CompanyProvider>
-          <UserProvider>
+      <CompanyProvider>
+        <UserProvider>
+          <ChartProvider>
             <BrowserRouter>
               <Layout />
               <Routes>
@@ -51,14 +46,14 @@ function App() {
                   <Route path="/myasset" element={<MyAssetPage />} />
                   <Route path="/salesrecords" element={<SalesHistoryPage />} />
                 </Route>
-                
+
                 {/* 일치하지 않는 경로를 메인 페이지로 리디렉션 */}
                 <Route path="*" element={<Navigate to="/" />} />
               </Routes>
             </BrowserRouter>
-          </UserProvider>
-        </CompanyProvider>
-      </CompanyListingProvider>
+          </ChartProvider>
+        </UserProvider>
+      </CompanyProvider>
     </AuthProvider>
   );
 }

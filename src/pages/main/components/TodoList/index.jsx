@@ -9,6 +9,7 @@ import { useDate } from '../../hooks/useDate';
 import { useUser } from '../../../../hooks/useUser';
 import { useCompanyData } from '../../../../hooks/useCompanyData';
 import { API } from '../../../../api/axios';
+import { useChartData } from '../../../../hooks/useChart';
 
 const ContainerWrapper = styled.div`
   display: flex;
@@ -31,12 +32,12 @@ const MoveButton = styled.button`
   background-color: #fffbfd;
 
   &:focus {
-      border: none;
-      outline: none;
+    border: none;
+    outline: none;
   }
 
   &:hover {
-      opacity: 0.5;
+    opacity: 0.5;
   }
 `;
 
@@ -76,11 +77,11 @@ const CloseButton = styled.button`
   }
 `;
 
-
 function TodoList() {
   const { userData } = useUser();
   const { activeCompany } = useCompanyData();
   const { selectedDate, setSelectedDate } = useDate();
+  const { fetchChartData } = useChartData();
 
   const [todoList, setTodoList] = useState(null);
   const [showModal, setShowModal] = useState(false); // 모달 상태
@@ -106,7 +107,7 @@ function TodoList() {
   }, [userData, activeCompany, selectedDate]); // selectedDate를 종속성 배열에 추가하여 변경 시 실행
 
   useEffect(() => {
-    const handleKeyDown = (event) => {
+    const handleKeyDown = event => {
       if (event.key === 'Enter' && showModal) {
         setShowModal(false);
       }
@@ -117,9 +118,8 @@ function TodoList() {
       document.removeEventListener('keydown', handleKeyDown);
     };
   }, [showModal]);
-  
-  const handleCheckBoxChange = async index => {
 
+  const handleCheckBoxChange = async index => {
     const today = new Date();
     if (!isSameDay(today, selectedDate)) {
       setModalMessage('할 일 완료 체크는 당일에만 가능합니다.');
@@ -135,57 +135,73 @@ function TodoList() {
       return;
     }
 
-    
     const updatedCompleted = !todo.completed;
     todo.completed = updatedCompleted;
 
     setTodoList(updatedTodoList);
-
     try {
+      // `API.put` 요청이 완료될 때까지 기다림
       await API.put(`/todo/complete/${todo.id}`, { completed: updatedCompleted });
+
+      // `API.put` 요청이 완료된 후에 `fetchChartData` 호출
+      await fetchChartData();
     } catch (error) {
       console.error('todoCheck 중 오류 발생:', error);
     }
   };
 
-  const handleAddDays = (days) => {
-    setSelectedDate((prevDate) => addDays(prevDate, days));
+  const handleAddDays = days => {
+    setSelectedDate(prevDate => addDays(prevDate, days));
   };
 
-  const handleSubtractDays = (days) => {
-    setSelectedDate((prevDate) => subDays(prevDate, days));
+  const handleSubtractDays = days => {
+    setSelectedDate(prevDate => subDays(prevDate, days));
   };
 
   return (
     <ContainerWrapper>
       <Container>
         <div>
-          <div style={{ display: "flex", justifyContent: "center"}}>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
             <h2>TodoList</h2>
           </div>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <MoveButton onClick={() => {handleSubtractDays(1)}}>{'<<'}</MoveButton>
-              <h2>{selectedDate.getMonth() + 1}월 {selectedDate.getDate()}일</h2>
-            <MoveButton onClick={() => {handleAddDays(1)}}>{'>>'}</MoveButton>
+            <MoveButton
+              onClick={() => {
+                handleSubtractDays(1);
+              }}
+            >
+              {'<<'}
+            </MoveButton>
+            <h2>
+              {selectedDate.getMonth() + 1}월 {selectedDate.getDate()}일
+            </h2>
+            <MoveButton
+              onClick={() => {
+                handleAddDays(1);
+              }}
+            >
+              {'>>'}
+            </MoveButton>
           </div>
           <div>
-          {todoList &&
-            todoList.map(({ title, level, completed }, index) => {
-              return (
-                <CheckBox
-                  key={index}
-                  completed={completed}
-                  title={title}
-                  level={level}
-                  onChange={() => {
-                    handleCheckBoxChange(index);
-                  }}
-                />
-              );
-            })} 
+            {todoList &&
+              todoList.map(({ title, level, completed }, index) => {
+                return (
+                  <CheckBox
+                    key={index}
+                    completed={completed}
+                    title={title}
+                    level={level}
+                    onChange={() => {
+                      handleCheckBoxChange(index);
+                    }}
+                  />
+                );
+              })}
           </div>
         </div>
-        <CreateTodoModal handleAddNewTodo={handleAddNewTodo}/>
+        <CreateTodoModal handleAddNewTodo={handleAddNewTodo} />
       </Container>
 
       {showModal && (
@@ -196,7 +212,6 @@ function TodoList() {
           </ModalContent>
         </ModalOverlay>
       )}
-
     </ContainerWrapper>
   );
 }
