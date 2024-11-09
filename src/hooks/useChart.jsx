@@ -37,7 +37,7 @@ export const ChartProvider = ({ children }) => {
         });
       });
       setChartArr(newChartArr); // chartData가 변경될 때마다 chartArr 업데이트
-      console.log(newChartArr);
+      // console.log(newChartArr);
     }
   }, [chartData]);
 

@@ -37,58 +37,52 @@ const PriceBox = styled.div`
   min-height: 120px;
 `;
 
-  function GraphBox({currentDate, setCurrentDate, selectedDate, setSelectedDate, handleNextMonth, handlePrevMonth}) {
-    const buttonArr = ['차트', '캘린더'];
-    const [currentOption, setCurrentOption] = useState('차트');
-  
-    const { userData, setUserData } = useUser();
-    const { companyList, setCompanyList, activeCompany, setActiveCompany } = useCompanyData();
-    const { chartData } = useChartData();
+function GraphBox() {
+  const buttonArr = ['차트', '캘린더'];
+  const [currentOption, setCurrentOption] = useState('차트');
 
-    if (!activeCompany) {
-      return <LoadingSpinner/>
-    }
-  
-    if (!chartData || !chartData.chartList || chartData.chartList.length === 0) {
-      return <LoadingSpinner/>
-    }
+  const { userData, setUserData } = useUser();
+  const { companyList, setCompanyList, activeCompany, setActiveCompany } = useCompanyData();
+  const { chartData } = useChartData();
 
-    console.log(activeCompany)
-
-    const realPrice = (chartData.chartList[0].open + 1) * chartData.chartList[0].changeRate
-  
-    return (
-      <Container>
-        <TitleBox>
-          <img src={activeCompany.logo.url} height="50px" width="50px" style={{ borderRadius: '100%', marginRight: 8 }} />
-          <div style={{ fontSize: 30, fontWeight: 600 }}>{activeCompany.name}</div>
-        </TitleBox>
-        <PriceBox>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <div style={{ fontSize: 50, fontWeight: 600, marginRight: 20 }}>{activeCompany.name}</div>
-            <div style={{
-                fontSize: "40px",
-                fontWeight: "bold",
-                color: chartData.chartList[0].changeRate >= 0 ? "red" : "blue"
-              }}>{realPrice >= 0 ? `+${Math.floor(realPrice).toLocaleString()}` : Math.floor(realPrice).toLocaleString()}</div>
-            <div
-              style={{
-                fontSize: "40px",
-                fontWeight: "bold",
-                color: chartData.chartList[0].changeRate >= 0 ? "red" : "blue",
-                marginLeft: "10px"
-              }}
-            >
-              ({chartData.chartList[0].changeRate >= 0 ? `+${chartData.chartList[0].changeRate.toFixed(2)}` : chartData.chartList[0].changeRate.toFixed(2)})%
-            </div>
-          </div>
-          <div style={{ minWidth: "400px", display: 'flex', justifyContent: 'flex-end' }}>
-            <OptionButton OptionList={buttonArr} currentState={currentOption} SetState={setCurrentOption} />
-          </div>
-        </PriceBox>
-        {currentOption === '차트' ? <ApexChart /> : <ChartCalendar/>}
-      </Container>
-    );
+  if (!activeCompany) {
+    return <LoadingSpinner />;
   }
+
+  if (!chartData || !chartData.chartList || chartData.chartList.length === 0) {
+    return <LoadingSpinner />;
+  }
+
+  return (
+    <Container>
+      <TitleBox>
+        <img src={activeCompany.logo.url} height="50px" width="50px" style={{ borderRadius: '100%', marginRight: 8 }} />
+        <div style={{ fontSize: 30, fontWeight: 600 }}>{activeCompany.name}</div>
+      </TitleBox>
+      <PriceBox>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div style={{ fontSize: 50, fontWeight: 600, marginRight: 20 }}>{activeCompany.name}</div>
+          <div
+            style={{
+              fontSize: '40px',
+              fontWeight: 'bold',
+              color: chartData.chartList[0].changeRate >= 0 ? 'red' : 'blue',
+            }}
+          >
+            (
+            {chartData.chartList[0].changeRate >= 0
+              ? `+${chartData.chartList[0].changeRate.toFixed(2)}`
+              : chartData.chartList[0].changeRate.toFixed(2)}
+            )%
+          </div>
+        </div>
+        <div style={{ minWidth: '400px', display: 'flex', justifyContent: 'flex-end' }}>
+          <OptionButton OptionList={buttonArr} currentState={currentOption} SetState={setCurrentOption} />
+        </div>
+      </PriceBox>
+      {currentOption === '차트' ? <ApexChart /> : <ChartCalendar />}
+    </Container>
+  );
+}
 
 export default GraphBox;
