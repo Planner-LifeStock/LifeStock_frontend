@@ -37,7 +37,7 @@ const PriceBox = styled.div`
   min-height: 120px;
 `;
 
-  function GraphBox() {
+  function GraphBox({currentDate, setCurrentDate, selectedDate, setSelectedDate, handleNextMonth, handlePrevMonth}) {
     const buttonArr = ['차트', '캘린더'];
     const [currentOption, setCurrentOption] = useState('차트');
   
@@ -78,7 +78,7 @@ const PriceBox = styled.div`
             <OptionButton OptionList={buttonArr} currentState={currentOption} SetState={setCurrentOption} />
           </div>
         </PriceBox>
-        {currentOption === '차트' ? <ApexChart /> : <ChartCalendar />}
+        {currentOption === '차트' ? <ApexChart /> : <ChartCalendar/>}
       </Container>
     );
   }
