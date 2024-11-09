@@ -49,6 +49,10 @@ function SideBar() {
   const currentValue = SumList({ data: companyList, type: 'currentStockPrice'});
   const openValue = SumList({data: companyList, type: 'openStockPrice'});
 
+  // if (!chartData || !chartData.chartList || chartData.chartList.length === 0) {
+  //   return <div>차트 데이터를 불러오는 중...</div>;
+  // }
+
   // if(!userData || !activeCompany || !companyList)
   //   return <div>로딩 중...</div>
 
@@ -81,8 +85,8 @@ function SideBar() {
                         key={index}
                         name={item.name}
                         logo={item.logo.url}
-                        buyPrice={item.openStockPrice}
-                        currentPrice={item.currentStockPrice}
+                        buyPrice={item.openStockPrice} // 시가
+                        currentPrice={item.currentStockPrice} //종가
                         onClick={() => setActiveCompany(item)}
                       />
                     ))}

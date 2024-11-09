@@ -1,6 +1,9 @@
 import styled from 'styled-components'
 import UpDownText from '../../../../components/UpDownText'
 
+import { useRanking } from '../../../../hooks/useRanking'
+import { useUser } from '../../../../hooks/useUser'
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -18,7 +21,7 @@ const UserContainer = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  background-color:  ${(props) => props.theme.colors.grey.light};
+  background-color:  ${(props) => props.theme.colors.grey.border};
   border-radius: ${(props) => props.theme.border.radius.small};
   box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
 `
@@ -66,46 +69,53 @@ const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padSt
      ${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`
 
 function Ranking({ data }) {
+  const { ranking, setRanking, userRanking, setUserRanking } = useRanking();
+  const { userData, totalAssets } = useUser();
+
+  if (!Array.isArray(ranking) || !userData) {
+    return <div>랭킹반환 X</div>;
+  }
+
   return (
     <Container>
-      <TimeFont>{formattedDate} 기준</TimeFont>
+      <TimeFont style={{marginTop: "20px"}}>{formattedDate} 기준</TimeFont>
       <Container
         style={{
           padding: '10px',
           backgroundColor: '#D3D3D3',
-          maxHeight: '600px',
+          maxHeight: '70vh',
           maxWidth: '900px',
           overflowY: 'auto',
         }}
         >
-        {data.map(({ username, chartData }, index) => (
+        {ranking.map((item, index) => (
           <UserContainer
             key={index}
-            username={username}
-            chartData={chartData}
+            // username={username}
+            // chartData={chartData}
             style={{ marginTop: index === 0 ? '0px' : '26px' }}
           >
             <Circle>
               <CircleFont>{index + 1}</CircleFont>
             </Circle>
-            <InfoFont>{username}</InfoFont>
+            {/* <InfoFont>{username}</InfoFont> */}
             <InfoFont style={{ marginRight: '30px' }}>
-              {chartData[chartData.length - 1][2].toLocaleString()}원
+              {item.score.toLocaleString()}원
             </InfoFont>
-            <UpDownText
+            {/* <UpDownText
               standard={chartData[chartData.length - 1][2]}
               comparision={chartData[chartData.length - 1][3]}
               fontSize={32}
-            />
+            /> */}
           </UserContainer>
         ))}
       </Container>
       <UserContainer style={{ marginRight: '10px' }}>
         <Circle>
-          <CircleFont>1</CircleFont>
+          <CircleFont>{userRanking}</CircleFont>
         </Circle>
-        <InfoFont>내 랭킹</InfoFont>
-        <InfoFont>123,455,132원</InfoFont>
+        <InfoFont>{userData.realName}</InfoFont>
+        <InfoFont>{totalAssets.toLocaleString()}원</InfoFont>
       </UserContainer>
     </Container>
   )

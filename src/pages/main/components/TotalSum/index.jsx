@@ -14,7 +14,7 @@ function TotalSum() {
   const { companyList } = useCompanyData();
   const { userData, setUserData, totalAssets, setTotalAssets } = useUser();
 
-  const currentValue = SumList({ data: companyList, type: 'currentStockPrice'});
+  const currentValue = SumList({ data: companyList, type: 'currentStockPrice'}); // 현재가
   
   return (
     <GrayText>
