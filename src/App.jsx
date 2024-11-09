@@ -14,6 +14,7 @@ import { CompanyProvider } from './hooks/useCompanyData';
 import { UserProvider } from './hooks/useUser';
 import { AuthProvider } from './hooks/useAuth';
 import { ChartProvider } from './hooks/useChart';
+import { TodoProvider } from './hooks/useTodo';
 
 const Layout = () => {
   const location = useLocation();

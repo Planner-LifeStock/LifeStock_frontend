@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
     setIsLoading(false);
   }, []);
 
-  const login = async (data) => {
+  const login = async data => {
     try {
       const response = await API.post('/auth/login', data);
       const token = response.data.accessToken;
@@ -53,12 +53,12 @@ export const AuthProvider = ({ children }) => {
       if (accessToken && checkTokenExp(accessToken)) {
         try {
           const response = await axios.post(
-            'http://localhost:8080/auth/refresh', 
+            'http://localhost:8080/auth/refresh',
             {},
             {
               headers: {
-                Authorization: `Bearer ${refreshToken}`
-              }
+                Authorization: `Bearer ${refreshToken}`,
+              },
             }
           );
 
@@ -68,7 +68,7 @@ export const AuthProvider = ({ children }) => {
           getNewAccessToken(newAccessToken);
           window.location.reload();
         } catch (error) {
-          console.error("Token 재발급 실패:", error);
+          console.error('Token 재발급 실패:', error);
         }
       }
     };
@@ -76,11 +76,7 @@ export const AuthProvider = ({ children }) => {
     verifyAndRefreshToken();
   }, [accessToken, refreshToken]);
 
-  return (
-    <AuthContext.Provider value={{ accessToken, isLoading, login, logout }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={{ accessToken, isLoading, login, logout }}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = () => useContext(AuthContext);

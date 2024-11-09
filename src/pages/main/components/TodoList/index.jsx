@@ -10,6 +10,7 @@ import { useUser } from '../../../../hooks/useUser';
 import { useCompanyData } from '../../../../hooks/useCompanyData';
 import { API } from '../../../../api/axios';
 import { useChartData } from '../../../../hooks/useChart';
+import { useTodo } from '../../../../hooks/useTodo';
 
 const ContainerWrapper = styled.div`
   display: flex;
@@ -78,33 +79,13 @@ const CloseButton = styled.button`
 `;
 
 function TodoList() {
-  const { userData } = useUser();
-  const { activeCompany } = useCompanyData();
-  const { selectedDate, setSelectedDate } = useDate();
   const { fetchChartData } = useChartData();
+  const { setTodoList, selectedDate, setSelectedDate, todoList } = useTodo();
 
-  const [todoList, setTodoList] = useState(null);
   const [showModal, setShowModal] = useState(false); // 모달 상태
   const [modalMessage, setModalMessage] = useState(''); // 모달 메시지
 
-  const handleAddNewTodo = newTodo => {
-    setTodoList(prevList => [...prevList, newTodo]);
-  };
-
-  useEffect(() => {
-    if (userData && activeCompany && selectedDate) {
-      const fetchTodoList = async () => {
-        try {
-          const formattedDate = format(selectedDate, 'yyyy-MM-dd'); // 날짜 포맷을 'yyyy-MM-dd'로 변환
-          const result = await API.get(`/todo?companyId=${activeCompany.id}&date=${formattedDate}`);
-          setTodoList(result.data);
-        } catch (error) {
-          console.log(error);
-        }
-      };
-      fetchTodoList();
-    }
-  }, [userData, activeCompany, selectedDate]); // selectedDate를 종속성 배열에 추가하여 변경 시 실행
+  // selectedDate를 종속성 배열에 추가하여 변경 시 실행
 
   useEffect(() => {
     const handleKeyDown = event => {
@@ -142,7 +123,6 @@ function TodoList() {
     try {
       // `API.put` 요청이 완료될 때까지 기다림
       await API.put(`/todo/complete/${todo.id}`, { completed: updatedCompleted });
-
       // `API.put` 요청이 완료된 후에 `fetchChartData` 호출
       await fetchChartData();
     } catch (error) {
@@ -201,7 +181,7 @@ function TodoList() {
               })}
           </div>
         </div>
-        <CreateTodoModal handleAddNewTodo={handleAddNewTodo} />
+        <CreateTodoModal />
       </Container>
 
       {showModal && (
