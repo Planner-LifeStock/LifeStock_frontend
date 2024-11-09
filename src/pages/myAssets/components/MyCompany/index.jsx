@@ -102,15 +102,15 @@ function MyCompany() {
                       상장가:&nbsp;<span style={{ color: '#5A5A5A' }}>{parseInt(item.initialStockPrice).toLocaleString()}원</span>
                     </FontContainer>
                     <FontContainer style={{ marginTop: '10px' }}>
-                      현재가:&nbsp;<span style={{ color: '#5A5A5A' }}>{parseInt(item.currentStockPrice).toLocaleString()}원</span>
+                      현재가:&nbsp;<span style={{ color: '#5A5A5A' }}>{parseInt(item.currentStockPrice/100).toLocaleString()}원</span>
                     </FontContainer>
                   </MinContainer>
                   <MinContainer style={{ flexDirection: 'column', marginTop: '10px' }}>
                     <FontContainer>
-                      투자비용:&nbsp;<span style={{ color: '#5A5A5A' }}>2,000,000원</span>
+                      투자비용:&nbsp;<span style={{ color: '#5A5A5A' }}>{parseInt(item.investmentAmount).toLocaleString()}원</span>
                     </FontContainer>
                     <FontContainer style={{ marginTop: '10px' }}>
-                      회사가치:&nbsp;<span style={{ color: '#5A5A5A' }}>1,750,000원</span>
+                      회사가치:&nbsp;<span style={{ color: '#5A5A5A' }}>{parseInt(item.currentStockPrice).toLocaleString()}원</span>
                     </FontContainer>
                   </MinContainer>
                   <MinContainer style={{flexDirection: "column", alignItems: "center", marginLeft: '210px'}}>

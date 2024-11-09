@@ -55,7 +55,7 @@ const OptionButton = ({ OptionList, currentState, SetState, multiple = false }) 
         }
       });
     } else {
-      SetState(prevState => (prevState === option ? null : option));
+      SetState(option); // 선택된 옵션을 직접 SetState에 전달
     }
   };
 
@@ -67,9 +67,7 @@ const OptionButton = ({ OptionList, currentState, SetState, multiple = false }) 
           <GroupButton
             key={index}
             $isSelect={isSelected}
-            onClick={() => {
-              handleClick(name);
-            }}
+            onClick={() => handleClick(name)}
           >
             {name}
           </GroupButton>

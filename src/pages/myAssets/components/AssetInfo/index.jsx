@@ -70,6 +70,8 @@ const AssetInfo = () => {
   const { companyList, setCompanyList, activeCompany, setActiveCompany} = useCompanyData()
   const navigate = useNavigate();
 
+  console.log(userData)
+
   const currentValue = SumList({ data: companyList, type: 'currentStockPrice'});
   const currentValue1 = SumList({ data: companyList, type: 'currentStockPrice'});
   const openValue = SumList({data: companyList, type: 'openStockPrice'});

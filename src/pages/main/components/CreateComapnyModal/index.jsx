@@ -9,11 +9,15 @@ import { useUser } from "../../../../hooks/useUser";
 import { useCompanyData } from "../../../../hooks/useCompanyData";
 import { API } from "../../../../api/axios";
 
+import SumList from "../../../../function/calculation/sumList";
+
 const CreateCompany = () => {
   const { userData } = useUser();
-  const { setCompanyList } = useCompanyData();
+  const { companyList, setCompanyList } = useCompanyData();
   const [modalOpen, setModalOpen] = useState(false);
   const modalBackground = useRef();
+
+  const currentValue = 100000000 - SumList({ data: companyList, type: 'currentStockPrice' });
 
   // State 관리
   const [companyName, setCompanyName] = useState('');
@@ -24,6 +28,7 @@ const CreateCompany = () => {
   const [invest, setInvest] = useState(null);
   const [logoFileName, setLogoFileName] = useState('');
   const [logoFile, setLogoFile] = useState('');
+  const [investAmount, setInvestAmount] = useState(0); // 새 상태 추가
 
   // 난이도 및 운영 기간 매핑
   const levelArr = ['상', '중', '하'];
@@ -34,11 +39,28 @@ const CreateCompany = () => {
     '14일': 'TWO_WEEK',
     '한달(30일)': 'ONE_MONTH',
   };
+  const investArr = ['10%', '25%', '50%'];
+  const investMap = {
+    '10%': 0.1,
+    '25%': 0.25,
+    '50%': 0.5,
+  }
+
+  const handleInvestChange = (value) => {
+    setInvest(value);
+    const investRatio = investMap[value];
+    console.log(value)
+    if (investRatio !== undefined) {
+      setInvestAmount(Math.floor(currentValue * investRatio));
+    } else {
+      setInvestAmount(0);
+    }
+  };
 
   const handleCreateCompany = async () => {
     const token = localStorage.getItem('accessToken');
-  
-    if (!companyName || !companyInfo || !level || !period) {
+
+    if (!companyName || !companyInfo || !level || !period || !invest) {
       alert('모든 필드를 입력해 주세요.');
       return;
     }
@@ -48,28 +70,28 @@ const CreateCompany = () => {
       description: companyInfo,
       level: levelMap[level],
       leastOperatePeriod: periodMap[period],
-      initialStockPrice: 5000,
+      initialStockPrice: Math.floor(investAmount) / 100,
       initialStockQuantity: 100,
+      investAmount: Math.floor(investAmount),
     };
 
     const formData = new FormData();
     formData.append(
-        "company",
-        new Blob([JSON.stringify(companyData)], { type: "application/json" })
-    )
-  
+      "company",
+      new Blob([JSON.stringify(companyData)], { type: "application/json" })
+    );
+
     if (logoFile) {
-        formData.append("logo", logoFile);
+      formData.append("logo", logoFile);
     }
 
     try {
-        console.log(localStorage.getItem("accessToken"));
-        const result = await API.post("/company", formData, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-                "Content-Type": "multipart/form-data",
-            },
-        });
+      const result = await API.post("/company", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
       console.log("Success:", result.data);
 
       setCompanyList((prevCompanyData) => [...prevCompanyData, result.data]);
@@ -82,14 +104,15 @@ const CreateCompany = () => {
       setCompanyName('');
       setCompanyInfo('');
       setLogoImg(null);
+      setInvestAmount(0); // 초기화
     } catch (error) {
       console.error("Error sending company data:", error);
     }
   };
 
-    return (
-        <div>
-            <Button onClick={() => setModalOpen(true)}>회사 상장하기</Button>
+  return (
+    <div>
+      <Button onClick={() => setModalOpen(true)}>회사 상장하기</Button>
 
       {modalOpen && (
         <ModalContainer
@@ -103,6 +126,7 @@ const CreateCompany = () => {
               setCompanyName('');
               setCompanyInfo('');
               setLogoImg(null);
+              setInvestAmount(0);
             }
           }}
         >
@@ -135,8 +159,16 @@ const CreateCompany = () => {
                 <OptionButton OptionList={periodArr} currentState={period} SetState={setPeriod} />
                 <Tip defaultTip={'최소 운영 기간이 끝나면 회사를 매각할 수 있어요.'} />
                 <Title>투자비용</Title>
-                <OptionButton OptionList={['10%', '25%', '50%']} currentState={invest} SetState={setInvest} />
+                <OptionButton OptionList={investArr} currentState={invest} SetState={handleInvestChange} />
                 <Tip defaultTip={'투자가능 금액의 최대 50%까지 투자할 수 있어요.'} />
+              </InnerContainer>
+              <InnerContainer style={{marginLeft: "30px"}}>
+                <Title style={{color: "grey"}}>투자가능금액</Title>
+                <Title style={{fontSize: "40px", marginTop: "-50px"}}>{currentValue.toLocaleString()}원</Title>
+                <Title style={{color: "grey"}}>투자 비용</Title>
+                <Title style={{fontSize: "40px", marginTop: "-50px"}}>{investAmount.toLocaleString()}원</Title>
+                <Title style={{color: "grey"}}>스톡 옵션</Title>
+                <Title style={{fontSize: "40px", marginTop: "-50px"}}>{Math.floor(investAmount / 100).toLocaleString()}원 / 100주</Title>
               </InnerContainer>
             </div>
             <Button width={'470'} onClick={handleCreateCompany}>

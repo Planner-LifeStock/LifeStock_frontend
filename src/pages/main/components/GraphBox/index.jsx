@@ -8,6 +8,7 @@ import ChartCalendar from '../ChartCalendar';
 
 import { useUser } from '../../../../hooks/useUser';
 import { useCompanyData } from '../../../../hooks/useCompanyData';
+import { useChartData } from '../../../../hooks/useChart';
 
 const Container = styled.div`
   width: 100%;
@@ -34,41 +35,49 @@ const PriceBox = styled.div`
   min-height: 120px;
 `
 
-function GraphBox() {
-  const buttonArr = ['차트', '캘린더'];
-  const [currentOption, setCurrentOption] = useState('차트');
 
-  const { userData, setUserData } = useUser();
-  const { companyList, setComapnyList, activeCompany, setActiveCompany} = useCompanyData();
-
-  if(!activeCompany) {
+  function GraphBox() {
+    const buttonArr = ['차트', '캘린더'];
+    const [currentOption, setCurrentOption] = useState('차트');
+  
+    const { userData, setUserData } = useUser();
+    const { companyList, setCompanyList, activeCompany, setActiveCompany } = useCompanyData();
+    const { chartData } = useChartData();
+  
+    if (!activeCompany) {
+      return <div>로딩중...</div>;
+    }
+  
+    if (!chartData || !chartData.chartList || chartData.chartList.length === 0) {
+      return <div>차트 데이터를 불러오는 중...</div>;
+    }
+  
     return (
-      <div>로딩중...</div>
-    )
+      <Container>
+        <TitleBox>
+          <img src={activeCompany.logo.url} height="50px" style={{ borderRadius: '100%', marginRight: 8 }} />
+          <div style={{ fontSize: 30, fontWeight: 600 }}>{activeCompany.name}</div>
+        </TitleBox>
+        <PriceBox>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div style={{ fontSize: 50, fontWeight: 600, marginRight: 20 }}>{activeCompany.name}</div>
+            <div
+              style={{
+                fontSize: "40px",
+                fontWeight: "bold",
+                color: chartData.chartList[0].changeRate >= 0 ? "red" : "blue"
+              }}
+            >
+              ({chartData.chartList[0].changeRate >= 0 ? `+${chartData.chartList[0].changeRate.toFixed(2)}` : chartData.chartList[0].changeRate.toFixed(2)})%
+            </div>
+          </div>
+          <div style={{ minWidth: "400px", display: 'flex', justifyContent: 'flex-end' }}>
+            <OptionButton OptionList={buttonArr} currentState={currentOption} SetState={setCurrentOption} />
+          </div>
+        </PriceBox>
+        {currentOption === '차트' ? <ApexChart /> : <ChartCalendar />}
+      </Container>
+    );
   }
-
-  return (
-    <Container>
-      <TitleBox>
-        <img src={activeCompany.logo.url} height="50px" style={{ borderRadius: '100%', marginRight: 8 }} />
-        <div style={{ fontSize: 30, fontWeight: 600 }}>{activeCompany.name}</div>
-      </TitleBox>
-      <PriceBox>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <div style={{ fontSize: 50, fontWeight: 600, marginRight: 20 }}>{activeCompany.name}</div>
-          <UpDownText
-            standard={activeCompany.openStockPrice}
-            comparision={activeCompany.currentStockPrice}
-            fontSize={40}
-          />
-        </div>
-        <div style={{ minWidth: "400px", display: 'flex', justifyContent: 'flex-end' }}>
-          <OptionButton OptionList={buttonArr} currentState={currentOption} SetState={setCurrentOption} />
-        </div>
-      </PriceBox>
-      {currentOption === '차트' ? <ApexChart /> : <ChartCalendar />}
-    </Container>
-  );
-}
 
 export default GraphBox;
