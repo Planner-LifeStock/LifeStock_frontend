@@ -24,7 +24,7 @@ const Button = styled.button`
 `
 
 const DayContainer = styled.div`
-  position: relative; /* 내부 요소의 절대 위치를 기준으로 삼음 */
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -42,9 +42,9 @@ const DayContainer = styled.div`
 
 const DayText = styled.div`
   position: absolute;
-  top: 5px; /* DayContainer의 상단에서 5px 아래 */
+  top: 5px;
   font-size: 0.9rem;
-  color: ${({ isToday }) => (isToday ? `red` : `black`)};
+  color: black; /* 기본 색상을 black으로 지정 */
 `;
 
 const ChangeRateText = styled.div`
@@ -101,7 +101,6 @@ function ChartCalendar() {
 
     // 달력의 실제 날짜 추가
     for (let day = 1; day <= totalDays; day++) {
-      const isToday = new Date().getMonth() === currentDate.getMonth() && new Date().getDate() === day;
       const isSelected = selectedDate.getFullYear() === currentDate.getFullYear() && selectedDate.getMonth() === currentDate.getMonth() && selectedDate.getDate() === day;
 
       const dayString = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
@@ -113,15 +112,14 @@ function ChartCalendar() {
       days.push(
         <DayContainer
           key={`day-${day}`}
-          $isToday={isToday}
           $isSelected={isSelected}
           onClick={() =>
             setSelectedDate(new Date(currentDate.getFullYear(), currentDate.getMonth(), day))
           }
         >
-          <DayText isToday={isToday}>{day}일</DayText>
+          <DayText>{day}일</DayText>
           {changeRate && (
-            <ChangeRateText style={{ color: changeRateColor }}>
+            <ChangeRateText color={changeRateColor}>
               {changeRate}%
             </ChangeRateText>
           )}
