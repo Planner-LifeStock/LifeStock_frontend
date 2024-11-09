@@ -4,6 +4,8 @@ import React from 'react';
 import { useUser } from '../../../../hooks/useUser';
 import { useCompanyData } from '../../../../hooks/useCompanyData';
 
+import LoadingSpinner from '../../../../styles/LoadingSpinner';
+
 const Container = styled.div`
   display: grid;
   grid-template-columns: repeat(10, 1fr);
@@ -28,7 +30,9 @@ function SalesRecord() {
   const { userData } = useUser();
   const { soldCompany } = useCompanyData();
 
-  console.log(soldCompany);
+  if(!userData) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <div style={{ padding: '0px 50px' }}>

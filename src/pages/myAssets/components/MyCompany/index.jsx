@@ -6,6 +6,8 @@ import { useUser } from "../../../../hooks/useUser";
 import { useCompanyData } from "../../../../hooks/useCompanyData";
 import UpDownText from "../../../../components/UpDownText";
 
+import LoadingSpinner from "../../../../styles/LoadingSpinner";
+
 const Container = styled.div`
   margin-top: 5px;
 
@@ -51,8 +53,8 @@ function MyCompany() {
   const currentValue = SumList({ data: companyList, type: 'currentStockPrice'});
   const openValue = SumList({data: companyList, type: 'openStockPrice'});
 
-  if (!companyList) {
-    return <div>로딩중...</div>;
+  if (!companyList || !activeCompany) {
+    return <LoadingSpinner />;
   }
 
   return (
@@ -77,10 +79,10 @@ function MyCompany() {
             <CompanyBox key={item.id} $isFirst={index === 0} style={{alignItems: "center"}}>
               <img
                 src={item.logo.url}
-                style={{ height: "12vh", borderRadius: "50%", marginLeft: "20px" }}
+                style={{ height: "150px", width: "150px", borderRadius: "50%", marginLeft: "70px" }}
               />
               <MinContainer style={{ flexDirection: "column"}}>
-                <MinContainer>
+                <MinContainer style={{marginLeft: "-100px"}}>
                   <FontContainer style={{ fontSize: "30px" }}>
                     {item.name}
                     <FontContainer style={{ fontSize: "18px" }}>
@@ -88,10 +90,10 @@ function MyCompany() {
                     </FontContainer>
                   </FontContainer>
                 </MinContainer>
-                <MinContainer style={{justifyContent: "center", alignItems: "center"}}>
+                <MinContainer style={{marginLeft: "-100px", justifyContent: "center", alignItems: "center"}}>
                   <MinContainer style={{ flexDirection: 'column', marginTop: '10px' }}>
                     <FontContainer>
-                      상장일:&nbsp;<span style={{ color: '#5A5A5A' }}>{item.listedDate}</span>
+                      상장일:&nbsp;<span style={{ color: '#5A5A5A' }}>{new Date(item.createdAt).toLocaleDateString("ko-KR")}</span>
                     </FontContainer>
                     <FontContainer style={{ marginTop: '10px' }}>
                       발행주식 수:&nbsp;<span style={{ color: '#5A5A5A' }}>100주</span>

@@ -1,8 +1,11 @@
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { human, startup, smallCompany, companyCEO } from '../../../../assets';
 
 import { useUser } from '../../../../hooks/useUser';
 import { useRanking } from '../../../../hooks/useRanking';
+
+import LoadingSpinner from "../../../../styles/LoadingSpinner";
 
 const Container = styled.div`
   display: flex;
@@ -20,11 +23,18 @@ function UserInfo() {
   const { userData } = useUser();
   const { userRanking } = useRanking();
 
-  let TierImg, TierName;
+  const [loading, setLoading] = useState(true);
 
-  if (!userData) {
-    return <div>로딩 중...</div>;
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 100)
+    return () => clearTimeout(timer)
+  }, []);
+
+  if (loading || !userData || !companyCEO || !smallCompany || !startup) {
+    return <LoadingSpinner />;
   }
+
+  let TierImg, TierName;
 
   if (userRanking <= 10) {
     TierName = '대기업 사장님';

@@ -6,7 +6,6 @@ const ButtonBox = styled.button`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   margin-bottom: 10px;
   padding: 5px;
   width: 320px;
@@ -21,15 +20,23 @@ const ButtonBox = styled.button`
   }
 `;
 
+const Logo = styled.img`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 8px;
+`;
+
 function CompanyList({ name, logo, currentPrice, buyPrice, onClick }) {
-  const { companyList, setCompanyList, activeCompany, setActiveCompany } = useCompanyData();
+  const { companyList, activeCompany } = useCompanyData();
 
   return (
     <>
       {companyList && activeCompany && (
         <ButtonBox onClick={onClick}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <img src={logo} height="30px" style={{ borderRadius: '100%', marginRight: 8 }} />
+            <Logo src={logo} alt={`${name} 로고`} />
             <div style={{ fontSize: 20 }}>{name}</div>
           </div>
           <div style={{ textAlign: 'right' }}>
