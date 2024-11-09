@@ -1,4 +1,4 @@
-import styled, {keyframes} from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 import CompanyList from '../CompanyList';
 import UpDownText from '../../../../components/UpDownText';
@@ -62,12 +62,14 @@ function SideBar() {
   const { companyList, setComapnyList, activeCompany, setActiveCompany } = useCompanyData();
   const { chartData } = useChartData();
 
-  const currentValue = SumList({ data: companyList, type: 'currentStockPrice'});
-  const openValue = SumList({data: companyList, type: 'openStockPrice'});
+  const currentValue = SumList({ data: companyList, type: 'currentStockPrice' });
+  const openValue = SumList({ data: companyList, type: 'openStockPrice' });
 
   if (!chartData || !chartData.chartList || chartData.chartList.length === 0) {
-    return <CreateCompany/>
+    return <LoadingSpinner />;
   }
+
+  if (!userData || !activeCompany || !companyList) return <LoadingSpinner />;
 
   return (
     <>
@@ -75,33 +77,35 @@ function SideBar() {
         <Container>
           <div>
             <div style={{ borderBottom: 'solid 1px', marginBottom: 30 }}>
-              <Title>{userData.displayName + '님의 종목'}</Title>
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'end',
-                  marginBottom: 24,
-                }}
-              >
-                <TotalSum />
-                <UpDownText
-                  standard={currentValue}
-                  comparision={openValue}
-                />
-              </div>
-              <div style={{ minHeight: '760px', maxHeight: '760px', overflowY: 'scroll' }}>
-                {companyList.map((item, index) => (
-                  <CompanyList
-                    key={index}
-                    name={item.name}
-                    logo={item.logo.url}
-                    buyPrice={item.initialStockPrice} // 시가
-                    currentPrice={item.currentStockPrice} //종가
-                    onClick={() => setActiveCompany(item)}
-                  />
-                ))}
-              </div>
+              {userData && activeCompany && companyList && (
+                /* companyList.length > 0 && */ <>
+                  <Title>{userData.displayName + '님의 보유 주식'}</Title>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'end',
+                      marginBottom: 24,
+                    }}
+                  >
+                    <TotalSum />
+                    <UpDownText standard={currentValue} comparision={openValue} />
+                  </div>
+                  <div style={{ minHeight: '760px', maxHeight: '760px', overflowY: 'scroll' }}>
+                    {companyList.map((item, index) => (
+                      <CompanyList
+                        key={index}
+                        name={item.name}
+                        logo={item.logo.url}
+                        companyId={item.id}
+                        initialStockPrice={item.initialStockPrice}
+                        investmentAmount={item.investmentAmount}
+                        onClick={() => setActiveCompany(item)}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
             <CreateCompany>회사 상장하기</CreateCompany>
           </div>
