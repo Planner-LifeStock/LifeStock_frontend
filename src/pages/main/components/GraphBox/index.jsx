@@ -44,7 +44,7 @@ const PriceBox = styled.div`
     const { userData, setUserData } = useUser();
     const { companyList, setCompanyList, activeCompany, setActiveCompany } = useCompanyData();
     const { chartData } = useChartData();
-  
+
     if (!activeCompany) {
       return <LoadingSpinner/>
     }
@@ -54,6 +54,8 @@ const PriceBox = styled.div`
     }
 
     console.log(activeCompany)
+
+    const realPrice = (chartData.chartList[0].open + 1) * chartData.chartList[0].changeRate
   
     return (
       <Container>
@@ -64,11 +66,17 @@ const PriceBox = styled.div`
         <PriceBox>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <div style={{ fontSize: 50, fontWeight: 600, marginRight: 20 }}>{activeCompany.name}</div>
+            <div style={{
+                fontSize: "40px",
+                fontWeight: "bold",
+                color: chartData.chartList[0].changeRate >= 0 ? "red" : "blue"
+              }}>{realPrice >= 0 ? `+${Math.floor(realPrice).toLocaleString()}` : Math.floor(realPrice).toLocaleString()}</div>
             <div
               style={{
                 fontSize: "40px",
                 fontWeight: "bold",
-                color: chartData.chartList[0].changeRate >= 0 ? "red" : "blue"
+                color: chartData.chartList[0].changeRate >= 0 ? "red" : "blue",
+                marginLeft: "10px"
               }}
             >
               ({chartData.chartList[0].changeRate >= 0 ? `+${chartData.chartList[0].changeRate.toFixed(2)}` : chartData.chartList[0].changeRate.toFixed(2)})%

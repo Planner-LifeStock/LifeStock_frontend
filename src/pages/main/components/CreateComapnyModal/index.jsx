@@ -11,7 +11,7 @@ import { API } from "../../../../api/axios";
 
 import SumList from "../../../../function/calculation/sumList";
 
-const CreateCompany = () => {
+const CreateCompany = ({ onCreate }) => {
   const { userData } = useUser();
   const { companyList, setCompanyList } = useCompanyData();
   const [modalOpen, setModalOpen] = useState(false);
@@ -108,6 +108,8 @@ const CreateCompany = () => {
     } catch (error) {
       console.error("Error sending company data:", error);
     }
+
+    onCreate();
   };
 
   return (
