@@ -60,6 +60,8 @@ const CreateCompany = ({ onCreate }) => {
   const handleCreateCompany = async () => {
     const token = localStorage.getItem('accessToken');
 
+    setModalOpen(false); // 클릭하면 일단  모달 바로 닫히도록
+
     if (!companyName || !companyInfo || !level || !period || !invest) {
       alert('모든 필드를 입력해 주세요.');
       return;
@@ -97,7 +99,6 @@ const CreateCompany = ({ onCreate }) => {
       setCompanyList((prevCompanyData) => [...prevCompanyData, result.data]);
 
       // 초기화
-      setModalOpen(false);
       setInvest(null);
       setLevel(null);
       setPeriod(null);

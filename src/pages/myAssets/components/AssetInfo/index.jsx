@@ -93,12 +93,13 @@ const AssetInfo = () => {
 
   console.log(userData);
 
+  const seedMoney = 100000000;
   const totalPurchaseAmount = SumList({ data: companyList, type: 'investmentAmount'});
   const realizedProfitLoss = SumList({ data: soldCompany, type: 'listedStockPrice'}) - SumList({ data: soldCompany, type: 'investmentAmount'});
-  const unrealizedProfitLoss = totalAssets - 100000000;
+  const unrealizedProfitLoss = totalAssets - seedMoney;
   const totalProfitLoss = realizedProfitLoss + unrealizedProfitLoss;
-  const totalEvaluationAmount = 100000000 + unrealizedProfitLoss;
-  const totalReturnRate = ((unrealizedProfitLoss/100000000))*100;
+  const totalEvaluationAmount = seedMoney + unrealizedProfitLoss;
+  const totalReturnRate = ((unrealizedProfitLoss/seedMoney))*100;
 
   if(!companyList) {
     return <LoadingSpinner />;
