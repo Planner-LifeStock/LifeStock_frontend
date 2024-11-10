@@ -97,7 +97,7 @@ function GraphBox() {
               {chartData.chartList[0].changeRate > 0
               ? `+${chartData.chartList[0].changeRate.toFixed(2)}%`
               : chartData.chartList[0].changeRate < 0
-              ? `-${chartData.chartList[0].changeRate.toFixed(2)}%`
+              ? `${chartData.chartList[0].changeRate.toFixed(2)}%`
               : `${chartData.chartList[0].changeRate.toFixed(2)}%`
               }
             )
