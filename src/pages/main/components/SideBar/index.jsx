@@ -59,7 +59,7 @@ const NoCompanyMessage = styled.div`
 
 function SideBar() {
   const { userData, setUserData, totalAssets, setTotalAssets } = useUser();
-  const { companyList, setComapnyList, activeCompany, setActiveCompany } = useCompanyData();
+  const { companyList, activeCompany, setActiveCompany, totalPurchaseAmount, unrealizedProfitLoss } = useCompanyData();
   const { chartData } = useChartData();
 
   const currentValue = SumList({ data: companyList, type: 'currentStockPrice' });
@@ -88,9 +88,9 @@ function SideBar() {
                       marginBottom: 24,
                     }}
                   >
-                    <TotalSum />
-                    <div>ㅇㅇ</div>
-                    <UpDownText standard={currentValue} comparision={openValue} />
+                    {/* <TotalSum /> */}
+                    <div style={{ color: 'grey', fontWeight: 'bold' }}>{`총 ${(totalPurchaseAmount + unrealizedProfitLoss).toLocaleString()}원`}</div>
+                    <UpDownText standard={totalPurchaseAmount} comparision={totalPurchaseAmount + unrealizedProfitLoss} />
                   </div>
                   <div style={{ minHeight: '760px', maxHeight: '760px', overflowY: 'scroll' }}>
                     {console.log(companyList)}
