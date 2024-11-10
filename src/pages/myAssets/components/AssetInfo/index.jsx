@@ -1,78 +1,78 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 import React from 'react';
 
-import { useNavigate } from "react-router-dom";
-import { useUser } from "../../../../hooks/useUser";
-import { useCompanyData } from "../../../../hooks/useCompanyData";
+import { useNavigate } from 'react-router-dom';
+import { useUser } from '../../../../hooks/useUser';
+import { useCompanyData } from '../../../../hooks/useCompanyData';
 
-import TotalSum from "../../../main/components/TotalSum";
-import UpDownText from "../../../../components/UpDownText";
-import SumList from "../../../../function/calculation/sumList";
-import LoadingSpinner from "../../../../styles/LoadingSpinner";
-import StockPrice from "../StockPrice";
+import TotalSum from '../../../main/components/TotalSum';
+import UpDownText from '../../../../components/UpDownText';
+import SumList from '../../../../function/calculation/sumList';
+import LoadingSpinner from '../../../../styles/LoadingSpinner';
+import StockPrice from '../StockPrice';
 
 const MaxContainer = styled.div`
   display: flex;
   flex-direction: column;
 
   width: 100%;
-`
+`;
 
 const Container = styled.div`
   display: flex;
   width: 100%;
-`
+`;
 
 const InfoFont = styled.div`
   font-size: 64px;
-  font-weight: ${(props) => props.theme.font.weight.bold};
-`
+  font-weight: ${props => props.theme.font.weight.bold};
+`;
 
 const CheckSellButton = styled.button`
-    background-color: ${(props) => props.theme.colors.blue.primary};
-    border-radius: ${(props) => props.theme.border.radius.small};
+  background-color: ${props => props.theme.colors.blue.primary};
+  border-radius: ${props => props.theme.border.radius.small};
+  border: none;
+  transition: all 0.3s ease;
+
+  margin-left: auto;
+  margin-top: 30px;
+  width: 200px;
+  height: 40px;
+
+  &:focus {
     border: none;
-    transition: all 0.3s ease;
+    outline: none;
+  }
 
-    margin-left: auto;
-    margin-top: 30px;
-    width: 200px;
-    height: 40px;
-
-    &:focus {
-        border: none;
-        outline: none;
-    }
-
-    &:hover {
-        opacity: 0.5;
-    }
-`
+  &:hover {
+    opacity: 0.5;
+  }
+`;
 
 const PriceBox = styled.div`
-    padding: 10px;
-    margin-top: 60px;
+  padding: 10px;
+  margin-top: 60px;
 
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    background-color: ${(props) => props.theme.colors.background.chatbot};
-    border-radius: ${(props) => props.theme.border.radius.small};
-    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
-`
+  background-color: ${props => props.theme.colors.background.chatbot};
+  border-radius: ${props => props.theme.border.radius.small};
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
+`;
 
 const PriceFont = styled.span`
-    display: flex;
-    color: ${(props) => props.theme.colors.grey.hover};
-    font-size: ${(props) => props.theme.font.size.xLarge};
-    font-weight: ${(props) => props.theme.font.weight.bold};
-`
+  display: flex;
+  color: ${props => props.theme.colors.grey.hover};
+  font-size: ${props => props.theme.font.size.xLarge};
+  font-weight: ${props => props.theme.font.weight.bold};
+`;
 
 const MenuContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 10px; // 열 사이의 간격
-`
+`;
 
 const Header = styled.div`
   font-size: 30px;
@@ -83,64 +83,63 @@ const Header = styled.div`
   text-overflow: ellipsis;
   white-space: nowrap;
   // max-width: 150px; << 이거 수정필요
-`
+`;
 
 const AssetInfo = () => {
-
-  const { userData, setUserData, totalAssets } = useUser()
-  const { companyList, setCompanyList, activeCompany, setActiveCompany, soldCompany } = useCompanyData()
+  const { userData, setUserData } = useUser();
+  const {
+    companyList,
+    soldCompany,
+    totalPurchaseAmount,
+    realizedProfitLoss,
+    unrealizedProfitLoss,
+    totalProfitLoss,
+    totalEvaluationAmount,
+    totalReturnRate,
+  } = useCompanyData();
   const navigate = useNavigate();
 
   console.log(userData);
 
-  const seedMoney = 100000000;
-  const totalPurchaseAmount = SumList({ data: companyList, type: 'investmentAmount'});
-  const realizedProfitLoss = SumList({ data: soldCompany, type: 'listedStockPrice'}) - SumList({ data: soldCompany, type: 'investmentAmount'});
-  const unrealizedProfitLoss = totalAssets - seedMoney;
-  const totalProfitLoss = realizedProfitLoss + unrealizedProfitLoss;
-  const totalEvaluationAmount = seedMoney + unrealizedProfitLoss;
-  const totalReturnRate = ((unrealizedProfitLoss/seedMoney))*100;
-
-  if(!companyList) {
+  if (!companyList) {
     return <LoadingSpinner />;
   }
 
-    return (
-      <>
-          <Container>
-            <InfoFont>{userData.realName}님의 자산 현황</InfoFont>
-            <CheckSellButton
-            style = {{color: "#FFFFFF",
-                      fontSize: "14px",
-                      fontWeight: "bold",
-                      marginTop: "19px"}}
-            onClick={() => navigate('/salesrecords')}>
-                스톡옵션 매매 기록</CheckSellButton>
-          </Container>
+  return (
+    <>
+      <Container>
+        <InfoFont>{userData.realName}님의 자산 현황</InfoFont>
+        <CheckSellButton
+          style={{ color: '#FFFFFF', fontSize: '14px', fontWeight: 'bold', marginTop: '19px' }}
+          onClick={() => navigate('/salesrecords')}
+        >
+          스톡옵션 매매 기록
+        </CheckSellButton>
+      </Container>
 
-        <div style={{ padding: '10px', marginTop: '30px'}}>
-          <MenuContainer style={{ borderBottom: 'solid 3px', marginBottom: '10px' }}>
-            <Header>총매입</Header>
-            <Header>실현손익</Header>
-            <Header>평가손익</Header>
-            <Header>총손익</Header>
-            <Header>총평가</Header>
-            <Header>총수익률</Header>
-          </MenuContainer>
-            <StockPrice
-              totalPurchaseAmount={totalPurchaseAmount}
-              realizedProfitLoss={realizedProfitLoss}
-              unrealizedProfitLoss={unrealizedProfitLoss}
-              totalProfitLoss={totalProfitLoss}
-              totalEvaluationAmount={totalEvaluationAmount}
-              totalReturnRate={totalReturnRate}
-            />
-        </div>
-      </>
-    )
-}
+      <div style={{ padding: '10px', marginTop: '30px' }}>
+        <MenuContainer style={{ borderBottom: 'solid 3px', marginBottom: '10px' }}>
+          <Header>총매입</Header>
+          <Header>실현손익</Header>
+          <Header>평가손익</Header>
+          <Header>총손익</Header>
+          <Header>총평가</Header>
+          <Header>총수익률</Header>
+        </MenuContainer>
+        <StockPrice
+          totalPurchaseAmount={totalPurchaseAmount}
+          realizedProfitLoss={realizedProfitLoss}
+          unrealizedProfitLoss={unrealizedProfitLoss}
+          totalProfitLoss={totalProfitLoss}
+          totalEvaluationAmount={totalEvaluationAmount}
+          totalReturnRate={totalReturnRate}
+        />
+      </div>
+    </>
+  );
+};
 
-export default AssetInfo
+export default AssetInfo;
 
 // import styled from "styled-components";
 // import React from 'react';
@@ -153,7 +152,6 @@ export default AssetInfo
 // import UpDownText from "../../../../components/UpDownText";
 // import SumList from "../../../../function/calculation/sumList";
 // import LoadingSpinner from "../../../../styles/LoadingSpinner";
-
 
 // const MaxContainer = styled.div`
 //   display: flex;
@@ -239,7 +237,6 @@ export default AssetInfo
 //               스톡옵션 매매 기록</CheckSellButton>
 //         </Container>
 
-
 //         <Container style={{justifyContent: "space-between"}}>
 //           <Container>
 //             <PriceBox style={{minWidth: "500px"}}>
@@ -255,7 +252,6 @@ export default AssetInfo
 //             </PriceBox>
 //           </Container>
 
-
 //           <Container style={{justifyContent: "end"}}>
 //             <PriceBox style={{minWidth: "200px", marginRight: "30px"}}>
 //               <PriceFont>투자 비용</PriceFont>
@@ -270,7 +266,6 @@ export default AssetInfo
 //               </Container>
 //             </PriceBox>
 //           </Container>
-
 
 //         </Container>
 //       </MaxContainer>

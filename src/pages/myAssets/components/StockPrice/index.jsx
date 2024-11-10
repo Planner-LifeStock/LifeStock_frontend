@@ -6,11 +6,11 @@ const MenuContainer = styled.div`
   gap: 10px;
 `;
 
-const Header = styled.div`
+// 스타일을 적용하는 로직을 Header 외부에서 처리
+const StyledHeader = styled.div`
   font-size: 30px;
-  font-weight: ${props => props.theme.font.weight.bold};
-  color: ${({ value, isTotalPurchase }) =>
-    isTotalPurchase ? 'black' : value > 0 ? 'red' : value < 0 ? 'blue' : 'gray'};
+  font-weight: ${({ theme }) => theme.font.weight.bold};
+  color: ${({ color }) => color};
   overflow: hidden;
   text-align: center;
   text-overflow: ellipsis;
@@ -19,16 +19,18 @@ const Header = styled.div`
 
 const DisplayWithStyle = ({ value, isTotalPurchase }) => {
   const displayValue = isTotalPurchase ? value.toLocaleString() : value > 0 ? `+${value.toLocaleString()}` : value.toLocaleString();
-  return <Header value={value} isTotalPurchase={isTotalPurchase}>{displayValue}</Header>;
+
+  // `isTotalPurchase`에 따른 색상 결정 로직을 여기에서 처리
+  const color = isTotalPurchase ? 'black' : value > 0 ? 'red' : value < 0 ? 'blue' : 'gray';
+
+  return <StyledHeader color={color}>{displayValue}</StyledHeader>;
 };
 
 const TotalReturnRate = ({ rate }) => {
   const displayRate = rate > 0 ? `+${rate.toFixed(1)}` : rate.toFixed(1);
-  return (
-    <Header value={rate}>
-      {displayRate}%
-    </Header>
-  );
+  const color = rate > 0 ? 'red' : rate < 0 ? 'blue' : 'gray';
+
+  return <StyledHeader color={color}>{displayRate}%</StyledHeader>;
 };
 
 const StockPrice = ({ totalPurchaseAmount, realizedProfitLoss, unrealizedProfitLoss, totalProfitLoss, totalEvaluationAmount, totalReturnRate }) => (
