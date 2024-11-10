@@ -92,7 +92,7 @@ function SideBar() {
                     <div style={{ color: 'grey', fontWeight: 'bold' }}>{`총 ${(totalPurchaseAmount + unrealizedProfitLoss).toLocaleString()}원`}</div>
                     <UpDownText standard={totalPurchaseAmount} comparision={totalPurchaseAmount + unrealizedProfitLoss} />
                   </div>
-                  <div style={{ minHeight: '760px', maxHeight: '760px', overflowY: 'scroll' }}>
+                  <div style={{ minHeight: '760px', maxHeight: '760px', overflowY: 'scroll', overflowX: 'hidden'}}>
                     {console.log(companyList)}
                     {companyList.map((item, index) => (
                       <CompanyList
