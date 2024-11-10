@@ -50,9 +50,6 @@ function MyCompany() {
   const { userData, setUserData } = useUser();
   const { companyList, setCompanyList, activeCompany, setActiveCompany } = useCompanyData();
 
-  const currentValue = SumList({ data: companyList, type: 'currentStockPrice'});
-  const openValue = SumList({data: companyList, type: 'openStockPrice'});
-
   if (!companyList || !activeCompany) {
     return <LoadingSpinner />;
   }
@@ -133,11 +130,16 @@ function MyCompany() {
                   </MinContainer>
                   <MinContainer style={{flexDirection: "column", alignItems: "center", marginLeft: '210px'}}>
                     <div style={{fontSize: '40px', marginTop: "-35px", fontWeight: "bold"}}>회사매각예상손익</div>
-                    <UpDownText
-                        standard={item.openStockPrice*100}
-                        comparision={item.currentStockPrice*100}
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <span style={{ fontSize: "40px", fontWeight: "bold", marginRight: "10px" }}>
+                        {Math.floor(item.investmentAmount * (item.currentStockPrice - item.openStockPrice) / item.openStockPrice).toLocaleString()}
+                      </span>
+                      <UpDownText
+                        standard={item.openStockPrice}
+                        comparision={item.currentStockPrice}
                         fontSize={40}
-                    />
+                      />
+                    </div>
                   </MinContainer>
                 </MinContainer>
               </MinContainer>
