@@ -53,6 +53,8 @@ function GraphBox() {
     return <LoadingSpinner />;
   }
 
+  const realValue = activeCompany.investmentAmount * (chartData.chartList[0].close/chartData.chartList[0].open - 1);
+
   return (
     <Container>
       <TitleBox>
@@ -66,11 +68,33 @@ function GraphBox() {
             style={{
               fontSize: '40px',
               fontWeight: 'bold',
-              color: chartData.chartList[0].changeRate >= 0 ? 'red' : 'blue',
+              color:
+                chartData.chartList[0].changeRate === 0
+                  ? 'gray'
+                  : chartData.chartList[0].changeRate > 0
+                  ? 'red'
+                  : 'blue',
+            }}
+          >
+            {chartData.chartList[0].changeRate > 0
+              ? `+${Math.floor(realValue).toLocaleString()}`
+              : Math.floor(realValue).toLocaleString()}
+          </div>
+          <div
+            style={{
+              marginLeft: '20px',
+              fontSize: '40px',
+              fontWeight: 'bold',
+              color:
+                chartData.chartList[0].changeRate === 0
+                  ? 'gray'
+                  : chartData.chartList[0].changeRate > 0
+                  ? 'red'
+                  : 'blue',
             }}
           >
             (
-            {chartData.chartList[0].changeRate >= 0
+            {chartData.chartList[0].changeRate > 0
               ? `+${chartData.chartList[0].changeRate.toFixed(2)}`
               : chartData.chartList[0].changeRate.toFixed(2)}
             )%

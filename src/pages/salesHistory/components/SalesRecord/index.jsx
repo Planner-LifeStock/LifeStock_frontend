@@ -5,7 +5,6 @@ import { useUser } from '../../../../hooks/useUser';
 import { useCompanyData } from '../../../../hooks/useCompanyData';
 
 import LoadingSpinner from '../../../../styles/LoadingSpinner';
-
 import UpDownText from '../../../../components/UpDownText';
 
 const Container = styled.div`

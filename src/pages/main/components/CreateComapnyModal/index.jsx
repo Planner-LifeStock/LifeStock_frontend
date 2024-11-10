@@ -17,7 +17,7 @@ const CreateCompany = ({ onCreate }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const modalBackground = useRef();
 
-  const currentValue = 100000000 - SumList({ data: companyList, type: 'currentStockPrice' });
+  const currentValue = 100000000 - SumList({ data: companyList, type: 'currentStockPrice' })*100;
 
   // State 관리
   const [companyName, setCompanyName] = useState('');
