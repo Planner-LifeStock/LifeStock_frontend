@@ -51,7 +51,7 @@ const ChangeRateText = styled.div`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: bold;
   color: ${({ color }) => color};
 `;
