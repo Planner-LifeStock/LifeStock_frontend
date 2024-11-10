@@ -78,13 +78,15 @@ const TimeFont = styled.div`
 let date = new Date();
 const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
 
-function Ranking({ data }) {
+function Ranking() {
   const { ranking, setRanking, userRanking, setUserRanking } = useRanking();
   const { userData, totalAssets } = useUser();
 
   if (!Array.isArray(ranking) || !userData) {
     return <LoadingSpinner />;
   }
+
+  console.log(userData)
 
   return (
     <Container>
