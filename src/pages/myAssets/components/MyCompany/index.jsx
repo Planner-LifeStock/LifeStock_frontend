@@ -82,13 +82,29 @@ function MyCompany() {
                 style={{ height: "150px", width: "150px", borderRadius: "50%", marginLeft: "70px" }}
               />
               <MinContainer style={{ flexDirection: "column"}}>
-                <MinContainer style={{marginLeft: "-100px"}}>
-                  <FontContainer style={{ fontSize: "30px" }}>
-                    {item.name}
-                    <FontContainer style={{ fontSize: "18px" }}>
-                      (회사 info) - {item.description}
+                <MinContainer style={{ marginLeft: "-100px" }}>
+                    <FontContainer>
+                      <FontContainer style={{ fontSize: "30px",
+                          marginLeft: '0',
+                          maxWidth: '200px',
+                          minWidth: '200px',
+                          whiteSpace: 'nowrap', 
+                          textOverflow: 'ellipsis', 
+                          overflow: 'hidden'}}>
+                      {item.name}
+                      </FontContainer>
+                      <FontContainer 
+                        style={{ 
+                          fontSize: "18px", 
+                          maxWidth: '250px',
+                          whiteSpace: 'nowrap', 
+                          textOverflow: 'ellipsis', 
+                          overflow: 'hidden'
+                        }}
+                      >
+                        (회사 info) - {item.description}
+                      </FontContainer>
                     </FontContainer>
-                  </FontContainer>
                 </MinContainer>
                 <MinContainer style={{marginLeft: "-100px", justifyContent: "center", alignItems: "center"}}>
                   <MinContainer style={{ flexDirection: 'column', marginTop: '10px' }}>

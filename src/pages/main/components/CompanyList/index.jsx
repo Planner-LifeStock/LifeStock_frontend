@@ -68,7 +68,7 @@ function CompanyList({ name, logo, companyId, initialStockPrice, investmentAmoun
         <ButtonBox onClick={onClick}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <LogoImage src={logo} alt={`${name} 로고`} />
-            <div style={{ fontSize: 25, fontWeight: 'bold' }}>{name}</div>
+            <div style={{ fontSize: 25, fontWeight: 'bold', maxWidth: '150px', whiteSpace: 'nowrap', textOverflow: 'ellipis', overflow: 'hidden' }}>{name}</div>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
             <div style={{ fontSize: 20, fontWeight: 'bold' }}>{`${(sidecompany.chartList[0].close * initialStockQuantity).toLocaleString()}원`}</div>

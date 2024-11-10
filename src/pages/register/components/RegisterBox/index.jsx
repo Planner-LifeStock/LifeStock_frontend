@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 
 import { useRegister } from "../../../../hooks/useRegister";
+
 import Button from "../../../../components/Button";
 import InputBox from "../../../../components/InputBox";
 
@@ -195,9 +196,9 @@ const RegisterBox = () => {
           onChange={(e) => setConfirmPassword(e.target.value)}
           placeholder="비밀번호 확인"
         />
-        {formError && <ErrorMessage>{formError}</ErrorMessage>} {/* 폼 에러 메시지 표시 */}
-        {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
-        {successMessage && <div style={{ color: 'green' }}>{successMessage}</div>}
+        {formError && <ErrorMessage style={{textAlign: "center", maxWidth: "320px"}}>{formError}</ErrorMessage>} {/* 폼 에러 메시지 표시 */}
+        {errorMessage && <ErrorMessage style={{textAlign: "center", maxWidth: "320px"}}>{errorMessage}</ErrorMessage>}
+        {successMessage && <div style={{ color: 'green', textAlign: "center" }}>{successMessage}</div>}
         <Button type="submit" disabled={isLoading}>
           {isLoading ? '회원가입 중...' : '회원가입하기'}
         </Button>
