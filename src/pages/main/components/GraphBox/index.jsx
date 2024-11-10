@@ -53,60 +53,57 @@ function GraphBox() {
     return <LoadingSpinner />;
   }
 
-  const realValue = activeCompany.investmentAmount * (chartData.chartList[0].close/chartData.chartList[0].open - 1);
+  const realValue = activeCompany.openStockPrice*(chartData.chartList[0].close/chartData.chartList[0].open - 1);
 
   return (
     <Container>
-      <TitleBox>
-        <img src={activeCompany.logo.url} height="50px" width="50px" style={{ borderRadius: '100%', marginRight: 8 }} />
-        <div style={{ fontSize: 30, fontWeight: 600 }}>{activeCompany.name}</div>
-      </TitleBox>
-      <PriceBox>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <div style={{ fontSize: 50, fontWeight: 600, marginRight: 20 }}>{activeCompany.name}</div>
-          <div
-            style={{
-              fontSize: '40px',
-              fontWeight: 'bold',
-              color:
-                chartData.chartList[0].changeRate === 0
-                  ? 'gray'
-                  : chartData.chartList[0].changeRate > 0
-                  ? 'red'
-                  : 'blue',
-            }}
-          >
-            {chartData.chartList[0].changeRate > 0
-              ? `+${Math.floor(realValue).toLocaleString()}`
-              : Math.floor(realValue).toLocaleString()}
+      <TitleBox style={{marginTop: "20px", marginBottom: "50px"}}>
+        <img src={activeCompany.logo.url} height="130px" width="130px" style={{ borderRadius: '100%', marginRight: 8 }} />
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div style={{ fontSize: 50, fontWeight: 600, marginRight: 20, marginLeft: '30px'}}>{activeCompany.name}</div>
           </div>
-          <div
-            style={{
-              marginLeft: '20px',
-              fontSize: '40px',
-              fontWeight: 'bold',
-              color:
-                chartData.chartList[0].changeRate === 0
-                  ? 'gray'
-                  : chartData.chartList[0].changeRate > 0
-                  ? 'red'
-                  : 'blue',
-            }}
-          >
-            (
+          <div style={{ display: 'flex', alignItems: 'center', marginLeft: '30px' }}>
+            <div
+              style={{
+                fontSize: '40px',
+                fontWeight: 'bold',
+                color:
+                  chartData.chartList[0].changeRate === 0
+                    ? 'gray'
+                    : chartData.chartList[0].changeRate > 0
+                    ? 'red'
+                    : 'blue',
+              }}
+            >
               {chartData.chartList[0].changeRate > 0
-              ? `+${chartData.chartList[0].changeRate.toFixed(2)}%`
-              : chartData.chartList[0].changeRate < 0
-              ? `${chartData.chartList[0].changeRate.toFixed(2)}%`
-              : `${chartData.chartList[0].changeRate.toFixed(2)}%`
-              }
-            )
+                ? `+${Math.floor(realValue).toLocaleString()}`
+                : Math.floor(realValue).toLocaleString()}
+            </div>
+            <div
+              style={{
+                marginLeft: '20px',
+                fontSize: '40px',
+                fontWeight: 'bold',
+                color:
+                  chartData.chartList[0].changeRate === 0
+                    ? 'gray'
+                    : chartData.chartList[0].changeRate > 0
+                    ? 'red'
+                    : 'blue',
+              }}
+            >
+              (
+              {chartData.chartList[0].changeRate > 0
+                ? `+${chartData.chartList[0].changeRate.toFixed(2)}`
+                : chartData.chartList[0].changeRate.toFixed(2)}%)
+            </div>
           </div>
         </div>
-        <div style={{ minWidth: '400px', display: 'flex', justifyContent: 'flex-end' }}>
+        <div style={{ minWidth: '400px', display: 'flex', marginLeft: '200px'}}>
           <OptionButton OptionList={buttonArr} currentState={currentOption} SetState={setCurrentOption} />
         </div>
-      </PriceBox>
+      </TitleBox>
       {currentOption === '차트' ? <ApexChart /> : <ChartCalendar />}
     </Container>
   );
