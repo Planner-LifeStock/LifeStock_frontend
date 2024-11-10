@@ -92,14 +92,16 @@ function SideBar() {
                     <UpDownText standard={currentValue} comparision={openValue} />
                   </div>
                   <div style={{ minHeight: '760px', maxHeight: '760px', overflowY: 'scroll' }}>
+                    {console.log(companyList)}
                     {companyList.map((item, index) => (
                       <CompanyList
                         key={index}
                         name={item.name}
                         logo={item.logo.url}
                         companyId={item.id}
+                        initialStockQuantity={item.initialStockQuantity}
                         initialStockPrice={item.initialStockPrice}
-                        investmentAmount={item.investmentAmount}
+                        investmentAmount={item.investmentAmount} //투자한 첫 금액
                         onClick={() => setActiveCompany(item)}
                       />
                     ))}
