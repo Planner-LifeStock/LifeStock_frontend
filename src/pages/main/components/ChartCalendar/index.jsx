@@ -107,8 +107,10 @@ function ChartCalendar() {
       const dayData = chartData?.chartList?.find((chart) => chart.date === dayString);
       const changeRate = dayData ? dayData.changeRate.toFixed(2) : null;
 
+      // const changeRateColor = changeRate > 0 ? 'red' : changeRate < 0 ? 'blue' : 'black';
+      const displayChangeRate = changeRate > 0 ? `+${changeRate}` : `${changeRate || ''}`;
       const changeRateColor = changeRate > 0 ? 'red' : changeRate < 0 ? 'blue' : 'black';
-
+      
       days.push(
         <DayContainer
           key={`day-${day}`}
@@ -118,9 +120,9 @@ function ChartCalendar() {
           }
         >
           <DayText>{day}일</DayText>
-          {changeRate && (
+          {displayChangeRate && (
             <ChangeRateText color={changeRateColor}>
-              {changeRate}%
+              {displayChangeRate}%
             </ChangeRateText>
           )}
         </DayContainer>
