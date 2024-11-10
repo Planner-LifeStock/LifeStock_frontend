@@ -9,7 +9,6 @@ import LoadingSpinner from '../../../../styles/LoadingSpinner';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-
   border-radius: ${props => props.theme.border.radius.small};
 `;
 
@@ -21,7 +20,7 @@ const UserContainer = styled.div`
 
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
 
   background-color: ${props => props.theme.colors.grey.border};
   border-radius: ${props => props.theme.border.radius.small};
@@ -32,37 +31,47 @@ const Circle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
   border-radius: 100%;
   height: 70px;
   width: 70px;
-
   background-color: ${props => props.theme.colors.blue.primary};
+  margin-right: 20px; /* 이름과의 간격 추가 */
 `;
 
 const CircleFont = styled.div`
   color: #ffffff;
   font-size: 48px;
   font-weight: ${props => props.theme.font.weight.bold};
-
   background: none;
   border: none;
 `;
 
 const InfoFont = styled.div`
-  margin-left: 30px;
-
-  font-size: 48px;
+  flex: 1; /* 가변적인 너비를 설정하여 균등 분배 */
+  font-size: 42px;
   font-weight: ${props => props.theme.font.weight.bold};
+  text-align:left;
+  margin-right: 20px; /* 총 자산과의 간격 추가 */
+`;
+
+const MoneyFont = styled.div`
+  font-size: 42px;
+  font-weight: ${props => props.theme.font.weight.bold};
+  text-align: right;
+  margin-right: 20px;
+  min-width: 200px; /* 일정한 너비 설정 */
+`;
+
+const UpDownWrapper = styled.div`
+  min-width: 100px; /* UpDownText 영역 너비 */
+  text-align: right;
 `;
 
 const TimeFont = styled.div`
   color: ${props => props.theme.colors.grey.light};
   opacity: 0.3;
-
   font-size: 32px;
   font-weight: ${props => props.theme.font.weight.bold};
-
   margin-left: auto;
 `;
 
@@ -95,12 +104,14 @@ function Ranking({ data }) {
               <CircleFont>{index + 1}</CircleFont>
             </Circle>
             <InfoFont>{item.userRealName}</InfoFont>
-            <InfoFont style={{ marginRight: '30px' }}>{item.totalAssets.toLocaleString()}원</InfoFont>
-            {/* <UpDownText
-              standard={chartData[chartData.length - 1][2]}
-              comparision={chartData[chartData.length - 1][3]}
-              fontSize={32}
-            /> */}
+            <MoneyFont>{item.totalAssets.toLocaleString()}원</MoneyFont>
+            <UpDownWrapper>
+              <UpDownText
+                standard={100000000} // 기준값 설정, 1억
+                comparision={item.totalAssets} // 비교할 총 자산 값
+                fontSize={20}
+              />
+            </UpDownWrapper>
           </UserContainer>
         ))}
       </Container>
@@ -109,7 +120,14 @@ function Ranking({ data }) {
           <CircleFont>{userRanking + 1}</CircleFont>
         </Circle>
         <InfoFont>{userData.realName}</InfoFont>
-        <InfoFont>{totalAssets.toLocaleString()}원</InfoFont>
+        <MoneyFont>{totalAssets.toLocaleString()}원</MoneyFont>
+        <UpDownWrapper>
+          <UpDownText
+            standard={100000000} // 기준값 설정, 1억
+            comparision={totalAssets} // 현재 유저의 총 자산
+            fontSize={25}
+          />
+        </UpDownWrapper>
       </UserContainer>
     </Container>
   );

@@ -94,10 +94,13 @@ function GraphBox() {
             }}
           >
             (
-            {chartData.chartList[0].changeRate > 0
-              ? `+${chartData.chartList[0].changeRate.toFixed(2)}`
-              : chartData.chartList[0].changeRate.toFixed(2)}
-            )%
+              {chartData.chartList[0].changeRate > 0
+              ? `+${chartData.chartList[0].changeRate.toFixed(2)}%`
+              : chartData.chartList[0].changeRate < 0
+              ? `-${chartData.chartList[0].changeRate.toFixed(2)}%`
+              : `${chartData.chartList[0].changeRate.toFixed(2)}%`
+              }
+            )
           </div>
         </div>
         <div style={{ minWidth: '400px', display: 'flex', justifyContent: 'flex-end' }}>
