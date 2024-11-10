@@ -76,7 +76,7 @@ function CompanyList({ name, logo, companyId, initialStockPrice, investmentAmoun
               <ChangeText value={changeValue}>{changeValue > 0 ? `+${changeValue.toLocaleString()}` : changeValue.toLocaleString()}원</ChangeText>
               <ChangeText value={changeRate}>{changeRate > 0 ? `(+${changeRate}%)` : `(${changeRate}%)`}</ChangeText>
             </div>
-            <div style={{ fontSize: 15, color: 'grey' }}>{`${sidecompany.chartList[0].close}원*${initialStockQuantity}주`}</div>
+            <div style={{ fontSize: 15, color: 'grey' }}>{`${sidecompany.chartList[0].close.toLocaleString()}원*${initialStockQuantity}주`}</div>
           </div>
         </ButtonBox>
       )}
