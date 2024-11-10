@@ -30,8 +30,8 @@ const Layout = () => {
 function App() {
   return (
     <AuthProvider>
-      <CompanyProvider>
-        <UserProvider>
+      <UserProvider>
+        <CompanyProvider>
           <ChartProvider>
             <BrowserRouter>
               <Layout />
@@ -53,8 +53,8 @@ function App() {
               </Routes>
             </BrowserRouter>
           </ChartProvider>
-        </UserProvider>
-      </CompanyProvider>
+        </CompanyProvider>
+      </UserProvider>
     </AuthProvider>
   );
 }

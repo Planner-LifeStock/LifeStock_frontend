@@ -89,6 +89,7 @@ function SideBar() {
                     }}
                   >
                     <TotalSum />
+                    <div>ㅇㅇ</div>
                     <UpDownText standard={currentValue} comparision={openValue} />
                   </div>
                   <div style={{ minHeight: '760px', maxHeight: '760px', overflowY: 'scroll' }}>

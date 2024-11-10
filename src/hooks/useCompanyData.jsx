@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { API } from '../api/axios';
+import SumList from '../function/calculation/sumList';
+import { useUser } from './useUser';
 
 const CompanyContext = createContext();
 
@@ -8,6 +10,15 @@ export const CompanyProvider = ({ children }) => {
   const [activeCompany, setActiveCompany] = useState(null);
   const [soldCompany, setSoldCompany] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { totalAssets } = useUser();
+
+  const seedMoney = 100000000;
+  const totalPurchaseAmount = SumList({ data: companyList, type: 'investmentAmount' });
+  const realizedProfitLoss = SumList({ data: soldCompany, type: 'listedStockPrice' }) - SumList({ data: soldCompany, type: 'investmentAmount' });
+  const unrealizedProfitLoss = totalAssets - seedMoney;
+  const totalProfitLoss = realizedProfitLoss + unrealizedProfitLoss;
+  const totalEvaluationAmount = seedMoney + unrealizedProfitLoss;
+  const totalReturnRate = (unrealizedProfitLoss / seedMoney) * 100;
 
   const fetchCompanyData = async () => {
     try {
@@ -22,7 +33,7 @@ export const CompanyProvider = ({ children }) => {
       setCompanyList(unlistedCompanies.data);
       setActiveCompany(unlistedCompanies.data[0]);
     } catch (error) {
-      console.log("Error fetching company data:", error);
+      console.log('Error fetching company data:', error);
     } finally {
       setLoading(false);
     }
@@ -44,6 +55,12 @@ export const CompanyProvider = ({ children }) => {
         setSoldCompany,
         loading,
         fetchCompanyData,
+        totalPurchaseAmount,
+        realizedProfitLoss,
+        unrealizedProfitLoss,
+        totalProfitLoss,
+        totalEvaluationAmount,
+        totalReturnRate,
       }}
     >
       {children}
