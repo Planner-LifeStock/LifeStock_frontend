@@ -31,10 +31,16 @@ const LogoImage = styled.img`
   margin-right: 8px;
 `;
 
-function CompanyList({ name, logo, companyId, initialStockPrice, investmentAmount, onClick }) {
+const ChangeText = styled.div`
+  font-size: 15px;
+  color: ${props => (props.value > 0 ? 'red' : props.value < 0 ? 'blue' : 'grey')};
+`;
+
+function CompanyList({ name, logo, companyId, initialStockPrice, investmentAmount, onClick, initialStockQuantity }) {
   const { companyList, activeCompany } = useCompanyData();
   const [sidecompany, setSideCompany] = useState(null);
   const { chartData } = useChartData();
+
   useEffect(() => {
     const fetchChartData = async () => {
       try {
@@ -48,20 +54,30 @@ function CompanyList({ name, logo, companyId, initialStockPrice, investmentAmoun
     fetchChartData();
   }, [chartData]);
 
+  const calculateChange = () => {
+    if (!sidecompany) return 0;
+    return sidecompany.chartList[0].close * initialStockQuantity - investmentAmount;
+  };
+
+  const changeValue = calculateChange();
+  const changeRate = ((changeValue / investmentAmount) * 100).toFixed(2);
+
   return (
     <>
       {companyList && activeCompany && sidecompany && (
         <ButtonBox onClick={onClick}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <LogoImage src={logo} alt={`${name} 로고`} />
-            <div style={{ fontSize: 20 }}>{name}</div>
+            <div style={{ fontSize: 25, fontWeight: 'bold' }}>{name}</div>
           </div>
-          <div style={{ textAlign: 'right' }}>
-            <div>{investmentAmount.toLocaleString()}원</div>
-            {/* {console.log(sidecompany)} */}
-            <UpDownText standard={initialStockPrice * 100} comparision={sidecompany.chartList[0].high} />
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+            <div style={{ fontSize: 20, fontWeight: 'bold' }}>{`${(sidecompany.chartList[0].close * initialStockQuantity).toLocaleString()}원`}</div>
+            <div style={{ display: 'flex' }}>
+              <ChangeText value={changeValue}>{changeValue > 0 ? `+${changeValue.toLocaleString()}` : changeValue.toLocaleString()}원</ChangeText>
+              <ChangeText value={changeRate}>{changeRate > 0 ? `(+${changeRate}%)` : `(${changeRate}%)`}</ChangeText>
+            </div>
+            <div style={{ fontSize: 15, color: 'grey' }}>{`${sidecompany.chartList[0].close}원*${initialStockQuantity}주`}</div>
           </div>
-          {/* initialStockPrice=38866  sidecompany.chartList[0].high=4034880 */}
         </ButtonBox>
       )}
     </>
