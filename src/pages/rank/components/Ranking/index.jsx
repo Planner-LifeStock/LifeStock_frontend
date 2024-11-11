@@ -32,15 +32,15 @@ const Circle = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 100%;
-  height: 70px;
-  width: 70px;
+  height: 83px;
+  width: 83px;
   background-color: ${props => props.theme.colors.blue.primary};
   margin-right: 20px; /* 이름과의 간격 추가 */
 `;
 
 const CircleFont = styled.div`
   color: #ffffff;
-  font-size: 48px;
+  font-size: 45px;
   font-weight: ${props => props.theme.font.weight.bold};
   background: none;
   border: none;
