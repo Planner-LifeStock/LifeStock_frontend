@@ -164,7 +164,7 @@ const RegisterBox = () => {
           fontSize={15}
           value={phoneNumber}
           onChange={(e) => setPhoneNumber(e.target.value)}
-          placeholder="전화번호 (예: +12-3456-7890)"
+          placeholder="전화번호 (예시: 010-1234-5678)"
         />
         <InputBox
           type="text"
