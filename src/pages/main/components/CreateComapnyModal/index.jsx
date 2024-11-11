@@ -49,7 +49,6 @@ const CreateCompany = ({ onCreate }) => {
   const handleInvestChange = (value) => {
     setInvest(value);
     const investRatio = investMap[value];
-    console.log(value)
     if (investRatio !== undefined) {
       setInvestAmount(Math.floor(currentValue * investRatio));
     } else {

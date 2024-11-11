@@ -116,7 +116,6 @@ const SellCompany = ({ item }) => {
               <SellButton
                 style={{ height: '50px', width: '150px', marginLeft: '0px' }}
                 onClick={async () => {
-                  console.log(item)
                   try {
                     await API.put(`/company/${item.id}/list`, item);
                     setPopupOpen(false);

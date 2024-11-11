@@ -61,7 +61,7 @@ function GraphBox() {
         <img src={activeCompany.logo.url} height="130px" width="130px" style={{ borderRadius: '100%', marginRight: 8 }} />
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <div style={{ fontSize: 50, fontWeight: 600, marginRight: 20, marginLeft: '30px'}}>{activeCompany.name}</div>
+            <div style={{ fontSize: 50, fontWeight: 600, marginRight: 20, marginLeft: '30px', maxWidth: '300px', overflow: 'hidden'}}>{activeCompany.name}</div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', marginLeft: '30px' }}>
             <div

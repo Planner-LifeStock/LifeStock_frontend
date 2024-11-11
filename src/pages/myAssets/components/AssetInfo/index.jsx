@@ -99,8 +99,6 @@ const AssetInfo = () => {
   } = useCompanyData();
   const navigate = useNavigate();
 
-  console.log(userData);
-
   if (!companyList) {
     return <LoadingSpinner />;
   }
