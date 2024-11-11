@@ -16,7 +16,7 @@ const ApexChart = () => {
     chart: {
       type: 'candlestick',
       animations: {
-        enabled: true,
+        enabled: false,
       },
       dynamicAnimation: {
         enabled: true,

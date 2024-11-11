@@ -57,7 +57,7 @@ export const CompanyProvider = ({ children }) => {
         fetchCompanyData,
         totalPurchaseAmount,
         realizedProfitLoss,
-        unrealizedProfitLoss,
+        unrealizedProfitLoss, 
         totalProfitLoss,
         totalEvaluationAmount,
         totalReturnRate,
