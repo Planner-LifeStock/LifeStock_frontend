@@ -117,18 +117,26 @@ function Ranking() {
         ))}
       </Container>
       <UserContainer style={{ marginRight: '10px', minWidth: '880px' }}>
-        <Circle>
-          <CircleFont isLargeNumber={(userRanking + 1).toString().length >= 3}>{userRanking + 1}</CircleFont>
-        </Circle>
-        <InfoFont>{userData.realName}</InfoFont>
-        <MoneyFont>{totalAssets.toLocaleString()}원</MoneyFont>
-        <UpDownWrapper>
-          <UpDownText
-            standard={100000000} // 기준값 설정, 1억
-            comparision={totalAssets} // 현재 유저의 총 자산
-            fontSize={25}
-          />
-        </UpDownWrapper>
+      {userRanking === -1 ? (
+              <InfoFont style={{textAlign: 'center'}}>오늘 자정이 지나면 랭킹에 반영돼요!</InfoFont>
+            ) : (
+              <>
+                <Circle>
+                  <CircleFont isLargeNumber={(userRanking + 1).toString().length >= 3}>
+                    {userRanking + 1}
+                  </CircleFont>
+                </Circle>
+                <InfoFont>{userData.realName}</InfoFont>
+                <MoneyFont>{totalAssets.toLocaleString()}원</MoneyFont>
+                <UpDownWrapper>
+                  <UpDownText
+                    standard={100000000} // 기준값 설정, 1억
+                    comparision={totalAssets} // 현재 유저의 총 자산
+                    fontSize={25}
+                  />
+                </UpDownWrapper>
+              </>
+            )}
       </UserContainer>
     </Container>
   );
