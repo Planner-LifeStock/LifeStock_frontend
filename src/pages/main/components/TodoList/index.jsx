@@ -102,12 +102,12 @@ function TodoList() {
   }, [showModal]);
 
   const handleCheckBoxChange = async index => {
-    const today = new Date();
-    if (!isSameDay(today, selectedDate)) {
-      setModalMessage('할 일 완료 체크는 당일에만 가능합니다.');
-      setShowModal(true);
-      return;
-    }
+    // const today = new Date();
+    // if (!isSameDay(today, selectedDate)) {
+    //   setModalMessage('할 일 완료 체크는 당일에만 가능합니다.');
+    //   setShowModal(true);
+    //   return;
+    // }
     const updatedTodoList = [...todoList];
     const todo = updatedTodoList[index];
 
