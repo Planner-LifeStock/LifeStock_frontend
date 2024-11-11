@@ -79,15 +79,15 @@ const ApexChart = () => {
             <div style="font-size:20px;">${formattedDate}</div>
             ${
               c - o > 0
-                ? `<div style="color: red; font-size:20px;">+${c - o}원 (+${((c / o - 1) * 100).toFixed(1)}%)</div>`
+                ? `<div style="color: red; font-size:20px;">+${(c - o).toLocaleString()}원 (+${((c / o - 1) * 100).toFixed(1)}%)</div>`
                 : c - o < 0
-                  ? `<div style="color: blue; font-size:20px;">${c - o}원 (${((c / o - 1) * 100).toFixed(1)}%)</div>`
-                  : `<div style="color: gray; font-size:20px;">${c - o}원 (${((c / o - 1) * 100).toFixed(1)}%)</div>`
+                  ? `<div style="color: blue; font-size:20px;">${(c - o).toLocaleString()}원 (${((c / o - 1) * 100).toFixed(1)}%)</div>`
+                  : `<div style="color: gray; font-size:20px;">${(c - o).toLocaleString()}원 (${((c / o - 1) * 100).toFixed(1)}%)</div>`
             }
-            <div>시가: ${o}원</div>
-            <div>고가: ${h}원</div>
-            <div>저가: ${l}원</div>
-            <div>종가: ${c}원</div>
+            <div>시가: ${o.toLocaleString()}원</div>
+            <div>고가: ${h.toLocaleString()}원</div>
+            <div>저가: ${l.toLocaleString()}원</div>
+            <div>종가: ${c.toLocaleString()}원</div>
           </div>
         `;
       },
