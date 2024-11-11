@@ -29,10 +29,10 @@ function UserInfo() {
 
   let TierImg, TierName;
 
-  if (userRanking <= 10) {
+  if (userRanking > 0 && userRanking <= 10) {
     TierName = '대기업 사장님';
     TierImg = companyCEO;
-  } else if (userRanking <= 20) {
+  } else if (userRanking > 10 && userRanking <= 20) {
     TierName = '중소기업 사장님';
     TierImg = smallCompany;
   } else {
