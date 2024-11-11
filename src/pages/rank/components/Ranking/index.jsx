@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import UpDownText from '../../../../components/UpDownText';
 
@@ -40,7 +41,7 @@ const Circle = styled.div`
 
 const CircleFont = styled.div`
   color: #ffffff;
-  font-size: 45px;
+  font-size: ${props => (props.isLargeNumber ? '35px' : '45px')}; /* 숫자가 클 경우 폰트 크기 줄임 */
   font-weight: ${props => props.theme.font.weight.bold};
   background: none;
   border: none;
@@ -50,7 +51,7 @@ const InfoFont = styled.div`
   flex: 1; /* 가변적인 너비를 설정하여 균등 분배 */
   font-size: 42px;
   font-weight: ${props => props.theme.font.weight.bold};
-  text-align:left;
+  text-align: left;
   margin-right: 20px; /* 총 자산과의 간격 추가 */
 `;
 
@@ -86,8 +87,6 @@ function Ranking() {
     return <LoadingSpinner />;
   }
 
-  console.log(userData)
-
   return (
     <Container>
       <TimeFont style={{ marginTop: '20px' }}>{formattedDate} 00:00 기준</TimeFont>
@@ -103,7 +102,7 @@ function Ranking() {
         {ranking.map((item, index) => (
           <UserContainer key={index} style={{ marginTop: index === 0 ? '0px' : '26px', minWidth: '880px' }}>
             <Circle>
-              <CircleFont>{index + 1}</CircleFont>
+              <CircleFont isLargeNumber={(index + 1).toString().length >= 3}>{index + 1}</CircleFont>
             </Circle>
             <InfoFont>{item.userRealName}</InfoFont>
             <MoneyFont>{item.totalAssets.toLocaleString()}원</MoneyFont>
@@ -119,7 +118,7 @@ function Ranking() {
       </Container>
       <UserContainer style={{ marginRight: '10px', minWidth: '880px' }}>
         <Circle>
-          <CircleFont>{userRanking + 1}</CircleFont>
+          <CircleFont isLargeNumber={(userRanking + 1).toString().length >= 3}>{userRanking + 1}</CircleFont>
         </Circle>
         <InfoFont>{userData.realName}</InfoFont>
         <MoneyFont>{totalAssets.toLocaleString()}원</MoneyFont>
