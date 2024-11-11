@@ -14,8 +14,6 @@ export const UserProvider = ({ children }) => {
         const response = await API.get('/user/asset');
         setUserData(result.data)
         setTotalAssets(response.data)
-
-        console.log(totalAssets)
       } catch (error) {
         console.log(error)
       }
@@ -31,25 +29,3 @@ export const UserProvider = ({ children }) => {
 }
 
 export const useUser = () => useContext(UserContext)
-
-// export const useUser = () => {
-//   const [userData, setUserData] = useState(null);
-
-//   //유저 정보 불러오기
-//   useEffect(() => {
-//     const fetchUserData = async () => {
-//       try {
-//         const result = await API.get('/user');
-//         setUserData(result.data);
-//       } catch (error) {
-//         console.log(error);
-//       }
-//     };
-//     fetchUserData();
-//   }, []);
-
-//   return {
-//     userData,
-//     setUserData,
-//   };
-// };

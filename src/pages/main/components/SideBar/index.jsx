@@ -62,9 +62,6 @@ function SideBar() {
   const { companyList, activeCompany, setActiveCompany, totalPurchaseAmount, unrealizedProfitLoss } = useCompanyData();
   const { chartData } = useChartData();
 
-  const currentValue = SumList({ data: companyList, type: 'currentStockPrice' });
-  const openValue = SumList({ data: companyList, type: 'openStockPrice' });
-
   if (!chartData || !chartData.chartList || chartData.chartList.length === 0) {
     return <LoadingSpinner />;
   }
@@ -78,7 +75,7 @@ function SideBar() {
           <div>
             <div style={{ borderBottom: 'solid 1px', marginBottom: 30 }}>
               {userData && activeCompany && companyList && (
-                /* companyList.length > 0 && */ <>
+                <>
                   <Title>{userData.displayName + '님의 보유 주식'}</Title>
                   <div
                     style={{
@@ -88,12 +85,10 @@ function SideBar() {
                       marginBottom: 24,
                     }}
                   >
-                    {/* <TotalSum /> */}
                     <div style={{ color: 'grey', fontWeight: 'bold' }}>{`총 ${(totalPurchaseAmount + unrealizedProfitLoss).toLocaleString()}원`}</div>
                     <UpDownText standard={totalPurchaseAmount} comparision={totalPurchaseAmount + unrealizedProfitLoss} />
                   </div>
                   <div style={{ minHeight: '760px', maxHeight: '760px', overflowY: 'scroll', overflowX: 'hidden'}}>
-                    {console.log(companyList)}
                     {companyList.map((item, index) => (
                       <CompanyList
                         key={index}

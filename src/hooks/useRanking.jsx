@@ -18,7 +18,7 @@ export const useRanking = () => {
       }
     };
     fetchChartData();
-  }, [ranking]);
+  }, []); //원래 ranking 들어가있던거 때문에 무한 로딩
 
   return {
     ranking,

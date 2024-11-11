@@ -15,7 +15,6 @@ export const ChartProvider = ({ children }) => {
       try {
         const result = await API.get(`/company/${activeCompany.id}/charts`);
         setChartData(result.data);
-        console.log(result.data);
       } catch (error) {
         console.log(error);
       }
@@ -37,7 +36,6 @@ export const ChartProvider = ({ children }) => {
         });
       });
       setChartArr(newChartArr); // chartData가 변경될 때마다 chartArr 업데이트
-      // console.log(newChartArr);
     }
   }, [chartData]);
 
