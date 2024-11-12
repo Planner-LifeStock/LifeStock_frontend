@@ -234,7 +234,7 @@ const CreateTodoModal = () => {
                   // window.location.reload();
                 } catch (error) {
                   console.error('할 일 추가 중 오류 발생:', error);
-                  alert('할 일 추가 중 문제가 발생했습니다.');
+                  alert('날짜와 요일이 대응되도록 설정해야 합니다.');
                 }
               }}
             >
