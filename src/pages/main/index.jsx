@@ -27,7 +27,7 @@ const Container = styled.div`
 
 const EventContainer = styled.div`
   display: flex;
-
+  margin-top: 20px;
   height: 100%;
   width: 100%;
   background-color: #fffbfd;
