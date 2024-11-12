@@ -11,7 +11,7 @@ import { TodoProvider } from '../../hooks/useTodo';
 import CreateCompany from './components/CreateComapnyModal';
 import { useCompanyData } from '../../hooks/useCompanyData';
 import LoadingSpinner from '../../styles/LoadingSpinner';
-
+//가장 바깥쪽의 큰 container
 const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -21,7 +21,7 @@ const Container = styled.div`
 
   height: 92.5vh;
   width: 100%;
-  padding: 5px;
+  padding: 0px;
 
   overflow: hidden;
 `;
@@ -35,45 +35,50 @@ const EventContainer = styled.div`
 `;
 
 function MainPage() {
-
   const { companyList, loading } = useCompanyData();
 
   if (loading) {
-    return <LoadingSpinner/>
+    return <LoadingSpinner />;
   }
 
   if (companyList.length === 0) {
     return (
-      <div style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-        backgroundColor: "white",
-        height: "100vh",
-        marginTop: "-100px"
-      }}>
-        <div style={{
-          fontSize: "80px",
-          fontWeight: "bold",
-        }}>회사를 상장하여 LifeStock TodoList를 시작해보세요!</div>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column',
+          backgroundColor: 'white',
+          height: '100vh',
+          marginTop: '-100px',
+        }}
+      >
+        <div
+          style={{
+            fontSize: '80px',
+            fontWeight: 'bold',
+          }}
+        >
+          회사를 상장하여 LifeStock TodoList를 시작해보세요!
+        </div>
         <CreateCompany onCreate={() => window.location.reload()} />
       </div>
     );
   }
-  
+
   return (
     <DateProvider>
       <TodoProvider>
         <Container>
           <EventContainer>
-            <div style={{ flex: 3 }}>
+            <div style={{ flex: 7 }}>
               <GraphBox />
             </div>
-            <div style={{ flex: 1, marginLeft: '20px' }}>
+            <div style={{ flex: 1, padding: 10 }}>
               <TodoList />
             </div>
-            <div style={{ flex: 1 }}>
+            <div style={{ flex: 2 }}>
               <SideBar />
             </div>
           </EventContainer>

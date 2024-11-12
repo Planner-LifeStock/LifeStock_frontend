@@ -10,8 +10,8 @@ const ButtonBox = styled.button`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
-  padding: 5px;
-  width: 320px;
+  padding: 10px;
+  width: 100%;
 
   &:hover {
     background-color: #d5d5d5;
@@ -68,7 +68,9 @@ function CompanyList({ name, logo, companyId, initialStockPrice, investmentAmoun
         <ButtonBox onClick={onClick}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <LogoImage src={logo} alt={`${name} 로고`} />
-            <div style={{ fontSize: 25, fontWeight: 'bold', maxWidth: '100px', whiteSpace: 'nowrap', textOverflow: 'ellipis', overflow: 'hidden' }}>{name}</div>
+            <div style={{ fontSize: 25, fontWeight: 'bold', width: '100%', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
+              {name.length > 10 ? `${name.slice(0, 7)}...` : name}
+            </div>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
             <div style={{ fontSize: 20, fontWeight: 'bold' }}>{`${(sidecompany.chartList[0].close * initialStockQuantity).toLocaleString()}원`}</div>
