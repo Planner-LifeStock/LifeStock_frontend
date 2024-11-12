@@ -1,25 +1,25 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-import Ranking from './components/Ranking'
-import UserInfo from './components/UserInfo'
+import Ranking from './components/Ranking';
+import UserInfo from './components/UserInfo';
 
-
-import { useRanking } from '../../hooks/useRanking'
+import { useRanking } from '../../hooks/useRanking';
 
 const Container = styled.div`
+  margin-top: 40px;
   display: flex;
   justify-content: space-around;
-`
+`;
 
 const RankPage = () => {
   return (
     <>
       <Container>
-        <UserInfo/>
-        <Ranking/>
+        <UserInfo />
+        <Ranking />
       </Container>
     </>
-  )
-}
+  );
+};
 
-export default RankPage
+export default RankPage;

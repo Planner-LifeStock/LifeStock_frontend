@@ -1,22 +1,21 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 import { human, startup, smallCompany, companyCEO } from '../../../../assets';
 
 import { useUser } from '../../../../hooks/useUser';
 import { useRanking } from '../../../../hooks/useRanking';
 
-import LoadingSpinner from "../../../../styles/LoadingSpinner";
+import LoadingSpinner from '../../../../styles/LoadingSpinner';
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 70px;
 `;
 
 const MentFont = styled.div`
-  text-align: right;
-  font-size: 64px;
-  font-weight: ${(props) => props.theme.font.weight.bold};
+  text-align: left;
+  font-size: 48px;
+  font-weight: ${props => props.theme.font.weight.bold};
 `;
 
 function UserInfo() {
@@ -24,7 +23,7 @@ function UserInfo() {
   const { ranking, setRanking, userRanking, setUserRanking } = useRanking();
 
   if (!Array.isArray(ranking) || !userData) {
-    return <LoadingSpinner/>
+    return <LoadingSpinner />;
   }
 
   let TierImg, TierName;
@@ -41,8 +40,10 @@ function UserInfo() {
   }
 
   return (
-    <Container style={{ marginTop: "40px" }}>
-      <MentFont>{userData.realName}님은 <br />'{TierName}'입니다</MentFont>
+    <Container>
+      <MentFont>
+        {userData.realName}님은 <br />'{TierName}'입니다
+      </MentFont>
       <img src={TierImg} height="600px" alt={TierName} />
     </Container>
   );

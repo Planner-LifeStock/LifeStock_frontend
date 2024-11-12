@@ -43,9 +43,9 @@ function App() {
                 {/* RequireAuth를 적용하여 메인 페이지 보호 */}
                 <Route element={<RequireAuth />}>
                   <Route path="/" element={<MainPage />} />
-                  <Route path="/rank" element={<RankPage />} />
                   <Route path="/myasset" element={<MyAssetPage />} />
                   <Route path="/salesrecords" element={<SalesHistoryPage />} />
+                  <Route path="/rank" element={<RankPage />} />
                 </Route>
 
                 {/* 일치하지 않는 경로를 메인 페이지로 리디렉션 */}
