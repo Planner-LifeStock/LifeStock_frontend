@@ -21,7 +21,6 @@ const Container = styled.div`
 
   height: 92.5vh;
   width: 100%;
-  padding: 0px;
 
   overflow: hidden;
 `;
@@ -72,10 +71,10 @@ function MainPage() {
       <TodoProvider>
         <Container>
           <EventContainer>
-            <div style={{ flex: 7 }}>
+            <div style={{ flex: 6 }}>
               <GraphBox />
             </div>
-            <div style={{ flex: 1, padding: 10 }}>
+            <div style={{ flex: 1 }}>
               <TodoList />
             </div>
             <div style={{ flex: 2 }}>

@@ -20,7 +20,7 @@ const ContainerWrapper = styled.div`
 
 const Container = styled.div`
   width: 328px;
-  padding: 20px 16px;
+  padding: 10px 16px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -54,28 +54,6 @@ const ModalOverlay = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 999;
-`;
-
-const ModalContent = styled.div`
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  width: 300px;
-  text-align: center;
-`;
-
-const CloseButton = styled.button`
-  margin-top: 15px;
-  padding: 8px 16px;
-  border: none;
-  background-color: #007bff;
-  color: white;
-  border-radius: 4px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #0056b3;
-  }
 `;
 
 function TodoList() {
@@ -136,7 +114,7 @@ function TodoList() {
       <Container>
         <div>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <h2>TodoList</h2>
+            <div style={{ fontSize: 20, fontWeight: 'bold' }}>TodoList</div>
           </div>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <MoveButton
@@ -176,20 +154,22 @@ function TodoList() {
         </div>
         <CreateTodoModal />
       </Container>
+    </ContainerWrapper>
+  );
+}
 
-      {showModal && (
+export default TodoList;
+
+{
+  /* {showModal && (
         <ModalOverlay>
           <ModalContent>
             <p>{modalMessage}</p>
             <CloseButton onClick={() => setShowModal(false)}>확인</CloseButton>
           </ModalContent>
         </ModalOverlay>
-      )}
-    </ContainerWrapper>
-  );
+      )} */
 }
-
-export default TodoList;
 
 // import styled from 'styled-components';
 // import { useEffect, useState } from 'react';
