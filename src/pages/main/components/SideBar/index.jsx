@@ -9,21 +9,24 @@ import LoadingSpinner from '../../../../styles/LoadingSpinner.jsx';
 import { useState } from 'react';
 
 const ContainerWrapper = styled.div`
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  height: 100%;
-  box-shadow: -5px 0 10px 0 rgba(0, 0, 0, 0.3);
+  height: 500px;
+  background-color: #ffffff; */
+  /* box-shadow: -1px 0 10px 0 rgba(0, 0, 0, 0.3); */
 `;
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  width: auto; /* 부모 컨테이너 너비에 맞게 */
-  background-color: #f6f7f9;
-  padding: 20px 16px;
-  flex-grow: 1;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* justify-content: space-between; */
+  /* align-items: center; */
+  /* width: auto; 부모 컨테이너 너비에 맞게 */
+  /* background-color: #f6f7f9; */
+  /* height: 500px; */
+  /* justify-content: space-between;
+  padding: 20px 16px; */
+  /* flex-grow: 1; */
 `;
 
 const Title = styled.div`
@@ -46,12 +49,10 @@ const TotalAssets = styled.div`
 `;
 
 const CompanyListWrapper = styled.div`
-  min-height: 760px;
-  max-height: 760px;
-  overflow-y: auto;
-  overflow-x: hidden;
+  //늘려야됨
+  /* overflow-y: auto;
+  overflow-x: hidden; */
   padding-right: 10px;
-  width: 100%; /* 부모 컨테이너 너비에 맞게 */
 `;
 
 const ModalOverlay = styled.div`
@@ -74,7 +75,7 @@ const ModalContent = styled.div`
   width: 300px;
   text-align: center;
 `;
-
+//회사 없을 때 버튼
 const CloseButton = styled.button`
   margin-top: 15px;
   padding: 8px 16px;
@@ -83,14 +84,13 @@ const CloseButton = styled.button`
   color: white;
   border-radius: 4px;
   cursor: pointer;
-
   &:hover {
     background-color: #0056b3;
   }
 `;
 
 const SideBar = () => {
-  const { userData, setUserData, totalAssets, setTotalAssets } = useUser();
+  const { userData } = useUser();
   const { companyList, activeCompany, setActiveCompany, totalPurchaseAmount, unrealizedProfitLoss } = useCompanyData();
   const { chartData } = useChartData();
 
@@ -106,30 +106,28 @@ const SideBar = () => {
   return (
     <ContainerWrapper>
       <Container>
-        <div style={{ width: '100%' }}>
-          <div style={{ borderBottom: 'solid 1px', marginBottom: 30, width: '100%' }}>
-            <Title>{userData.displayName}님의 보유 주식</Title>
-            <TotalAssets>
-              <div>{`총 ${(totalPurchaseAmount + unrealizedProfitLoss).toLocaleString()}원`}</div>
-              <UpDownText standard={totalPurchaseAmount} comparision={totalPurchaseAmount + unrealizedProfitLoss} />
-            </TotalAssets>
-            <CompanyListWrapper>
-              {companyList.map((item, index) => (
-                <CompanyList
-                  key={index}
-                  name={item.name}
-                  logo={item.logo.url}
-                  companyId={item.id}
-                  initialStockQuantity={item.initialStockQuantity}
-                  initialStockPrice={item.initialStockPrice}
-                  investmentAmount={item.investmentAmount}
-                  onClick={() => setActiveCompany(item)}
-                />
-              ))}
-            </CompanyListWrapper>
-          </div>
-          <CreateCompany onClick={() => setShowModal(true)}>회사 상장하기</CreateCompany>
+        <div style={{ borderBottom: 'solid 1px', marginBottom: 30, width: '100%' }}>
+          <Title>{userData.displayName}님의 보유 주식</Title>
+          <TotalAssets>
+            <div>{`총 ${(totalPurchaseAmount + unrealizedProfitLoss).toLocaleString()}원`}</div>
+            <UpDownText standard={totalPurchaseAmount} comparision={totalPurchaseAmount + unrealizedProfitLoss} />
+          </TotalAssets>
+          <CompanyListWrapper>
+            {companyList.map((item, index) => (
+              <CompanyList
+                key={index}
+                name={item.name}
+                logo={item.logo.url}
+                companyId={item.id}
+                initialStockQuantity={item.initialStockQuantity}
+                initialStockPrice={item.initialStockPrice}
+                investmentAmount={item.investmentAmount}
+                onClick={() => setActiveCompany(item)}
+              />
+            ))}
+          </CompanyListWrapper>
         </div>
+        <CreateCompany onClick={() => setShowModal(true)}>회사 상장하기</CreateCompany>
       </Container>
 
       {showModal && (
