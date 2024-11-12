@@ -80,7 +80,7 @@ const CloseButton = styled.button`
 
 function TodoList() {
   const { fetchChartData } = useChartData();
-  const { setTodoList,  todoList } = useTodo();
+  const { setTodoList, todoList } = useTodo();
   const { selectedDate, setSelectedDate, currentDate, setCurrentDate, handleAddDays, handleSubtractDays } = useDate();
 
   const [showModal, setShowModal] = useState(false); // 모달 상태
@@ -102,12 +102,12 @@ function TodoList() {
   }, [showModal]);
 
   const handleCheckBoxChange = async index => {
-    // const today = new Date();
-    // if (!isSameDay(today, selectedDate)) {
-    //   setModalMessage('할 일 완료 체크는 당일에만 가능합니다.');
-    //   setShowModal(true);
-    //   return;
-    // }
+    const today = new Date();
+    if (!isSameDay(today, selectedDate)) {
+      setModalMessage('할 일 완료 체크는 당일에만 가능합니다.');
+      setShowModal(true);
+      return;
+    }
     const updatedTodoList = [...todoList];
     const todo = updatedTodoList[index];
 
@@ -157,7 +157,7 @@ function TodoList() {
               {'>>'}
             </MoveButton>
           </div>
-          <div style = {{maxHeight: "750px", overflowY: "auto"}}>
+          <div style={{ maxHeight: '750px', overflowY: 'auto' }}>
             {todoList &&
               todoList.map(({ title, level, completed }, index) => {
                 return (
@@ -331,12 +331,12 @@ export default TodoList;
 //     //setSelectedDate(prevDate => subDays(prevDate, days));
 //     setSelectedDate((prevDate) => {
 //       const newDate = subDays(prevDate, days);
-  
+
 //       // 현재 날짜의 월과 newDate의 월을 비교
 //       if (getMonth(newDate) !== getMonth(prevDate)) {
 //         handlePrevMonth(); // 월이 변경된 경우 handlePrevMonth 실행
 //       }
-  
+
 //       return newDate;
 //     });
 //   };
