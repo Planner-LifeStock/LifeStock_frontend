@@ -17,6 +17,44 @@ const ContainerWrapper = styled.div`
   flex-direction: column;
   height: 100%;
 `;
+const CompanyListWrapper = styled.div`
+  //늘려야됨
+  /* overflow-y: auto;
+  overflow-x: hidden; */
+  padding-right: 10px;
+`;
+const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+`;
+const ModalContent = styled.div`
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  text-align: center;
+`;
+//회사 없을 때 버튼
+const CloseButton = styled.button`
+  margin-top: 15px;
+  padding: 8px 16px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
 
 const Container = styled.div`
   width: 328px;
@@ -40,20 +78,6 @@ const MoveButton = styled.button`
   &:hover {
     opacity: 0.5;
   }
-`;
-
-// 모달 컴포넌트 정의
-const ModalOverlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 999;
 `;
 
 function TodoList() {
@@ -154,22 +178,27 @@ function TodoList() {
         </div>
         <CreateTodoModal />
       </Container>
-    </ContainerWrapper>
-  );
-}
-
-export default TodoList;
-
-{
-  /* {showModal && (
+      {showModal && (
         <ModalOverlay>
           <ModalContent>
             <p>{modalMessage}</p>
             <CloseButton onClick={() => setShowModal(false)}>확인</CloseButton>
           </ModalContent>
         </ModalOverlay>
-      )} */
+      )}
+      {showModal && (
+        <ModalOverlay>
+          <ModalContent>
+            <p>{modalMessage || '회사 상장 정보를 입력해주세요.'}</p>
+            <CloseButton onClick={() => setShowModal(false)}>확인</CloseButton>
+          </ModalContent>
+        </ModalOverlay>
+      )}
+    </ContainerWrapper>
+  );
 }
+
+export default TodoList;
 
 // import styled from 'styled-components';
 // import { useEffect, useState } from 'react';
