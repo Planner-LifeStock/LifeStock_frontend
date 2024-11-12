@@ -82,6 +82,7 @@ const MoveButton = styled.button`
 
 function TodoList() {
   const { fetchChartData } = useChartData();
+  const { fetchUserData } = useUser();
   const { setTodoList, todoList } = useTodo();
   const { selectedDate, setSelectedDate, currentDate, setCurrentDate, handleAddDays, handleSubtractDays } = useDate();
 
@@ -128,6 +129,8 @@ function TodoList() {
       await API.put(`/todo/complete/${todo.id}`, { completed: updatedCompleted });
       // `API.put` 요청이 완료된 후에 `fetchChartData` 호출
       await fetchChartData();
+      // 총 자산 반영하기 위해 fetchUserData를 provide로 새로 만듬.
+      await fetchUserData();
     } catch (error) {
       console.error('todoCheck 중 오류 발생:', error);
     }
