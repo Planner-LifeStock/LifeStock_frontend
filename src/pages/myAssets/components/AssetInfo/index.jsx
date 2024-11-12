@@ -11,20 +11,15 @@ import SumList from '../../../../function/calculation/sumList';
 import LoadingSpinner from '../../../../styles/LoadingSpinner';
 import StockPrice from '../StockPrice';
 
-const MaxContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  width: 100%;
-`;
-
 const Container = styled.div`
   display: flex;
   width: 100%;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 const InfoFont = styled.div`
-  font-size: 64px;
+  font-size: 48px;
   font-weight: ${props => props.theme.font.weight.bold};
 `;
 
@@ -35,7 +30,7 @@ const CheckSellButton = styled.button`
   transition: all 0.3s ease;
 
   margin-left: auto;
-  margin-top: 30px;
+
   width: 200px;
   height: 40px;
 
@@ -107,32 +102,29 @@ const AssetInfo = () => {
     <>
       <Container>
         <InfoFont>{userData.realName}님의 자산 현황</InfoFont>
-        <CheckSellButton
-          style={{ color: '#FFFFFF', fontSize: '14px', fontWeight: 'bold', marginTop: '19px' }}
-          onClick={() => navigate('/salesrecords')}
-        >
+        <CheckSellButton style={{ color: '#FFFFFF', fontSize: '14px', fontWeight: 'bold' }} onClick={() => navigate('/salesrecords')}>
           스톡옵션 매매 기록
         </CheckSellButton>
-      </Container>
 
-      <div style={{ padding: '10px', marginTop: '30px' }}>
-        <MenuContainer style={{ borderBottom: 'solid 3px', marginBottom: '10px' }}>
-          <Header>총매입</Header>
-          <Header>실현손익</Header>
-          <Header>평가손익</Header>
-          <Header>총손익</Header>
-          <Header>총평가</Header>
-          <Header>총수익률</Header>
-        </MenuContainer>
-        <StockPrice
-          totalPurchaseAmount={totalPurchaseAmount}
-          realizedProfitLoss={realizedProfitLoss}
-          unrealizedProfitLoss={unrealizedProfitLoss}
-          totalProfitLoss={totalProfitLoss}
-          totalEvaluationAmount={totalEvaluationAmount}
-          totalReturnRate={totalReturnRate}
-        />
-      </div>
+        <div style={{ padding: '10px' }}>
+          <MenuContainer style={{ borderBottom: 'solid 3px', marginBottom: '10px' }}>
+            <Header>총매입</Header>
+            <Header>실현손익</Header>
+            <Header>평가손익</Header>
+            <Header>총손익</Header>
+            <Header>총평가</Header>
+            <Header>총수익률</Header>
+          </MenuContainer>
+          <StockPrice
+            totalPurchaseAmount={totalPurchaseAmount}
+            realizedProfitLoss={realizedProfitLoss}
+            unrealizedProfitLoss={unrealizedProfitLoss}
+            totalProfitLoss={totalProfitLoss}
+            totalEvaluationAmount={totalEvaluationAmount}
+            totalReturnRate={totalReturnRate}
+          />
+        </div>
+      </Container>
     </>
   );
 };
