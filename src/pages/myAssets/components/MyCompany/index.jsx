@@ -28,6 +28,7 @@ const MinContainer = styled.div`
 `;
 
 const Font = styled.div`
+  margin-top: 5px;
   font-size: 40px;
   font-weight: ${props => props.theme.font.weight.bold};
 `;
@@ -57,7 +58,7 @@ function MyCompany() {
   return (
     <>
       <>
-        <Font style={{ marginRight: 'auto', marginTop: '50px' }}>보유 회사</Font>
+        <Font style={{ marginRight: 'auto' }}>보유 회사</Font>
         <Container
           style={{
             borderRadius: '12px',
@@ -71,7 +72,7 @@ function MyCompany() {
               padding: '10px',
               overflowY: 'auto',
               backgroundColor: '#D3D3D3',
-              height: '490px',
+              height: '480px',
             }}
           >
             {companyList.map((item, index) => (
