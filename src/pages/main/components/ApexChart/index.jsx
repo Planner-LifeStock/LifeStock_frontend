@@ -6,17 +6,18 @@ import { useChartData } from '../../../../hooks/useChart';
 import { useCompanyData } from '../../../../hooks/useCompanyData';
 
 const ChartWrapper = styled.div`
-  max-height: 730px;
-  width: 100%;
+  height: 50vh; /* 화면 높이의 50% */
+  /* 또는 원하는 고정 높이로 설정 가능 */
+  max-height: 200px;
+  /* width: 100%; */
 `;
-
 const ApexChart = () => {
   const { chartArr } = useChartData();
   const options = {
     chart: {
       type: 'candlestick',
       animations: {
-        enabled: false,
+        enabled: true,
       },
       dynamicAnimation: {
         enabled: true,
@@ -96,7 +97,7 @@ const ApexChart = () => {
 
   return (
     <ChartWrapper>
-      <Chart options={options} series={chartArr} type="candlestick" />
+      <Chart options={options} series={chartArr} type="candlestick" height={600} />
     </ChartWrapper>
   );
 };
