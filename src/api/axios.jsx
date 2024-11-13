@@ -3,7 +3,7 @@ import axios from 'axios';
 import { checkTokenValidate } from './auth';
 
 export const API = axios.create({
-  baseURL: 'https://3.36.201.192:8080/',
+  baseURL: 'http://3.36.201.192:8080/',
   // baseURL: 'http://localhost:8080',
 });
 

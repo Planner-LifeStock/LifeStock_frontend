@@ -53,7 +53,7 @@ export const AuthProvider = ({ children }) => {
       if (accessToken && checkTokenExp(accessToken)) {
         try {
           const response = await axios.post(
-            'https://3.36.201.192:8080/auth/refresh',
+            'http://3.36.201.192:8080/auth/refresh',
             {},
             {
               headers: {
