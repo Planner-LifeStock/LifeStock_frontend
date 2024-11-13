@@ -22,7 +22,7 @@ const Font = styled.span`
 `;
 
 const LogoutButton = styled.button`
-  font-size: 20px;
+  font-size: 14px;
   color: #ffffff;
   margin-left: 30px;
   background: none;

@@ -41,7 +41,7 @@ const Circle = styled.div`
 
 const CircleFont = styled.div`
   color: #ffffff;
-  font-size: ${props => (props.isLargeNumber ? '35px' : '45px')}; /* 숫자가 클 경우 폰트 크기 줄임 */
+  font-size: ${props => (props.$isLargeNumber ? '35px' : '45px')}; /* 숫자가 클 경우 폰트 크기 줄임 */
   font-weight: ${props => props.theme.font.weight.bold};
   background: none;
   border: none;
@@ -102,7 +102,7 @@ function Ranking() {
         {ranking.map((item, index) => (
           <UserContainer key={index} style={{ marginTop: index === 0 ? '0px' : '26px', minWidth: '880px' }}>
             <Circle>
-              <CircleFont isLargeNumber={(index + 1).toString().length >= 3}>{index + 1}</CircleFont>
+              <CircleFont $isLargeNumber={(index + 1).toString().length >= 3}>{index + 1}</CircleFont>
             </Circle>
             <InfoFont>{item.userRealName}</InfoFont>
             <MoneyFont>{item.totalAssets.toLocaleString()}원</MoneyFont>
@@ -122,7 +122,7 @@ function Ranking() {
         ) : (
           <>
             <Circle>
-              <CircleFont isLargeNumber={(userRanking + 1).toString().length >= 3}>{userRanking + 1}</CircleFont>
+              <CircleFont $isLargeNumber={(userRanking + 1).toString().length >= 3}>{userRanking + 1}</CircleFont>
             </Circle>
             <InfoFont>{userData.realName}</InfoFont>
             <MoneyFont>{totalAssets.toLocaleString()}원</MoneyFont>
