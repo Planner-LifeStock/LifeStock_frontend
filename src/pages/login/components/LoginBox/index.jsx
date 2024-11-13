@@ -94,7 +94,7 @@ const LoginBox = () => {
       }
     } catch (error) {
       console.error(error);
-      setErrorMessage('로그인 실패'); //error.response?.data ||
+      setErrorMessage('로그인 실패');
     }
   };
 
