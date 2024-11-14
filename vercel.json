@@ -1,9 +1,0 @@
-{
-  "version": 2,
-  "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "http://3.36.201.192:8080/$1"
-    }
-  ]
-}
