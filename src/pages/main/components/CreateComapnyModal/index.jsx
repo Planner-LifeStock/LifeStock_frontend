@@ -1,15 +1,15 @@
-import { useRef, useState } from "react";
-import { ModalContainer, ModalContent, Title, InnerContainer } from "./style";
-import Button from "../../../../components/Button";
-import InputBox from "../../../../components/InputBox";
-import OptionButton from "../../../../components/OptionButton";
-import Tip from "../../../../components/Tip";
-import ImgAdd from "../ImgAdd";
-import { useUser } from "../../../../hooks/useUser";
-import { useCompanyData } from "../../../../hooks/useCompanyData";
-import { API } from "../../../../api/axios";
+import { useRef, useState } from 'react';
+import { ModalContainer, ModalContent, Title, InnerContainer } from './style';
+import Button from '../../../../components/Button';
+import InputBox from '../../../../components/InputBox';
+import OptionButton from '../../../../components/OptionButton';
+import Tip from '../../../../components/Tip';
+import ImgAdd from '../ImgAdd';
+import { useUser } from '../../../../hooks/useUser';
+import { useCompanyData } from '../../../../hooks/useCompanyData';
+import { API } from '../../../../api/axios';
 
-import SumList from "../../../../function/calculation/sumList";
+import SumList from '../../../../function/calculation/sumList';
 
 const CreateCompany = ({ onCreate }) => {
   const { userData } = useUser();
@@ -17,7 +17,7 @@ const CreateCompany = ({ onCreate }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const modalBackground = useRef();
 
-  const currentValue = 100000000 - SumList({ data: companyList, type: 'currentStockPrice' })*100;
+  const currentValue = 100000000 - SumList({ data: companyList, type: 'currentStockPrice' }) * 100;
 
   // State 관리
   const [companyName, setCompanyName] = useState('');
@@ -44,9 +44,9 @@ const CreateCompany = ({ onCreate }) => {
     '10%': 0.1,
     '25%': 0.25,
     '50%': 0.5,
-  }
+  };
 
-  const handleInvestChange = (value) => {
+  const handleInvestChange = value => {
     setInvest(value);
     const investRatio = investMap[value];
     if (investRatio !== undefined) {
@@ -77,25 +77,22 @@ const CreateCompany = ({ onCreate }) => {
     };
 
     const formData = new FormData();
-    formData.append(
-      "company",
-      new Blob([JSON.stringify(companyData)], { type: "application/json" })
-    );
+    formData.append('company', new Blob([JSON.stringify(companyData)], { type: 'application/json' }));
 
     if (logoFile) {
-      formData.append("logo", logoFile);
+      formData.append('logo', logoFile);
     }
 
     try {
-      const result = await API.post("/company", formData, {
+      const result = await API.post('/company', formData, {
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data",
+          'Content-Type': 'multipart/form-data',
         },
       });
-      console.log("Success:", result.data);
+      console.log('Success:', result.data);
 
-      setCompanyList((prevCompanyData) => [...prevCompanyData, result.data]);
+      setCompanyList(prevCompanyData => [...prevCompanyData, result.data]);
 
       // 초기화
       setInvest(null);
@@ -106,7 +103,7 @@ const CreateCompany = ({ onCreate }) => {
       setLogoImg(null);
       setInvestAmount(0); // 초기화
     } catch (error) {
-      console.error("Error sending company data:", error);
+      console.error('Error sending company data:', error);
     }
 
     onCreate();
@@ -119,7 +116,7 @@ const CreateCompany = ({ onCreate }) => {
       {modalOpen && (
         <ModalContainer
           ref={modalBackground}
-          onClick={(e) => {
+          onClick={e => {
             if (e.target === modalBackground.current) {
               setModalOpen(false);
               setInvest(null);
@@ -136,22 +133,16 @@ const CreateCompany = ({ onCreate }) => {
             <div style={{ display: 'flex' }}>
               <InnerContainer>
                 <Title>회사명</Title>
-                <InputBox width={470} placeholder={'ex)아침운동'} value={companyName} onChange={(e) => setCompanyName(e.target.value)} />
+                <InputBox width={470} placeholder={'ex)아침운동'} value={companyName} onChange={e => setCompanyName(e.target.value)} />
                 <Title>회사 정보</Title>
                 <InputBox
                   width={470}
                   placeholder={'ex)등교하기 전 간단하게 운동하기'}
                   value={companyInfo}
-                  onChange={(e) => setCompanyInfo(e.target.value)}
+                  onChange={e => setCompanyInfo(e.target.value)}
                 />
                 <Title>로고 이미지 추가</Title>
-                <ImgAdd
-                  img={logoImg}
-                  setImg={setLogoImg}
-                  fileName={logoFileName}
-                  setFileName={setLogoFileName}
-                  setLogoFile={setLogoFile}
-                />
+                <ImgAdd img={logoImg} setImg={setLogoImg} fileName={logoFileName} setFileName={setLogoFileName} setLogoFile={setLogoFile} />
               </InnerContainer>
               <InnerContainer>
                 <Title>난이도</Title>
@@ -164,13 +155,13 @@ const CreateCompany = ({ onCreate }) => {
                 <OptionButton OptionList={investArr} currentState={invest} SetState={handleInvestChange} />
                 <Tip defaultTip={'투자가능 금액의 최대 50%까지 투자할 수 있어요.'} />
               </InnerContainer>
-              <InnerContainer style={{marginLeft: "30px"}}>
-                <Title style={{color: "grey"}}>투자가능금액</Title>
-                <Title style={{fontSize: "40px", marginTop: "-50px"}}>{currentValue.toLocaleString()}원</Title>
-                <Title style={{color: "grey"}}>투자 비용</Title>
-                <Title style={{fontSize: "40px", marginTop: "-50px"}}>{investAmount.toLocaleString()}원</Title>
-                <Title style={{color: "grey"}}>스톡 옵션</Title>
-                <Title style={{fontSize: "40px", marginTop: "-50px"}}>{Math.floor(investAmount / 100).toLocaleString()}원 / 100주</Title>
+              <InnerContainer style={{ marginLeft: '30px' }}>
+                <Title style={{ color: 'grey' }}>투자가능금액</Title>
+                <Title style={{ fontSize: '40px', marginTop: '-50px' }}>{currentValue.toLocaleString()}원</Title>
+                <Title style={{ color: 'grey' }}>투자 비용</Title>
+                <Title style={{ fontSize: '40px', marginTop: '-50px' }}>{investAmount.toLocaleString()}원</Title>
+                <Title style={{ color: 'grey' }}>스톡 옵션</Title>
+                <Title style={{ fontSize: '40px', marginTop: '-50px' }}>{Math.floor(investAmount / 100).toLocaleString()}원 / 100주</Title>
               </InnerContainer>
             </div>
             <Button width={'470'} onClick={handleCreateCompany}>

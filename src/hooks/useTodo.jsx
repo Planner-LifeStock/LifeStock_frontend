@@ -49,5 +49,4 @@ export const TodoProvider = ({ children }) => {
   );
 };
 
-// Context를 쉽게 사용할 수 있도록 커스텀 훅 생성
 export const useTodo = () => useContext(TodoContext);

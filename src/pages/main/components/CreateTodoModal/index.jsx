@@ -122,7 +122,7 @@ const CreateTodoModal = () => {
 
   return (
     <div>
-      <Button onClick={() => setModalOpen(true)}>할 일 추가하기</Button>
+      <Button onClick={() => setModalOpen(true)}>사업계획서 추가하기</Button>
 
       {modalOpen && (
         <ModalContainer
@@ -238,7 +238,7 @@ const CreateTodoModal = () => {
                 }
               }}
             >
-              할 일 추가하기
+              사업계획서 추가하기
             </Button>
           </ModalContent>
         </ModalContainer>

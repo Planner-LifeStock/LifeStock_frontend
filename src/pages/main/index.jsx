@@ -59,7 +59,7 @@ function MainPage() {
             fontWeight: 'bold',
           }}
         >
-          회사를 상장하여 LifeStock TodoList를 시작해보세요!
+          회사를 상장하여 LifeStock을 시작해보세요!
         </div>
         <CreateCompany onCreate={() => window.location.reload()} />
       </div>

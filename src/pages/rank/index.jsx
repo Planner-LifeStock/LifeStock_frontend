@@ -6,7 +6,6 @@ import UserInfo from './components/UserInfo';
 import { useRanking } from '../../hooks/useRanking';
 
 const Container = styled.div`
-  margin-top: 40px;
   display: flex;
   justify-content: space-around;
 `;

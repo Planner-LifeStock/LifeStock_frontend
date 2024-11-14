@@ -13,6 +13,7 @@ const Container = styled.div`
 `;
 
 const MentFont = styled.div`
+  margin-top: 60px;
   text-align: left;
   font-size: 48px;
   font-weight: ${props => props.theme.font.weight.bold};
