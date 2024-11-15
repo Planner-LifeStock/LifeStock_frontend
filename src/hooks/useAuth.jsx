@@ -53,7 +53,7 @@ export const AuthProvider = ({ children }) => {
       if (accessToken && checkTokenExp(accessToken)) {
         try {
           const response = await axios.post(
-            'http://3.36.201.192:8080/auth/refresh',
+            'https://lifestock.work:8080/auth/refresh',
             {},
             {
               headers: {
