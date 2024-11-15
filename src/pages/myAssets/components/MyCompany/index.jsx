@@ -136,11 +136,12 @@ function MyCompany() {
                       <div style={{ fontSize: '40px', marginTop: '-35px', fontWeight: 'bold' }}>회사매각예상손익</div>
                       <div style={{ display: 'flex', alignItems: 'center' }}>
                         <span style={{ fontSize: '40px', fontWeight: 'bold', marginRight: '10px' }}>
+                          {console.log(item)}
                           {Math.floor(
-                            (item.investmentAmount * (item.currentStockPrice - item.openStockPrice)) / item.openStockPrice
+                            (item.investmentAmount * (item.currentStockPrice - item.initialStockPrice)) / item.initialStockPrice
                           ).toLocaleString()}
                         </span>
-                        <UpDownText standard={item.openStockPrice} comparision={item.currentStockPrice} fontSize={40} />
+                        <UpDownText standard={item.initialStockPrice} comparision={item.currentStockPrice} fontSize={40} />
                       </div>
                     </MinContainer>
                   </MinContainer>
