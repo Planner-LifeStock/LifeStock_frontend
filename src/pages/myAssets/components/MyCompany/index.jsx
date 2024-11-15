@@ -58,7 +58,7 @@ function MyCompany() {
   return (
     <>
       <>
-        <Font style={{ marginRight: 'auto' }}>보유 회사</Font>
+        <Font style={{ marginRight: 'auto' }}>보유 스톡옵션</Font>
         <Container
           style={{
             borderRadius: '12px',
