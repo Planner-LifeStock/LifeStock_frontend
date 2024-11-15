@@ -17,6 +17,18 @@ const Container = styled.div`
   justify-content: space-between;
 `;
 
+const DisplayName = styled.span`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100px;
+  display: inline-block;
+  vertical-align: bottom;
+
+  font-size: ${({ theme }) => theme.font.size.xLarge};
+  font-weight: ${({ theme }) => theme.font.weight.extraBold};
+`;
+
 const Title = styled.div`
   display: flex;
   justify-content: start;
@@ -53,10 +65,20 @@ const SideBar = () => {
   return (
     <Container>
       <div style={{ marginBottom: 30, width: '100%' }}>
-        <Title>{userData.displayName}님의 보유 주식</Title>
+        <Title>
+          <DisplayName>{userData.displayName}</DisplayName>님의 보유 스톡옵션
+        </Title>
         <TotalAssets>
-          <div>{`총 ${(totalPurchaseAmount + unrealizedProfitLoss).toLocaleString()}원`}</div>
-          <UpDownText standard={totalPurchaseAmount} comparision={totalPurchaseAmount + unrealizedProfitLoss} />
+        <div>{`총 ${(totalPurchaseAmount + unrealizedProfitLoss).toLocaleString()}원`}</div>
+        <div style={{
+          marginLeft: 'auto', fontWeight: 'bold',
+          color: unrealizedProfitLoss > 0 ? 'red' : (unrealizedProfitLoss < 0 ? 'blue' : 'black')
+        }}>
+          {unrealizedProfitLoss > 0 
+            ? `+${unrealizedProfitLoss.toLocaleString()}원` 
+            : `${unrealizedProfitLoss.toLocaleString()}원`}
+        </div>
+        <UpDownText standard={totalPurchaseAmount} comparision={totalPurchaseAmount + unrealizedProfitLoss} />
         </TotalAssets>
         {companyList.map((item, index) => (
           <CompanyList

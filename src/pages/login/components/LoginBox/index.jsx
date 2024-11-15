@@ -106,7 +106,6 @@ const LoginBox = () => {
 
       <Form onSubmit={handleLogin}>
         <InputBox
-          type="email"
           id="email"
           width={300}
           height={40}

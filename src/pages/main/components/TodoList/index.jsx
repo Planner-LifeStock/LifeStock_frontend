@@ -141,7 +141,7 @@ function TodoList() {
       <Container>
         <div>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <div style={{ fontSize: 20, fontWeight: 'bold' }}>사업계획서</div>
+            <div style={{ fontSize: 20, fontWeight: 'bold' }}>TODO</div>
           </div>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <MoveButton

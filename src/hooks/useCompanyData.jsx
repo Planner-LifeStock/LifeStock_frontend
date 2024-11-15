@@ -12,7 +12,7 @@ export const CompanyProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const { totalAssets } = useUser();
 
-  const seedMoney = 100000000;
+  const seedMoney = 10000000;
   const totalPurchaseAmount = SumList({ data: companyList, type: 'investmentAmount' });
   const realizedProfitLoss = SumList({ data: soldCompany, type: 'listedStockPrice' }) - SumList({ data: soldCompany, type: 'investmentAmount' });
   const unrealizedProfitLoss = totalAssets - seedMoney;

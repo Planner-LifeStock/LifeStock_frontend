@@ -17,7 +17,7 @@ const CreateCompany = ({ onCreate }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const modalBackground = useRef();
 
-  const currentValue = 100000000 - SumList({ data: companyList, type: 'currentStockPrice' }) * 100;
+  const currentValue = 10000000 - SumList({ data: companyList, type: 'currentStockPrice' }) * 100;
 
   // State 관리
   const [companyName, setCompanyName] = useState('');
@@ -49,6 +49,7 @@ const CreateCompany = ({ onCreate }) => {
   const handleInvestChange = value => {
     setInvest(value);
     const investRatio = investMap[value];
+    console.log(currentValue)
     if (investRatio !== undefined) {
       setInvestAmount(Math.floor(currentValue * investRatio));
     } else {

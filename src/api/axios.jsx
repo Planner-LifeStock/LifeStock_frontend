@@ -3,7 +3,7 @@ import axios from 'axios';
 import { checkTokenValidate } from './auth';
 
 export const API = axios.create({
-  baseURL: 'https://lifestock.work:8080/',
+  baseURL: 'https://lifestock.work/',
   // baseURL: 'http://3.36.201.192:8080/',:
   // baseURL: 'http://localhost:8080',
 });

@@ -15,6 +15,7 @@ export const ChartProvider = ({ children }) => {
       try {
         const result = await API.get(`/company/${activeCompany.id}/charts`);
         setChartData(result.data);
+        console.log(result.data);
       } catch (error) {
         console.log(error);
       }

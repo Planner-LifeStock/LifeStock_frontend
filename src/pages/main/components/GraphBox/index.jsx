@@ -73,10 +73,11 @@ function GraphBox() {
                 style={{
                   fontSize: '40px',
                   fontWeight: 'bold',
+                  marginLeft: 'auto',
                   color: chartData.chartList[0].changeRate === 0 ? 'gray' : chartData.chartList[0].changeRate > 0 ? 'red' : 'blue',
                 }}
               >
-                {chartData.chartList[0].changeRate > 0 ? `+${Math.floor(realValue).toLocaleString()}` : Math.floor(realValue).toLocaleString()}
+                {chartData.chartList[0].changeRate > 0 ? `+${Math.floor(realValue).toLocaleString()}원` : `${Math.floor(realValue).toLocaleString()}원`}
               </div>
               <div
                 style={{
