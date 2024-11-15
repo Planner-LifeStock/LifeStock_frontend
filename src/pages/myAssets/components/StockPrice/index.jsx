@@ -47,7 +47,6 @@ const StockPrice = ({
     <DisplayWithStyle value={totalEvaluationAmount} isTotalPurchase={true} />
     <DisplayWithStyle value={totalPurchaseAmount} isTotalPurchase={true} />
     <DisplayWithStyle value={availablePurchaseAmount} isTotalPurchase={true} />
-    {/* {console.log(availablePurchaseAmount)} */}
     <DisplayWithStyle value={realizedProfitLoss * 100} />
     <DisplayWithStyle value={unrealizedProfitLoss} />
     <DisplayWithStyle value={totalProfitLoss} />
