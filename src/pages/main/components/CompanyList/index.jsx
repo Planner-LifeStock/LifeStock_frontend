@@ -68,7 +68,7 @@ function CompanyList({ name, logo, companyId, initialStockPrice, investmentAmoun
         <ButtonBox onClick={onClick}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <LogoImage src={logo} alt={`${name} 로고`} />
-            <div style={{ fontSize: 20, fontWeight: 'bold', width: '100%', maxWidth:'150px', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
+            <div style={{ fontSize: 20, fontWeight: 'bold', width: '100%', maxWidth:'130px', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
               {name.length > 10 ? `${name.slice(0, 6)}...` : name}
             </div>
           </div>

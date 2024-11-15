@@ -69,8 +69,16 @@ const SideBar = () => {
           <DisplayName>{userData.displayName}</DisplayName>님의 보유 스톡옵션
         </Title>
         <TotalAssets>
-          <div>{`총 ${(totalPurchaseAmount + unrealizedProfitLoss).toLocaleString()}원`}</div>
-          <UpDownText standard={totalPurchaseAmount} comparision={totalPurchaseAmount + unrealizedProfitLoss} />
+        <div>{`총 ${(totalPurchaseAmount + unrealizedProfitLoss).toLocaleString()}원`}</div>
+        <div style={{
+          marginLeft: 'auto', fontWeight: 'bold',
+          color: unrealizedProfitLoss > 0 ? 'red' : (unrealizedProfitLoss < 0 ? 'blue' : 'black')
+        }}>
+          {unrealizedProfitLoss > 0 
+            ? `+${unrealizedProfitLoss.toLocaleString()}원` 
+            : `${unrealizedProfitLoss.toLocaleString()}원`}
+        </div>
+        <UpDownText standard={totalPurchaseAmount} comparision={totalPurchaseAmount + unrealizedProfitLoss} />
         </TotalAssets>
         {companyList.map((item, index) => (
           <CompanyList
