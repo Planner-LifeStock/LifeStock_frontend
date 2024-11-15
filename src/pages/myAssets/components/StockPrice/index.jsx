@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const MenuContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(8, 1fr);
   gap: 10px;
 `;
 
@@ -33,10 +33,21 @@ const TotalReturnRate = ({ rate }) => {
   return <StyledHeader color={color}>{displayRate}%</StyledHeader>;
 };
 
-const StockPrice = ({ totalPurchaseAmount, realizedProfitLoss, unrealizedProfitLoss, totalProfitLoss, totalEvaluationAmount, returnRate, totalReturnRate }) => (
+const StockPrice = ({
+  totalPurchaseAmount,
+  realizedProfitLoss,
+  availablePurchaseAmount,
+  unrealizedProfitLoss,
+  totalProfitLoss,
+  totalEvaluationAmount,
+  returnRate,
+  totalReturnRate,
+}) => (
   <MenuContainer>
-    <DisplayWithStyle value={totalEvaluationAmount} isTotalPurchase={true}/>
+    <DisplayWithStyle value={totalEvaluationAmount} isTotalPurchase={true} />
     <DisplayWithStyle value={totalPurchaseAmount} isTotalPurchase={true} />
+    <DisplayWithStyle value={availablePurchaseAmount} isTotalPurchase={true} />
+    {/* {console.log(availablePurchaseAmount)} */}
     <DisplayWithStyle value={realizedProfitLoss * 100} />
     <DisplayWithStyle value={unrealizedProfitLoss} />
     <DisplayWithStyle value={totalProfitLoss} />

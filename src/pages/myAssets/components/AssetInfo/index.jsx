@@ -28,7 +28,7 @@ const CheckSellButton = styled.button`
   border-radius: ${props => props.theme.border.radius.small};
   border: none;
   transition: all 0.3s ease;
-
+  margin-bottom: 10px;
   margin-left: auto;
 
   width: 200px;
@@ -65,8 +65,8 @@ const PriceFont = styled.span`
 
 const MenuContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 10px; // 열 사이의 간격
+  grid-template-columns: repeat(8, 1fr);
+  gap: 5px; // 열 사이의 간격
 `;
 
 const Header = styled.div`
@@ -81,7 +81,7 @@ const Header = styled.div`
 `;
 
 const AssetInfo = () => {
-  const { userData, setUserData } = useUser();
+  const { userData, totalAssets, setUserData } = useUser();
   const {
     companyList,
     soldCompany,
@@ -98,7 +98,7 @@ const AssetInfo = () => {
     return <LoadingSpinner />;
   }
 
-  const returnRate = (unrealizedProfitLoss) / totalPurchaseAmount * 100;
+  const returnRate = (unrealizedProfitLoss / totalPurchaseAmount) * 100;
 
   return (
     <>
@@ -112,15 +112,18 @@ const AssetInfo = () => {
           <MenuContainer style={{ borderBottom: 'solid 3px', marginBottom: '10px' }}>
             <Header>총평가</Header>
             <Header>총매입</Header>
+            <Header>투자가능금액</Header>
             <Header>실현손익</Header>
             <Header>평가손익</Header>
             <Header>총손익</Header>
             <Header>수익률</Header>
             <Header>총수익률</Header>
           </MenuContainer>
+          {console.log(totalAssets)}
           <StockPrice
             totalPurchaseAmount={totalPurchaseAmount}
             realizedProfitLoss={realizedProfitLoss}
+            availablePurchaseAmount={totalAssets - unrealizedProfitLoss - totalPurchaseAmount}
             unrealizedProfitLoss={unrealizedProfitLoss}
             totalProfitLoss={totalProfitLoss}
             totalEvaluationAmount={totalEvaluationAmount}
