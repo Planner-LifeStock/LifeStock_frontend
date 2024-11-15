@@ -46,7 +46,7 @@ function SalesRecord() {
         <Header>난이도</Header>
         <Header>매수금액</Header>
         <Header>매도금액</Header>
-        <Header>회사매각손익(1주)</Header>
+        <Header>스톡옵션매각손익</Header>
       </Container>
       <Container>
         {soldCompany.map((data) => (

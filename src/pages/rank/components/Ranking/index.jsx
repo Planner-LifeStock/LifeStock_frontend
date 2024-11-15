@@ -108,7 +108,7 @@ function Ranking() {
             <MoneyFont>{item.totalAssets.toLocaleString()}원</MoneyFont>
             <UpDownWrapper>
               <UpDownText
-                standard={100000000} // 기준값 설정, 1억
+                standard={10000000} // 기준값 설정, 천
                 comparision={item.totalAssets} // 비교할 총 자산 값
                 fontSize={20}
               />
@@ -128,7 +128,7 @@ function Ranking() {
             <MoneyFont>{totalAssets.toLocaleString()}원</MoneyFont>
             <UpDownWrapper>
               <UpDownText
-                standard={100000000} // 기준값 설정, 1억
+                standard={10000000} // 기준값 설정, 천
                 comparision={totalAssets} // 현재 유저의 총 자산
                 fontSize={25}
               />

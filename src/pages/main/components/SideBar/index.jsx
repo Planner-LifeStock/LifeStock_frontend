@@ -17,6 +17,18 @@ const Container = styled.div`
   justify-content: space-between;
 `;
 
+const DisplayName = styled.span`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100px;
+  display: inline-block;
+  vertical-align: bottom;
+
+  font-size: ${({ theme }) => theme.font.size.xLarge};
+  font-weight: ${({ theme }) => theme.font.weight.extraBold};
+`;
+
 const Title = styled.div`
   display: flex;
   justify-content: start;
@@ -51,35 +63,30 @@ const SideBar = () => {
   if (!userData || !activeCompany || !companyList) return <LoadingSpinner />;
 
   return (
-      <Container>
-        <div style={{ marginBottom: 30, width: '100%' }}>
-          <Title style={{
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            maxwidth: '100%'
-          }}>
-            {userData.displayName}님의 보유 스톡옵션
-          </Title>
-          <TotalAssets>
-            <div>{`총 ${(totalPurchaseAmount + unrealizedProfitLoss).toLocaleString()}원`}</div>
-            <UpDownText standard={totalPurchaseAmount} comparision={totalPurchaseAmount + unrealizedProfitLoss} />
-          </TotalAssets>
-          {companyList.map((item, index) => (
-            <CompanyList
-              key={index}
-              name={item.name}
-              logo={item.logo.url}
-              companyId={item.id}
-              initialStockQuantity={item.initialStockQuantity}
-              initialStockPrice={item.initialStockPrice}
-              investmentAmount={item.investmentAmount}
-              onClick={() => setActiveCompany(item)}
-            />
-          ))}
-        </div>
-        <CreateCompany onClick={() => setShowModal(true)}>회사 상장하기</CreateCompany>
-      </Container>
+    <Container>
+      <div style={{ marginBottom: 30, width: '100%' }}>
+        <Title>
+          <DisplayName>{userData.displayName}</DisplayName>님의 보유 스톡옵션
+        </Title>
+        <TotalAssets>
+          <div>{`총 ${(totalPurchaseAmount + unrealizedProfitLoss).toLocaleString()}원`}</div>
+          <UpDownText standard={totalPurchaseAmount} comparision={totalPurchaseAmount + unrealizedProfitLoss} />
+        </TotalAssets>
+        {companyList.map((item, index) => (
+          <CompanyList
+            key={index}
+            name={item.name}
+            logo={item.logo.url}
+            companyId={item.id}
+            initialStockQuantity={item.initialStockQuantity}
+            initialStockPrice={item.initialStockPrice}
+            investmentAmount={item.investmentAmount}
+            onClick={() => setActiveCompany(item)}
+          />
+        ))}
+      </div>
+      <CreateCompany onClick={() => setShowModal(true)}>회사 상장하기</CreateCompany>
+    </Container>
   );
 };
 
