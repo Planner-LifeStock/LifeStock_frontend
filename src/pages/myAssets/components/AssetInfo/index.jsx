@@ -105,7 +105,7 @@ const AssetInfo = () => {
     <>
       <Container>
         <InfoFont>{userData.realName}님의 자산 현황</InfoFont>
-        <CheckSellButton style={{ color: '#FFFFFF', fontSize: '14px', fontWeight: 'bold'}} onClick={() => navigate('/salesrecords')}>
+        <CheckSellButton style={{ color: '#FFFFFF', fontSize: '14px', fontWeight: 'bold' }} onClick={() => navigate('/salesrecords')}>
           스톡옵션 매매 기록
         </CheckSellButton>
 
@@ -121,12 +121,12 @@ const AssetInfo = () => {
             <Header>총수익률</Header>
           </MenuContainer>
           <StockPrice
+            totalEvaluationAmount={totalEvaluationAmount}
+            totalProfitLoss={totalProfitLoss}
             totalPurchaseAmount={totalPurchaseAmount}
             realizedProfitLoss={realizedProfitLoss}
-            availablePurchaseAmount={seedMoney + realizedProfitLoss}
+            availablePurchaseAmount={totalEvaluationAmount - totalPurchaseAmount}
             unrealizedProfitLoss={unrealizedProfitLoss}
-            totalProfitLoss={totalProfitLoss}
-            totalEvaluationAmount={totalEvaluationAmount}
             returnRate={returnRate}
             totalReturnRate={totalReturnRate}
           />
