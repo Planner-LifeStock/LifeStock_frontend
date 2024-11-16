@@ -34,7 +34,7 @@ function GraphBox() {
   const buttonArr = ['차트', '캘린더'];
   const [currentOption, setCurrentOption] = useState('차트');
 
-  const { companyList, setCompanyList, activeCompany, setActiveCompany } = useCompanyData();
+  const { companyList, activeCompany, setActiveCompany, totalPurchaseAmount, unrealizedProfitLoss } = useCompanyData();
   const { chartData } = useChartData();
 
   if (!activeCompany) {
@@ -71,18 +71,21 @@ function GraphBox() {
             <div style={{ display: 'flex', alignItems: 'center', marginLeft: '30px' }}>
               <div
                 style={{
-                  fontSize: '40px',
+                  fontSize: '30px',
                   fontWeight: 'bold',
                   marginLeft: 'auto',
                   color: chartData.chartList[0].changeRate === 0 ? 'gray' : chartData.chartList[0].changeRate > 0 ? 'red' : 'blue',
                 }}
               >
+                <span style={{
+                  fontSize: '30px',
+                  fontWeight: 'bold',
+                  marginRight: '20px'}}>{`${(chartData.chartList[0].close).toLocaleString()}원`}</span>
                 {chartData.chartList[0].changeRate > 0 ? `+${Math.floor(realValue).toLocaleString()}원` : `${Math.floor(realValue).toLocaleString()}원`}
               </div>
               <div
                 style={{
-                  marginLeft: '20px',
-                  fontSize: '40px',
+                  fontSize: '30px',
                   fontWeight: 'bold',
                   color: chartData.chartList[0].changeRate === 0 ? 'gray' : chartData.chartList[0].changeRate > 0 ? 'red' : 'blue',
                 }}
