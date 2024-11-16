@@ -76,11 +76,11 @@ function Header() {
       <Link to="/rank">
         <Font $isActive={location.pathname === '/rank'}>랭크</Font>
       </Link>
-      <LogoutButton style={{ marginLeft: '1220px' }} onClick={handleLogout}>
+      <Link to="/tutorial">
+        <Font $isActive={location.pathname === '/tutorial'}>튜토리얼</Font>
+      </Link>
+      <LogoutButton style={{ marginLeft: 'auto' }} onClick={handleLogout}>
         로그아웃
-      </LogoutButton>
-      <LogoutButton style={{ marginLeft: 'auto' }} onClick={handleTutorial}>
-        튜토리얼
       </LogoutButton>
     </NavContainer>
   );
