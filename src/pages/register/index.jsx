@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import RegisterBox from './components/RegisterBox'
+import ConsentGiven from './components/ConsentGiven'
 
 const PageContainer = styled.div`
   display: flex;
@@ -17,7 +18,7 @@ const RegisterPage = () => {
   return (
     <>
       <PageContainer>
-        <RegisterBox/>
+        <ConsentGiven/>
       </PageContainer>
     </>
   )

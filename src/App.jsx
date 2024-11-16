@@ -8,6 +8,7 @@ import SalesHistoryPage from './pages/salesHistory';
 import RankPage from './pages/rank';
 import LoginPage from './pages/login';
 import RegisterPage from './pages/register';
+import Tutorial from './pages/tutorial';
 import RequireAuth from './components/RequireAuth';
 
 import { CompanyProvider } from './hooks/useCompanyData';
@@ -21,8 +22,9 @@ const Layout = () => {
 
   const isLoginPage = location.pathname === '/login';
   const isRegisterPage = location.pathname === '/register';
+  const isTutorial = location.pathname === '/tutorial';
 
-  const showHeader = !isLoginPage && !isRegisterPage;
+  const showHeader = !isLoginPage && !isRegisterPage && !isTutorial;
 
   return <>{showHeader && <Header />}</>;
 };
@@ -46,6 +48,7 @@ function App() {
                   <Route path="/myasset" element={<MyAssetPage />} />
                   <Route path="/salesrecords" element={<SalesHistoryPage />} />
                   <Route path="/rank" element={<RankPage />} />
+                  <Route path="/tutorial" element={<Tutorial/>} />
                 </Route>
 
                 {/* 일치하지 않는 경로를 메인 페이지로 리디렉션 */}

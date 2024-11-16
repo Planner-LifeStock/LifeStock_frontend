@@ -11,14 +11,18 @@ export const CompanyProvider = ({ children }) => {
   const [soldCompany, setSoldCompany] = useState(null);
   const [loading, setLoading] = useState(true);
   const { totalAssets } = useUser();
-
-  const seedMoney = 10000000;
-  const totalPurchaseAmount = SumList({ data: companyList, type: 'investmentAmount' });
-  const realizedProfitLoss = SumList({ data: soldCompany, type: 'listedStockPrice' }) - SumList({ data: soldCompany, type: 'investmentAmount' });
-  const unrealizedProfitLoss = totalAssets - seedMoney;
-  const totalProfitLoss = realizedProfitLoss + unrealizedProfitLoss;
-  const totalEvaluationAmount = seedMoney + unrealizedProfitLoss;
-  const totalReturnRate = (unrealizedProfitLoss / seedMoney) * 100;
+  
+  const seedMoney = 10000000; // 시드머니
+  const totalPurchaseAmount = SumList({ data: companyList, type: 'investmentAmount' }); // 총매입
+  const realizedProfitLoss =
+  Array.isArray(soldCompany) && soldCompany.length > 0
+    ? SumList({ data: soldCompany, type: 'listedStockPrice' }) * 100 -
+    SumList({ data: soldCompany, type: 'investmentAmount' })
+    : 0;
+  const unrealizedProfitLoss = totalAssets - seedMoney; // 평가손익
+  const totalProfitLoss = realizedProfitLoss + unrealizedProfitLoss; // 총손익
+  const totalEvaluationAmount = seedMoney + realizedProfitLoss; // 총평가
+  const totalReturnRate = (unrealizedProfitLoss / seedMoney) * 100; // 수익률
 
   const fetchCompanyData = async () => {
     try {
@@ -61,6 +65,7 @@ export const CompanyProvider = ({ children }) => {
         totalProfitLoss,
         totalEvaluationAmount,
         totalReturnRate,
+        seedMoney,
       }}
     >
       {children}

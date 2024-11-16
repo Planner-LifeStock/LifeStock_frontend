@@ -89,7 +89,7 @@ const SellCompany = ({ item }) => {
     <>
       <>
         <SellButton
-          disabled={calculateDays(new Date(item.createdAt)) < calSellDate(item.leastOperatePeriod)}
+          // disabled={calculateDays(new Date(item.createdAt)) < calSellDate(item.leastOperatePeriod)}
           onClick={() => setPopupOpen(true)}
         >
           스톡옵션 매각하기
@@ -111,6 +111,9 @@ const SellCompany = ({ item }) => {
               </h3>
               <h3 style={{ marginBottom: '100px' }}>
                 매각 후에도 '운영기록'란에서 기록을 확인할 수 있어요.
+              </h3>
+              <h3 style={{ marginBottom: '20px', fontWeight: 'bold' }}>
+                ‼️베타서비스 기간에는 최소 운영 기간과 관계없이 매각 가능합니다‼️
               </h3>
               <Container>
               <SellButton

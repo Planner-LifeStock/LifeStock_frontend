@@ -26,9 +26,20 @@ const DisplayWithStyle = ({ value, isTotalPurchase }) => {
   return <StyledHeader color={color}>{displayValue}</StyledHeader>;
 };
 
-const TotalReturnRate = ({ rate }) => {
-  const displayRate = rate > 0 ? `+${rate.toFixed(1)}` : rate.toFixed(1);
-  const color = rate > 0 ? 'red' : rate < 0 ? 'blue' : 'gray';
+const TotalReturnRate = ({ rate, isZeroPurchase }) => {
+  const displayRate = isZeroPurchase
+    ? "--" // 투자 금액이 0일 때 표시
+    : rate > 0
+    ? `+${rate.toFixed(1)}`
+    : rate.toFixed(1);
+
+  const color = isZeroPurchase
+    ? "gray" // '--'는 항상 회색으로 표시
+    : rate > 0
+    ? "red"
+    : rate < 0
+    ? "blue"
+    : "gray";
 
   return <StyledHeader color={color}>{displayRate}%</StyledHeader>;
 };
@@ -47,10 +58,10 @@ const StockPrice = ({
     <DisplayWithStyle value={totalEvaluationAmount} isTotalPurchase={true} />
     <DisplayWithStyle value={totalPurchaseAmount} isTotalPurchase={true} />
     <DisplayWithStyle value={availablePurchaseAmount} isTotalPurchase={true} />
-    <DisplayWithStyle value={realizedProfitLoss * 100} />
+    <DisplayWithStyle value={realizedProfitLoss} />
     <DisplayWithStyle value={unrealizedProfitLoss} />
     <DisplayWithStyle value={totalProfitLoss} />
-    <TotalReturnRate rate={returnRate} />
+    <TotalReturnRate rate={returnRate} isZeroPurchase={totalPurchaseAmount === 0} />
     <TotalReturnRate rate={totalReturnRate} />
   </MenuContainer>
 );

@@ -13,11 +13,12 @@ import SumList from '../../../../function/calculation/sumList';
 
 const CreateCompany = ({ onCreate }) => {
   const { userData } = useUser();
-  const { companyList, setCompanyList } = useCompanyData();
+  const { companyList, setCompanyList, totalEvaluationAmount, totalPurchaseAmount } = useCompanyData();
   const [modalOpen, setModalOpen] = useState(false);
   const modalBackground = useRef();
 
-  const currentValue = 10000000 - SumList({ data: companyList, type: 'currentStockPrice' }) * 100;
+  // const currentValue = 10000000 - SumList({ data: companyList, type: 'currentStockPrice' }) * 100;
+  const currentValue = totalEvaluationAmount - totalPurchaseAmount;
 
   // State 관리
   const [companyName, setCompanyName] = useState('');
@@ -33,6 +34,11 @@ const CreateCompany = ({ onCreate }) => {
   // 난이도 및 운영 기간 매핑
   const levelArr = ['상', '중', '하'];
   const levelMap = { 상: 'HIGH', 중: 'MEDIUM', 하: 'LOW' };
+  const levelTip = {
+    상: "'상' 난이도는 최소 주 5회 이상 플랜을 세우고 수행해야 해요.",
+    중: "'중' 난이도는 주 3회 플랜을 수행하는 것을 목표로 해요.",
+    하: "'하' 난이도는 주 1~2회 플랜을 수행해도 괜찮아요.",
+  };
   const periodArr = ['7일', '14일', '한달(30일)'];
   const periodMap = {
     '7일': 'ONE_WEEK',
@@ -49,7 +55,6 @@ const CreateCompany = ({ onCreate }) => {
   const handleInvestChange = value => {
     setInvest(value);
     const investRatio = investMap[value];
-    console.log(currentValue)
     if (investRatio !== undefined) {
       setInvestAmount(Math.floor(currentValue * investRatio));
     } else {
@@ -146,9 +151,15 @@ const CreateCompany = ({ onCreate }) => {
                 <ImgAdd img={logoImg} setImg={setLogoImg} fileName={logoFileName} setFileName={setLogoFileName} setLogoFile={setLogoFile} />
               </InnerContainer>
               <InnerContainer>
-                <Title>난이도</Title>
+              <Title>난이도</Title>
                 <OptionButton OptionList={levelArr} currentState={level} SetState={setLevel} />
-                <Tip defaultTip={'난이도는 한 주에 계획을 수행할 빈도를 의미해요.'} />
+                <Tip
+                  ButtonTexts={levelArr}
+                  option={level}
+                  TipArr={levelTip}
+                  defaultTip={'난이도는 한 주에 계획을 수행할 빈도를 의미해요.'}
+                  changeTip={true}
+                />
                 <Title>회사 최소 운영기간</Title>
                 <OptionButton OptionList={periodArr} currentState={period} SetState={setPeriod} />
                 <Tip defaultTip={'최소 운영 기간이 끝나면 회사를 매각할 수 있어요.'} />
