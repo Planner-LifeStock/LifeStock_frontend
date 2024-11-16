@@ -14,7 +14,7 @@ export const CompanyProvider = ({ children }) => {
 
   const seedMoney = 10000000; // 시드머니
   const totalPurchaseAmount = SumList({ data: companyList, type: 'investmentAmount' }); // 총매입
-  const currentStockSum = SumList({ data: companyList, type: currentStockPrice });
+  const currentStockSum = SumList({ data: companyList, type: 'currentStockPrice' });
   const realizedProfitLoss =
     Array.isArray(soldCompany) && soldCompany.length > 0
       ? SumList({ data: soldCompany, type: 'listedStockPrice' }) * 100 - SumList({ data: soldCompany, type: 'investmentAmount' })
