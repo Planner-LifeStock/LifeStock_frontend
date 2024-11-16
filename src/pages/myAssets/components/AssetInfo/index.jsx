@@ -92,6 +92,7 @@ const AssetInfo = () => {
     totalEvaluationAmount,
     totalReturnRate,
     seedMoney,
+    availablePurchaseAmount,
   } = useCompanyData();
   const navigate = useNavigate();
 
@@ -125,7 +126,7 @@ const AssetInfo = () => {
             totalProfitLoss={totalProfitLoss}
             totalPurchaseAmount={totalPurchaseAmount}
             realizedProfitLoss={realizedProfitLoss}
-            availablePurchaseAmount={totalEvaluationAmount - totalPurchaseAmount}
+            availablePurchaseAmount={availablePurchaseAmount}
             unrealizedProfitLoss={unrealizedProfitLoss}
             returnRate={returnRate}
             totalReturnRate={totalReturnRate}

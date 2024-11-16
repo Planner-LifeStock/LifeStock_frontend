@@ -22,6 +22,7 @@ export const CompanyProvider = ({ children }) => {
   const totalProfitLoss = realizedProfitLoss + unrealizedProfitLoss; // 총손익
   const totalEvaluationAmount = seedMoney + realizedProfitLoss; // 총평가 -> 문제없음
   const totalReturnRate = (unrealizedProfitLoss / seedMoney) * 100; // 수익률
+  const availablePurchaseAmount = totalEvaluationAmount - totalPurchaseAmount - unrealizedProfitLoss;
 
   const fetchCompanyData = async () => {
     try {
@@ -65,6 +66,7 @@ export const CompanyProvider = ({ children }) => {
         totalEvaluationAmount,
         totalReturnRate,
         seedMoney,
+        availablePurchaseAmount,
       }}
     >
       {children}
