@@ -99,9 +99,9 @@ const SellCompany = ({ item }) => {
           <ModalContainer>
             <ModalContent style={{ minWidth: '700px', maxHeight: '450px', padding: '10px' }}>
               <div style={{ fontSize: '35px', marginTop: '20px' }}>
-                회사 <span style={{ fontSize: '35px', fontWeight: 'bold' }}>'{item.name}'</span>을 매각하시겠습니까?
+                회사 <span style={{ fontSize: '35px', fontWeight: 'bold' }}>'{item.name}'</span>의 주식을 매각하시겠습니까?
               </div>
-              <h3 style={{ marginTop: '80px' }}>
+              <h3 style={{ marginTop: '30px' }}>
                 <img
                   src={light_bulb}
                   style={{ width: '12px', height: '20px', marginRight: '10px' }}
@@ -109,8 +109,8 @@ const SellCompany = ({ item }) => {
                 />
                 매각 후에는 복구가 되지 않으니 신중하게 선택하세요!
               </h3>
-              <h3 style={{ marginBottom: '100px' }}>
-                매각 후에도 '운영기록'란에서 기록을 확인할 수 있어요.
+              <h3 style={{ marginBottom: '50px' }}>
+                매각 후에도 '매매기록'란에서 기록을 확인할 수 있어요.
               </h3>
               <h3 style={{ marginBottom: '20px', fontWeight: 'bold' }}>
                 ‼️베타서비스 기간에는 최소 운영 기간과 관계없이 매각 가능합니다‼️
