@@ -61,6 +61,10 @@ function Header() {
     navigate('/login'); // 로그아웃 후 로그인 페이지로 이동
   };
 
+  const handleTutorial = () => {
+    navigate('/tutorial');
+  };
+
   return (
     <NavContainer>
       <Link to="/">
@@ -72,8 +76,11 @@ function Header() {
       <Link to="/rank">
         <Font $isActive={location.pathname === '/rank'}>랭크</Font>
       </Link>
-      <LogoutButton style={{ marginLeft: 'auto' }} onClick={handleLogout}>
+      <LogoutButton style={{ marginLeft: '1220px' }} onClick={handleLogout}>
         로그아웃
+      </LogoutButton>
+      <LogoutButton style={{ marginLeft: 'auto' }} onClick={handleTutorial}>
+        튜토리얼
       </LogoutButton>
     </NavContainer>
   );
