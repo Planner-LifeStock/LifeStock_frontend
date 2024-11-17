@@ -17,7 +17,7 @@ const Container = styled.div`
 `;
 
 const InfoFont = styled.div`
-  font-size: 48px;
+  font-size: 60px;
   font-weight: ${props => props.theme.font.weight.bold};
 `;
 
@@ -40,25 +40,6 @@ const CheckSellButton = styled.button`
   &:hover {
     opacity: 0.5;
   }
-`;
-
-const PriceBox = styled.div`
-  padding: 10px;
-  margin-top: 60px;
-
-  display: flex;
-  flex-direction: column;
-
-  background-color: ${props => props.theme.colors.background.chatbot};
-  border-radius: ${props => props.theme.border.radius.small};
-  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
-`;
-
-const PriceFont = styled.span`
-  display: flex;
-  color: ${props => props.theme.colors.grey.hover};
-  font-size: ${props => props.theme.font.size.xLarge};
-  font-weight: ${props => props.theme.font.weight.bold};
 `;
 
 const MenuContainer = styled.div`
@@ -103,12 +84,21 @@ const AssetInfo = () => {
   return (
     <div style={{backgroundColor: 'white'}}>
       <Container>
-        <InfoFont>{userData.realName}님의 자산 현황</InfoFont>
-        <CheckSellButton style={{ color: '#FFFFFF', fontSize: '14px', fontWeight: 'bold' }} onClick={() => navigate('/salesrecords')}>
+        <InfoFont style={{marginTop: '30px'}}>
+          <span style={{fontWeight: 'bold',
+                        fontSize: '60px',
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        display: 'inline-block',
+                        maxWidth: '500px',
+                        verticalAlign: 'middle',
+        }}>{userData.realName}</span>님의 자산 현황</InfoFont>
+        <CheckSellButton style={{ color: '#FFFFFF', fontSize: '14px', fontWeight: 'bold',marginTop: '-69px'}} onClick={() => navigate('/salesrecords')}>
           주식 매매 기록
         </CheckSellButton>
 
-        <div style={{ padding: '10px' }}>
+        <div style={{ padding: '10px', marginTop: '30px' }}>
           <MenuContainer style={{ borderBottom: 'solid 3px', marginBottom: '10px' }}>
             <Header>총평가</Header>
             <Header>총매입</Header>

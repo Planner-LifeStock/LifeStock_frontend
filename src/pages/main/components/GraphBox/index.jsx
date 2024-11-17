@@ -63,6 +63,7 @@ function GraphBox() {
                   whiteSpace: 'nowrap',
                   maxWidth: '300px',
                   overflow: 'hidden',
+                  textOverflow: 'ellipsis',
                 }}
               >
                 {activeCompany.name}

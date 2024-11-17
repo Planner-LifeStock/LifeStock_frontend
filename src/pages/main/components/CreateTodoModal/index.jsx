@@ -142,7 +142,14 @@ const CreateTodoModal = () => {
             <InnerContainer>
               <TitleBox>
                 <img src={activeCompany.logo.url} height="50px" width="50px" style={{ borderRadius: '100%', marginRight: 8 }} />
-                <div style={{ fontSize: 30, fontWeight: 600 }}>{activeCompany.name}</div>
+                <div style={{ fontSize: 30,
+                              fontWeight: 600,
+                              whiteSpace: 'nowrap',
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
+                              maxWidth: '250px',
+                              display: 'inline-block',
+                              }}>{activeCompany.name}</div>
               </TitleBox>
               <div>
                 <Title>이름</Title>

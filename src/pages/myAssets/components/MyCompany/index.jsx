@@ -52,6 +52,12 @@ function MyCompany() {
   const { userData, setUserData } = useUser();
   const { companyList, setCompanyList, activeCompany, setActiveCompany, loading } = useCompanyData();
 
+  const periodMap = {
+    'ONE_WEEK' : '7일',
+    'TWO_WEEK' : '14일',
+    'ONE_MONTH' : '한달(30일)',
+  };
+
   if (loading) {
     return <LoadingSpinner />;
   }
@@ -86,11 +92,11 @@ function MyCompany() {
                     height: '150px',
                     width: '150px',
                     borderRadius: '50%',
-                    marginLeft: '70px',
+                    marginLeft: '40px',
                   }}
                 />
                 <MinContainer style={{ flexDirection: 'column' }}>
-                  <MinContainer style={{ marginLeft: '-100px' }}>
+                  <MinContainer style={{ marginLeft: '0px' }}>
                     <FontContainer>
                       <FontContainer
                         style={{
@@ -101,6 +107,7 @@ function MyCompany() {
                           whiteSpace: 'nowrap',
                           textOverflow: 'ellipsis',
                           overflow: 'hidden',
+                          display: 'inline-block',
                         }}
                       >
                         {item.name}
@@ -118,7 +125,7 @@ function MyCompany() {
                       </FontContainer>
                     </FontContainer>
                   </MinContainer>
-                  <MinContainer style={{ marginLeft: '-100px', justifyContent: 'center', alignItems: 'center' }}>
+                  <MinContainer style={{ marginLeft: '0px', justifyContent: 'center', alignItems: 'center' }}>
                     <MinContainer style={{ flexDirection: 'column', marginTop: '10px' }}>
                       <FontContainer>
                         상장일:&nbsp;
@@ -145,7 +152,7 @@ function MyCompany() {
                       </FontContainer>
                       <FontContainer style={{ marginTop: '10px' }}>
                         최소운영기간:&nbsp;
-                        <span style={{ color: '#5A5A5A' }}>{item.leastOperatePeriod}</span>
+                        <span style={{ color: '#5A5A5A' }}>{periodMap[item.leastOperatePeriod]}</span>
                       </FontContainer>
                     </MinContainer>
                     <MinContainer style={{ flexDirection: 'column', alignItems: 'center', marginLeft: '210px' }}>

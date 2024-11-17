@@ -56,7 +56,16 @@ const UserAsset = () => {
     <>
       <Contianer style={{ flexDirection: 'column', padding: '50px' }}>
         <Contianer style={{ justifyContent: 'space-between' }}>
-          <FontBox style={{ fontSize: '60px' }}>{userData.realName} 주식 매매 기록</FontBox>
+          <FontBox style={{ fontSize: '60px' }}>
+            <span style={{fontWeight: 'bold',
+                          fontSize: '60px',
+                          whiteSpace: 'nowrap',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          display: 'inline-block',
+                          maxWidth: '500px',
+                          verticalAlign: 'middle',
+        }}>{userData.realName}</span> 주식 매매 기록</FontBox>
           <BackButton onClick={() => navigate('/myasset')}>뒤로가기</BackButton>
         </Contianer>
         <div style={{ alignSelf: 'flex-start' }}>

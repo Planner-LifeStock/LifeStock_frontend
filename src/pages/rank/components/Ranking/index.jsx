@@ -104,15 +104,27 @@ function Ranking() {
             <Circle>
               <CircleFont $isLargeNumber={(index + 1).toString().length >= 3}>{index + 1}</CircleFont>
             </Circle>
-            <InfoFont>{item.userRealName}</InfoFont>
-            <MoneyFont>{item.totalAssets.toLocaleString()}원</MoneyFont>
-            <UpDownWrapper>
-              <UpDownText
-                standard={10000000} // 기준값 설정, 천
-                comparision={item.totalAssets} // 비교할 총 자산 값
-                fontSize={20}
-              />
-            </UpDownWrapper>
+            <InfoFont style={{
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              maxWidth: '300px',
+              display: 'inline-block',
+            }}>{item.userRealName}</InfoFont>
+            <div style={{display: 'flex',
+              justifyContent: 'start',
+              alignItems: 'center',
+              marginLeft: 'auto',
+            }}>
+              <MoneyFont>{item.totalAssets.toLocaleString()}원</MoneyFont>
+              <UpDownWrapper>
+                <UpDownText
+                  standard={10000000} // 기준값 설정, 천
+                  comparision={item.totalAssets} // 비교할 총 자산 값
+                  fontSize={20}
+                />
+              </UpDownWrapper>
+            </div>
           </UserContainer>
         ))}
       </Container>
@@ -124,15 +136,27 @@ function Ranking() {
             <Circle>
               <CircleFont $isLargeNumber={(userRanking + 1).toString().length >= 3}>{userRanking + 1}</CircleFont>
             </Circle>
-            <InfoFont>{userData.realName}</InfoFont>
-            <MoneyFont>{totalAssets.toLocaleString()}원</MoneyFont>
-            <UpDownWrapper>
-              <UpDownText
-                standard={10000000} // 기준값 설정, 천
-                comparision={totalAssets} // 현재 유저의 총 자산
-                fontSize={25}
-              />
-            </UpDownWrapper>
+            <InfoFont style={{
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              maxWidth: '300px',
+              display: 'inline-block',
+            }}>{userData.realName}</InfoFont>
+            <div style={{display: 'flex',
+              justifyContent: 'start',
+              alignItems: 'center',
+              marginLeft: 'auto',
+            }}>
+              <MoneyFont>{totalAssets.toLocaleString()}원</MoneyFont>
+              <UpDownWrapper>
+                <UpDownText
+                  standard={10000000} // 기준값 설정, 천
+                  comparision={totalAssets} // 현재 유저의 총 자산
+                  fontSize={25}
+                />
+              </UpDownWrapper>
+            </div>
           </>
         )}
       </UserContainer>

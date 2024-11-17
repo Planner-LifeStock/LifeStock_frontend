@@ -43,7 +43,15 @@ function UserInfo() {
   return (
     <Container>
       <MentFont>
-        {userData.realName}님은 <br />'{TierName}'입니다
+        <span style={{fontWeight: 'bold',
+                      fontSize: '48px',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      maxWidth: '350px',
+                      display: 'inline-block',
+                      verticalAlign: 'middle',
+        }}>{userData.realName}</span>님은 <br />'{TierName}'입니다
       </MentFont>
       <img src={TierImg} height="600px" alt={TierName} />
     </Container>
