@@ -5,9 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../../../hooks/useUser';
 import { useCompanyData } from '../../../../hooks/useCompanyData';
 
-import TotalSum from '../../../main/components/TotalSum';
-import UpDownText from '../../../../components/UpDownText';
-import SumList from '../../../../function/calculation/sumList';
 import LoadingSpinner from '../../../../styles/LoadingSpinner';
 import StockPrice from '../StockPrice';
 
@@ -16,6 +13,7 @@ const Container = styled.div`
   width: 100%;
   flex-direction: column;
   justify-content: space-between;
+  background-color: white;
 `;
 
 const InfoFont = styled.div`
@@ -103,7 +101,7 @@ const AssetInfo = () => {
   const returnRate = (unrealizedProfitLoss / totalPurchaseAmount) * 100;
 
   return (
-    <>
+    <div style={{backgroundColor: 'white'}}>
       <Container>
         <InfoFont>{userData.realName}님의 자산 현황</InfoFont>
         <CheckSellButton style={{ color: '#FFFFFF', fontSize: '14px', fontWeight: 'bold' }} onClick={() => navigate('/salesrecords')}>
@@ -133,7 +131,7 @@ const AssetInfo = () => {
           />
         </div>
       </Container>
-    </>
+    </div>
   );
 };
 

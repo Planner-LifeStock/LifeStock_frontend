@@ -60,10 +60,23 @@ function SalesRecord() {
             <Header style={{ color: 'black' }}>{levelMap[data.level] || '정보 없음'}</Header>
             <Header style={{ color: 'black' }}>{data.investmentAmount.toLocaleString() || 0}원</Header>
             <Header style={{ color: 'black' }}>{(data.listedStockPrice * 100).toLocaleString() || 0}원</Header>
-            <Header style={{ color: 'black' }}>
+            <Header style={{ color: 'black', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               {data.initialStockPrice && data.listedStockPrice ? (
                 <>
-                  <UpDownText standard={data.investmentAmount} comparision={data.listedStockPrice * 100} />
+                  <span
+                    style={{
+                      fontSize: '16px',
+                      fontWeight: 'bold',
+                      display: 'inline-block',
+                      marginLeft: 'auto',
+                    }}
+                  >
+                    {(data.investmentAmount - data.listedStockPrice * 100).toLocaleString()}원
+                  </span>
+                  <UpDownText
+                    standard={data.investmentAmount}
+                    comparision={data.listedStockPrice * 100}
+                  />
                 </>
               ) : (
                 '0원'

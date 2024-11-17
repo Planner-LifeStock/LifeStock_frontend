@@ -44,7 +44,7 @@ const BackButton = styled.button`
 
 const UserAsset = () => {
   const { userData, setUserData } = useUser();
-  const { companyList, setComapnyList, activeCompany, setActiveCompany, soldCompany } = useCompanyData();
+  const { companyList, setComapnyList, activeCompany, setActiveCompany, soldCompany, realizedProfitLoss } = useCompanyData();
   const navigate = useNavigate();
 
   if (!userData || !companyList || !soldCompany) return <LoadingSpinner />;
@@ -60,7 +60,15 @@ const UserAsset = () => {
           <BackButton onClick={() => navigate('/myasset')}>뒤로가기</BackButton>
         </Contianer>
         <div style={{ alignSelf: 'flex-start' }}>
-          <FontBox style={{ fontSize: '40px', marginTop: '20px' }}>실현손익 : {((listedValue - initialStockValue) * 100).toLocaleString()}원</FontBox>
+        <FontBox
+          style={{
+            fontSize: '40px',
+            marginTop: '20px',
+            color: realizedProfitLoss > 0 ? 'red' : realizedProfitLoss < 0 ? 'blue' : 'black',
+          }}
+        >
+          <span style={{fontSize: '40px', fontWeight: 'bold', marginTop: '20px'}}>실현손익 : </span>{realizedProfitLoss > 0 ? `+${realizedProfitLoss.toLocaleString()}` : realizedProfitLoss.toLocaleString()}원
+        </FontBox>
         </div>
       </Contianer>
     </>

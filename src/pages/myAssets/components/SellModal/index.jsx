@@ -97,8 +97,15 @@ const SellCompany = ({ item }) => {
         {popupOpen && (
           <ModalContainer>
             <ModalContent style={{ minWidth: '700px', maxHeight: '450px', padding: '10px' }}>
-              <div style={{ fontSize: '35px', marginTop: '20px' }}>
-                회사 <span style={{ fontSize: '35px', fontWeight: 'bold' }}>'{item.name}'</span>의 주식을 매각하시겠습니까?
+              <div style={{ fontSize: '35px', marginTop: '20px', }}>
+                회사 '<span style={{fontSize: '35px',
+                                   fontWeight: 'bold',
+                                   whiteSpace: 'nowrap',
+                                   overflow: 'hidden',
+                                   textOverflow: 'ellipsis',
+                                   maxWidth: '150px',
+                                   display: 'inline-block',
+                                   verticalAlign: 'middle',}}>{item.name}</span>'의 주식을 매각하시겠습니까?
               </div>
               <h3 style={{ marginTop: '30px' }}>
                 <img src={light_bulb} style={{ width: '12px', height: '20px', marginRight: '10px' }} alt="Tip" />
