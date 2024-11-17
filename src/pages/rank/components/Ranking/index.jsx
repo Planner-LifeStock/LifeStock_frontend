@@ -87,6 +87,7 @@ function Ranking() {
     return <LoadingSpinner />;
   }
 
+  console.log(ranking);
   return (
     <Container>
       <TimeFont style={{ marginTop: '20px' }}>{formattedDate} 00:00 기준</TimeFont>

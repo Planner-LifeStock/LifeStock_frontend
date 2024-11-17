@@ -12,6 +12,7 @@ export const useRanking = () => {
         const result = await API.get(`/ranking/top`);
         const response = await API.get(`/ranking/rank`);
         setRanking(result.data);
+        
         setUserRanking(response.data)
       } catch (error) {
         console.log(error);
