@@ -20,9 +20,9 @@ export const CompanyProvider = ({ children }) => {
       : 0; // 실현손익 잘됨
   const unrealizedProfitLoss = totalAssets - seedMoney - realizedProfitLoss; // 평가손익-> totalAssets 문제 로직 교체
   const totalProfitLoss = realizedProfitLoss + unrealizedProfitLoss; // 총손익
-  const totalEvaluationAmount = seedMoney + realizedProfitLoss; // 총평가 -> 문제없음
+  const totalEvaluationAmount = seedMoney + realizedProfitLoss + unrealizedProfitLoss; // 총평가 -> 문제없음
   const totalReturnRate = (unrealizedProfitLoss / seedMoney) * 100; // 수익률
-  const availablePurchaseAmount = totalEvaluationAmount - totalPurchaseAmount - unrealizedProfitLoss;
+  const availablePurchaseAmount = seedMoney + realizedProfitLoss - totalPurchaseAmount;
 
   const fetchCompanyData = async () => {
     try {
