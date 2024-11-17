@@ -156,7 +156,7 @@ function MyCompany() {
                           fontWeight: 'bold',
                         }}
                       >
-                        회사매각예상손익
+                        주식매각예상손익
                       </div>
                       <SellProfit companyId={item.id} />
                     </MinContainer>

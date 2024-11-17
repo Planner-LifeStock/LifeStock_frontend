@@ -71,7 +71,7 @@ function SalesRecord() {
                       marginLeft: 'auto',
                     }}
                   >
-                    {(data.investmentAmount - data.listedStockPrice * 100).toLocaleString()}원
+                    {(data.listedStockPrice * 100 - data.investmentAmount).toLocaleString()}원
                   </span>
                   <UpDownText
                     standard={data.investmentAmount}
