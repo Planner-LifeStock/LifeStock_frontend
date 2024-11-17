@@ -107,7 +107,7 @@ const AssetInfo = () => {
       <Container>
         <InfoFont>{userData.realName}님의 자산 현황</InfoFont>
         <CheckSellButton style={{ color: '#FFFFFF', fontSize: '14px', fontWeight: 'bold' }} onClick={() => navigate('/salesrecords')}>
-          스톡옵션 매매 기록
+          주식 매매 기록
         </CheckSellButton>
 
         <div style={{ padding: '10px' }}>

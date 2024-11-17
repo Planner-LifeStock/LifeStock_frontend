@@ -46,27 +46,28 @@ function SalesRecord() {
         <Header>난이도</Header>
         <Header>매수금액</Header>
         <Header>매도금액</Header>
-        <Header>스톡옵션매각손익</Header>
+        <Header>주식매각손익</Header>
       </Container>
       <Container>
-        {soldCompany.map((data) => (
+        {soldCompany.map(data => (
           <React.Fragment key={data.id}>
             <Header style={{ color: 'black' }}>{data.name}</Header>
             <Header style={{ color: 'black' }}>{data.description || '설명 없음'}</Header>
-            <Header style={{ color: 'black' }}>{new Date(data.createdAt).toLocaleDateString("ko-KR") || '정보 없음'}</Header>
-            <Header style={{ color: 'black' }}>{new Date(data.listedDate).toLocaleDateString("ko-KR") || '정보 없음'}</Header>
-            <Header style={{ color: 'black' }}>{(data.initialStockPrice).toLocaleString() || 0}원</Header>
-            <Header style={{ color: 'black' }}>{(data.initialStockQuantity).toLocaleString() || 0}주</Header>
+            <Header style={{ color: 'black' }}>{new Date(data.createdAt).toLocaleDateString('ko-KR') || '정보 없음'}</Header>
+            <Header style={{ color: 'black' }}>{new Date(data.listedDate).toLocaleDateString('ko-KR') || '정보 없음'}</Header>
+            <Header style={{ color: 'black' }}>{data.initialStockPrice.toLocaleString() || 0}원</Header>
+            <Header style={{ color: 'black' }}>{data.initialStockQuantity.toLocaleString() || 0}주</Header>
             <Header style={{ color: 'black' }}>{levelMap[data.level] || '정보 없음'}</Header>
-            <Header style={{ color: 'black' }}>{(data.investmentAmount).toLocaleString() || 0}원</Header>
-            <Header style={{ color: 'black' }}>{(data.listedStockPrice*100).toLocaleString() || 0}원</Header>
+            <Header style={{ color: 'black' }}>{data.investmentAmount.toLocaleString() || 0}원</Header>
+            <Header style={{ color: 'black' }}>{(data.listedStockPrice * 100).toLocaleString() || 0}원</Header>
             <Header style={{ color: 'black' }}>
-            {data.initialStockPrice && data.listedStockPrice
-                ?
+              {data.initialStockPrice && data.listedStockPrice ? (
                 <>
-                  <UpDownText standard={data.investmentAmount} comparision={(data.listedStockPrice)*100}/>
-                </> 
-                : '0원'}
+                  <UpDownText standard={data.investmentAmount} comparision={data.listedStockPrice * 100} />
+                </>
+              ) : (
+                '0원'
+              )}
             </Header>
           </React.Fragment>
         ))}

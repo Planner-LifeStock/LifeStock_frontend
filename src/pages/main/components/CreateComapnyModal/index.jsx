@@ -35,9 +35,9 @@ const CreateCompany = ({ onCreate }) => {
   const levelArr = ['상', '중', '하'];
   const levelMap = { 상: 'HIGH', 중: 'MEDIUM', 하: 'LOW' };
   const levelTip = {
-    상: "'상' 난이도는 최소 주 5회 이상 플랜을 세우고 수행해야 해요.",
-    중: "'중' 난이도는 주 3회 플랜을 수행하는 것을 목표로 해요.",
-    하: "'하' 난이도는 주 1~2회 플랜을 수행해도 괜찮아요.",
+    상: "'상'난이도는 주 5회 이상 플랜을 세워야 해요.",
+    중: "'중'난이도는 주 3회 이상 플랜을 세워야 해요.",
+    하: "'하'난이도는 주 1회 이상 플랜을 세워야 해요.",
   };
   const periodArr = ['7일', '14일', '한달(30일)'];
   const periodMap = {
@@ -150,8 +150,8 @@ const CreateCompany = ({ onCreate }) => {
                 <Title>로고 이미지 추가</Title>
                 <ImgAdd img={logoImg} setImg={setLogoImg} fileName={logoFileName} setFileName={setLogoFileName} setLogoFile={setLogoFile} />
               </InnerContainer>
-              <InnerContainer>
-              <Title>난이도</Title>
+              <InnerContainer style={{ marginLeft: '20px' }}>
+                <Title>난이도</Title>
                 <OptionButton OptionList={levelArr} currentState={level} SetState={setLevel} />
                 <Tip
                   ButtonTexts={levelArr}
@@ -167,7 +167,7 @@ const CreateCompany = ({ onCreate }) => {
                 <OptionButton OptionList={investArr} currentState={invest} SetState={handleInvestChange} />
                 <Tip defaultTip={'투자가능 금액의 최대 50%까지 투자할 수 있어요.'} />
               </InnerContainer>
-              <InnerContainer style={{ marginLeft: '30px' }}>
+              <InnerContainer style={{ marginLeft: '20px' }}>
                 <Title style={{ color: 'grey' }}>투자가능금액</Title>
                 <Title style={{ fontSize: '40px', marginTop: '-50px' }}>{currentValue.toLocaleString()}원</Title>
                 <Title style={{ color: 'grey' }}>투자 비용</Title>

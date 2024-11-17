@@ -58,7 +58,7 @@ function MyCompany() {
 
   return (
     <>
-      <Font style={{ marginRight: 'auto' }}>보유 스톡옵션</Font>
+      <Font style={{ marginRight: 'auto' }}>보유 주식</Font>
       <Container
         style={{
           borderRadius: '12px',
@@ -76,9 +76,7 @@ function MyCompany() {
           }}
         >
           {companyList.length === 0 ? (
-            <div style={{ textAlign: 'center', marginTop: '20px', fontSize: '20px', color: '#555' }}>
-              보유중인 회사가 없습니다!
-            </div>
+            <div style={{ textAlign: 'center', marginTop: '20px', fontSize: '20px', color: '#555' }}>보유중인 회사가 없습니다!</div>
           ) : (
             companyList.map((item, index) => (
               <CompanyBox key={item.id} $isFirst={index === 0}>
@@ -124,9 +122,7 @@ function MyCompany() {
                     <MinContainer style={{ flexDirection: 'column', marginTop: '10px' }}>
                       <FontContainer>
                         상장일:&nbsp;
-                        <span style={{ color: '#5A5A5A' }}>
-                          {new Date(item.createdAt).toLocaleDateString('ko-KR')}
-                        </span>
+                        <span style={{ color: '#5A5A5A' }}>{new Date(item.createdAt).toLocaleDateString('ko-KR')}</span>
                       </FontContainer>
                       <FontContainer style={{ marginTop: '10px' }}>
                         발행주식 수:&nbsp;<span style={{ color: '#5A5A5A' }}>100주</span>
@@ -135,29 +131,21 @@ function MyCompany() {
                     <MinContainer style={{ flexDirection: 'column', marginTop: '10px' }}>
                       <FontContainer>
                         상장가:&nbsp;
-                        <span style={{ color: '#5A5A5A' }}>
-                          {parseInt(item.initialStockPrice).toLocaleString()}원
-                        </span>
+                        <span style={{ color: '#5A5A5A' }}>{parseInt(item.initialStockPrice).toLocaleString()}원</span>
                       </FontContainer>
                       <FontContainer style={{ marginTop: '10px' }}>
                         현재가:&nbsp;
-                        <span style={{ color: '#5A5A5A' }}>
-                          {parseInt(item.currentStockPrice).toLocaleString()}원
-                        </span>
+                        <span style={{ color: '#5A5A5A' }}>{parseInt(item.currentStockPrice).toLocaleString()}원</span>
                       </FontContainer>
                     </MinContainer>
                     <MinContainer style={{ flexDirection: 'column', marginTop: '10px' }}>
                       <FontContainer>
                         투자비용:&nbsp;
-                        <span style={{ color: '#5A5A5A' }}>
-                          {parseInt(item.investmentAmount).toLocaleString()}원
-                        </span>
+                        <span style={{ color: '#5A5A5A' }}>{parseInt(item.investmentAmount).toLocaleString()}원</span>
                       </FontContainer>
                       <FontContainer style={{ marginTop: '10px' }}>
-                        회사가치:&nbsp;
-                        <span style={{ color: '#5A5A5A' }}>
-                          {parseInt(item.currentStockPrice).toLocaleString()}원
-                        </span>
+                        최소운영기간:&nbsp;
+                        <span style={{ color: '#5A5A5A' }}>{item.leastOperatePeriod}</span>
                       </FontContainer>
                     </MinContainer>
                     <MinContainer style={{ flexDirection: 'column', alignItems: 'center', marginLeft: '210px' }}>
@@ -170,7 +158,7 @@ function MyCompany() {
                       >
                         회사매각예상손익
                       </div>
-                      <SellProfit companyId={item.id}/>
+                      <SellProfit companyId={item.id} />
                     </MinContainer>
                   </MinContainer>
                 </MinContainer>

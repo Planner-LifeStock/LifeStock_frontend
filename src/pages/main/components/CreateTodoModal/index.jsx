@@ -32,7 +32,7 @@ const ModalContent = styled.div`
   justify-content: center;
   align-items: center;
   background-color: #ffffff;
-  width: 520px;
+  width: 530px;
   height: 850px;
   padding: 15px;
   border-radius: ${props => props.theme.border.radius.small};
@@ -45,9 +45,8 @@ const InnerContainer = styled.div`
   align-items: center;
   justify-content: center;
   padding: 10px;
-  width: 500px;
-  height: 100%;
-  margin-bottom: 30px;
+  width: 510px;
+  margin-bottom: 16px;
 `;
 
 const Title = styled.div`

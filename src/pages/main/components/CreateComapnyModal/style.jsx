@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const ModalContent = styled.div`
   display: flex;
@@ -9,18 +9,18 @@ const ModalContent = styled.div`
   width: 1500px;
   height: 500px;
   padding: 15px;
-  
-  border-radius: ${(props) => props.theme.border.radius.small};
-`
+
+  border-radius: ${props => props.theme.border.radius.small};
+`;
 
 const InnerContainer = styled.div`
-  padding: 10px;
-  width: 500px;
+  padding: 5px;
+  width: 550px;
   display: flex;
   flex-direction: column;
   align-items: start;
   justify-content: space-between;
-`
+`;
 
 const ModalContainer = styled.div`
   width: 100%;
@@ -33,12 +33,12 @@ const ModalContainer = styled.div`
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1001;
-`
+`;
 
 const Title = styled.div`
-  font-size: ${(props) => props.theme.font.size.xLarge};
-  font-weight: ${(props) => props.theme.font.weight.bold};
+  font-size: ${props => props.theme.font.size.xLarge};
+  font-weight: ${props => props.theme.font.weight.bold};
   margin-bottom: 5px;
-`
+`;
 
-export { ModalContent, ModalContainer, Title, InnerContainer }
+export { ModalContent, ModalContainer, Title, InnerContainer };
