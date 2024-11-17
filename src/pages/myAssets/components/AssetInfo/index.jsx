@@ -84,16 +84,7 @@ const AssetInfo = () => {
   return (
     <div style={{backgroundColor: 'white'}}>
       <Container>
-        <InfoFont style={{marginTop: '30px'}}>
-          <span style={{fontWeight: 'bold',
-                        fontSize: '60px',
-                        whiteSpace: 'nowrap',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        display: 'inline-block',
-                        maxWidth: '500px',
-                        verticalAlign: 'middle',
-        }}>{userData.realName}</span>님의 자산 현황</InfoFont>
+        <InfoFont style={{marginTop: '30px'}}>{userData.realName}님의 자산 현황</InfoFont>
         <CheckSellButton style={{ color: '#FFFFFF', fontSize: '14px', fontWeight: 'bold',marginTop: '-69px'}} onClick={() => navigate('/salesrecords')}>
           주식 매매 기록
         </CheckSellButton>
