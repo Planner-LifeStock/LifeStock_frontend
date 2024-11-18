@@ -39,6 +39,16 @@ function App() {
                      justifyContent: 'center',
                      alignItems: 'center',
         }}>모바일은 추후 지원 예정입니다!</div>
+        <div style={{display: 'flex',
+                     fontWeight: 'bold',
+                     justifyContent: 'center',
+                     alignItems: 'center',
+        }}>PC로 접속해주세요!</div>
+        <div style={{display: 'flex',
+                     fontWeight: 'bold',
+                     justifyContent: 'center',
+                     alignItems: 'center',
+        }}>lifestock.store</div>
       </MobileView>
       <BrowserView>
         <AuthProvider>

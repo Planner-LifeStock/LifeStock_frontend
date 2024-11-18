@@ -27,8 +27,8 @@ const TodoName = styled.span`
 function CheckBox({ completed, title, level, onChange }) {
   return (
     <Container>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
-        <input className="custom-checkbox" type="checkbox" checked={completed} onChange={onChange} />
+      <div style={{ display: 'flex', alignItems: 'center'}}>
+        <input className="custom-checkbox" type="checkbox" checked={completed} onChange={onChange}/>
         <TodoName>{title}</TodoName>
       </div>
       <div style={{ display: 'flex', fontSize: '20px' }}>

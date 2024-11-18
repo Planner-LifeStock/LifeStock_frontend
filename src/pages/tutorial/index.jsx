@@ -124,7 +124,7 @@ function Tutorial() {
     {
       content: (
         <div style = {{backgroundColor: 'white'}}>
-          <Image style={{width: '1000px'}} src={companytodo} alt="companytodo" />
+          <Image style={{width: '700px'}} src={companytodo} alt="companytodo" />
           <Subtitle style={{fontSize: '50px'}}>정리하면, 회사는 TODO의 <BlueFont style={{fontSize: '50px'}}>주제</BlueFont>를 의미합니다.</Subtitle>
         </div>
       ),

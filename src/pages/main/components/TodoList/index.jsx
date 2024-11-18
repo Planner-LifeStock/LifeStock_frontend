@@ -167,6 +167,7 @@ function TodoList() {
               todoList.map(({ title, level, completed }, index) => {
                 return (
                   <CheckBox
+                    style={{backgroundColor: 'white'}}
                     key={index}
                     completed={completed}
                     title={title}

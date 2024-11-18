@@ -205,6 +205,7 @@ const CreateTodoModal = () => {
             <Button
               width="100%"
               onClick={async () => {
+                setModalOpen(false);
                 const today = new Date();
                 today.setHours(0, 0, 0, 0);
 
@@ -229,7 +230,6 @@ const CreateTodoModal = () => {
                   const result = await API.post(`/todo`, newTodo);
                   await fetchTodoList();
 
-                  setModalOpen(false);
                   setStartDate(null);
                   setEndDate(null);
                   setDays([]);

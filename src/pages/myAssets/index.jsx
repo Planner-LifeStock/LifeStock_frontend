@@ -10,12 +10,12 @@ const Container = styled.div`
 `;
 const MyAssetPage = () => {
   return (
-    <>
+    <div style={{backgroundColor: 'white', height: '100vh'}}>
       <Container>
         <AssetInfo />
         <MyCompany />
       </Container>
-    </>
+    </div>
   );
 };
 

@@ -12,12 +12,12 @@ const Container = styled.div`
 
 const RankPage = () => {
   return (
-    <>
+    <div style={{backgroundColor: 'white', height: '100vh'}}>
       <Container>
         <UserInfo />
         <Ranking />
       </Container>
-    </>
+    </div>
   );
 };
 
